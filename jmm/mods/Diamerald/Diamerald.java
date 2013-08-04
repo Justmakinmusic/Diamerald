@@ -92,7 +92,7 @@ public class Diamerald {
 	public int blackDiameraldhelmetID;
 	public int DiameralddustID;
 
-	@SidedProxy(clientSide = "misskidd.mods.Diamerald.DiameraldClient", serverSide = "misskidd.mods.Diamerald.DiameraldProxy")
+	@SidedProxy(clientSide = "jmm.mods.Diamerald.DiameraldClient", serverSide = "jmm.mods.Diamerald.DiameraldProxy")
 	public static DiameraldProxy proxy;
 
 	@EventHandler
