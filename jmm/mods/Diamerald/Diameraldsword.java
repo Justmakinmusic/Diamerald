@@ -117,11 +117,6 @@ public class Diameraldsword extends ItemSword {
 				.registerIcon("Diamerald:Diameraldsword");
 	}
 	
-	 public Multimap func_111205_h()
-	    {
-	        Multimap multimap = super.func_111205_h();
-	        multimap.put(SharedMonsterAttributes.field_111264_e.func_111108_a(), new AttributeModifier(field_111210_e, "Weapon modifier", (double)this.weaponDamage, 0));
-	        return multimap;
-	    }
+	
 
 }
