@@ -72,14 +72,14 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 				for (int k = -1; k < 2; k++) {
 					if (offsetY[dir] == 0) {
 						
-						par2World.destroyBlock(par4 + k
-								+ Direction.offsetX[direction], par5 + i
-								+ offsetY[dir], par6 + j
-								+ Direction.offsetZ[direction], true);
+						par2World.destroyBlock(par4 + k + Direction.offsetX[direction],
+								par5 + i,
+								par6 + j + Direction.offsetZ[direction], true);
 					} else {
 						
-						par2World.destroyBlock(par4 + k, par5 + i
-								+ offsetY[dir], par6 + j, true);
+						par2World.destroyBlock(par4 + k, 
+								par5 + i + offsetY[dir],
+								par6 + j, true);
 					}
 
 				}
