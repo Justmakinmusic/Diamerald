@@ -74,7 +74,7 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 						Block blockToTest = Block.blocksList[par2World.getBlockId(par4 + k + Direction.offsetX[direction],
 								par5 + i,
 								par6 + j + Direction.offsetZ[direction])];
-						if(blockToTest != null && canHarvestBlock(blockToTest))
+						if(blockToTest != null && blockToTest != Block.bedrock && canHarvestBlock(blockToTest))
 						par2World.destroyBlock(par4 + k + Direction.offsetX[direction],
 								par5 + i,
 								par6 + j + Direction.offsetZ[direction], true);
@@ -82,7 +82,7 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 						Block blockToTest = Block.blocksList[par2World.getBlockId(par4 + k, 
 								par5 + i + offsetY[dir],
 								par6 + j)];
-						if(blockToTest != null && canHarvestBlock(blockToTest))
+						if(blockToTest != null && blockToTest != Block.bedrock && canHarvestBlock(blockToTest))
 						par2World.destroyBlock(par4 + k, 
 								par5 + i + offsetY[dir],
 								par6 + j, true);
