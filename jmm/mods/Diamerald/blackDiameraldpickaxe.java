@@ -17,15 +17,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class blackDiameraldpickaxe extends ItemPickaxe {
 
-	public static final Block[] blocksEffectiveAgainst = new Block[] {
-			Block.cobblestone, Block.stoneDoubleSlab, Block.stoneSingleSlab,
-			Block.stone, Block.sandStone, Block.cobblestoneMossy,
-			Block.oreIron, Block.blockIron, Block.oreCoal, Block.blockGold,
-			Block.oreGold, Block.oreDiamond, Block.blockDiamond, Block.ice,
-			Block.netherrack, Block.oreLapis, Block.blockLapis,
-			Block.oreRedstone, Block.oreRedstoneGlowing, Block.rail,
-			Block.railDetector, Block.railPowered };
-
 	public blackDiameraldpickaxe(int par1, EnumToolMaterial par2EnumToolMaterial) {
 		super(par1, par2EnumToolMaterial);
 
@@ -37,7 +28,6 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 		par1ItemStack.addEnchantment(Enchantment.unbreaking, 5);
 		par1ItemStack.addEnchantment(Enchantment.fortune, 3);
 	}
-
 
 	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World,
 			int par3, int par4, int par5, int par6,
@@ -51,21 +41,25 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 			for (int j = -1; j < 2; j++) {
 				for (int k = -1; k < 2; k++) {
 					if (offsetY[dir] == 0) {
-						Block blockToTest = Block.blocksList[par2World.getBlockId(par4 + k + Direction.offsetX[direction],
-								par5 + i,
-								par6 + j + Direction.offsetZ[direction])];
-						if(blockToTest != null && blockToTest != Block.bedrock && canHarvestBlock(blockToTest))
-						par2World.destroyBlock(par4 + k + Direction.offsetX[direction],
-								par5 + i,
-								par6 + j + Direction.offsetZ[direction], true);
-					} else {						
-						Block blockToTest = Block.blocksList[par2World.getBlockId(par4 + k, 
-								par5 + i + offsetY[dir],
-								par6 + j)];
-						if(blockToTest != null && blockToTest != Block.bedrock && canHarvestBlock(blockToTest))
-						par2World.destroyBlock(par4 + k, 
-								par5 + i + offsetY[dir],
-								par6 + j, true);
+						Block blockToTest = Block.blocksList[par2World
+								.getBlockId(par4 + k
+										+ Direction.offsetX[direction], par5
+										+ i, par6 + j
+										+ Direction.offsetZ[direction])];
+						if (blockToTest != null && blockToTest != Block.bedrock
+								&& canHarvestBlock(blockToTest))
+							par2World.destroyBlock(par4 + k
+									+ Direction.offsetX[direction], par5 + i,
+									par6 + j + Direction.offsetZ[direction],
+									true);
+					} else {
+						Block blockToTest = Block.blocksList[par2World
+								.getBlockId(par4 + k, par5 + i + offsetY[dir],
+										par6 + j)];
+						if (blockToTest != null && blockToTest != Block.bedrock
+								&& canHarvestBlock(blockToTest))
+							par2World.destroyBlock(par4 + k, par5 + i
+									+ offsetY[dir], par6 + j, true);
 					}
 
 				}
@@ -73,14 +67,8 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 			}
 
 		}
+		par1ItemStack.damageItem(1, par7EntityLivingBase);
 		return true;
-	}
-
-	public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block) {
-		return par2Block != null
-				&& (par2Block.blockMaterial == Material.iron
-						|| par2Block.blockMaterial == Material.anvil || par2Block.blockMaterial == Material.rock) ? this.efficiencyOnProperMaterial
-				: super.getStrVsBlock(par1ItemStack, par2Block);
 	}
 
 	@Override

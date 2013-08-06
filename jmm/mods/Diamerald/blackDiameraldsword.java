@@ -23,22 +23,21 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class blackDiameraldsword extends ItemSword {
-	
-	
+
 	private float weaponDamage;
 	private final EnumToolMaterial toolMaterial;
-	
+
 	public blackDiameraldsword(int par1, EnumToolMaterial par2EnumToolMaterial) {
-		
+
 		super(par1, par2EnumToolMaterial);
 		this.toolMaterial = par2EnumToolMaterial;
 		this.maxStackSize = 1;
 		this.setMaxDamage(par2EnumToolMaterial.getMaxUses());
 		this.setCreativeTab(CreativeTabs.tabCombat);
 		this.weaponDamage = 4.0f + par2EnumToolMaterial.getDamageVsEntity();
-		
+
 	}
-	
+
 	public void onCreated(ItemStack par1ItemStack, World par2World,
 			EntityPlayer par3EntityPlayer) {
 		par1ItemStack.addEnchantment(Enchantment.sharpness, 1);
@@ -50,31 +49,9 @@ public class blackDiameraldsword extends ItemSword {
 		return this.toolMaterial.getDamageVsEntity();
 	}
 
-	public float getStrVsBlock(ItemStack par1ItemStack, Block par2Block) {
-		if (par2Block.blockID == Block.web.blockID) {
-			return 15.0F;
-		} else {
-			Material var3 = par2Block.blockMaterial;
-			return var3 != Material.plants && var3 != Material.vine
-					&& var3 != Material.coral && var3 != Material.leaves
-					&& var3 != Material.pumpkin ? 1.0F : 1.5F;
-		}
-	}
-
 	public boolean hitEntity(ItemStack par1ItemStack,
 			EntityLiving par2EntityLiving, EntityLiving par3EntityLiving) {
 		par1ItemStack.damageItem(1, par3EntityLiving);
-		return true;
-	}
-
-	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World,
-			int par3, int par4, int par5, int par6,
-			EntityLiving par7EntityLiving) {
-		if ((double) Block.blocksList[par3].getBlockHardness(par2World, par4,
-				par5, par6) != 0.0D) {
-			par1ItemStack.damageItem(2, par7EntityLiving);
-		}
-
 		return true;
 	}
 
@@ -87,23 +64,11 @@ public class blackDiameraldsword extends ItemSword {
 		return true;
 	}
 
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.block;
-	}
-
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
-		return 72000;
-	}
-
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World,
 			EntityPlayer par3EntityPlayer) {
 		par3EntityPlayer.setItemInUse(par1ItemStack,
 				this.getMaxItemUseDuration(par1ItemStack));
 		return par1ItemStack;
-	}
-
-	public boolean canHarvestBlock(Block par1Block) {
-		return par1Block.blockID == Block.web.blockID;
 	}
 
 	public int getItemEnchantability() {
@@ -113,7 +78,7 @@ public class blackDiameraldsword extends ItemSword {
 	public String getToolMaterialName() {
 		return this.toolMaterial.toString();
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
@@ -125,12 +90,5 @@ public class blackDiameraldsword extends ItemSword {
 		this.itemIcon = par1IconRegister
 				.registerIcon("Diamerald:blackDiameraldsword");
 	}
-	
-	 public Multimap func_111205_h()
-	    {
-	        Multimap multimap = super.func_111205_h();
-	        multimap.put(SharedMonsterAttributes.field_111264_e.func_111108_a(), new AttributeModifier(field_111210_e, "Weapon modifier", (double)this.weaponDamage, 0));
-	        return multimap;
-	    }
 
 }
