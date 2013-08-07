@@ -24,7 +24,7 @@ public class GSTorch extends BlockGlowStone {
 
 	public GSTorch(int par1, Material par2Material) {
 		super(par1, par2Material);
-		this.setCreativeTab(CreativeTabs.tabDecorations);
+		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World,

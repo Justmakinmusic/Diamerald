@@ -19,7 +19,7 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 
 	public blackDiameraldpickaxe(int par1, EnumToolMaterial par2EnumToolMaterial) {
 		super(par1, par2EnumToolMaterial);
-
+		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	public void onCreated(ItemStack par1ItemStack, World par2World,

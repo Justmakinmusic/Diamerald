@@ -20,7 +20,7 @@ public class Diameraldaxe extends ItemAxe {
 	public Diameraldaxe(int par1, EnumToolMaterial par2EnumToolMaterial) {
 		super(par1, par2EnumToolMaterial);
 		this.toolMaterial = par2EnumToolMaterial;
-
+		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	@Override

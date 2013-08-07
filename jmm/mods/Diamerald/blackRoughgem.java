@@ -12,7 +12,7 @@ public class blackRoughgem extends Item {
 	public blackRoughgem(int i){
 		super(i);
 		maxStackSize=64;
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 

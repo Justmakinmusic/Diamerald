@@ -14,7 +14,7 @@ public class Diameralddust extends Item{
 	public Diameralddust(int i){
 		super(i);
 		maxStackSize=64;
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 

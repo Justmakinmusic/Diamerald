@@ -26,7 +26,7 @@ public class Diameraldhoe extends ItemHoe {
 	        this.theToolMaterial = par2EnumToolMaterial;
 	        this.maxStackSize = 1;
 	        this.setMaxDamage(par2EnumToolMaterial.getMaxUses());
-	        this.setCreativeTab(CreativeTabs.tabTools);
+	        this.setCreativeTab(Diamerald.tabDiamerald);
 	    }
 
 	   

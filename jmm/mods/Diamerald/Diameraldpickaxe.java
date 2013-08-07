@@ -14,7 +14,7 @@ public class Diameraldpickaxe extends ItemPickaxe {
 
 	public Diameraldpickaxe(int par1, EnumToolMaterial par2EnumToolMaterial) {
 		super(par1, par2EnumToolMaterial);
-
+		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	@Override

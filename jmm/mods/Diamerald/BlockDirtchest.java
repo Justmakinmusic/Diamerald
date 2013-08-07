@@ -36,7 +36,7 @@ public class BlockDirtchest extends BlockContainer {
 	public BlockDirtchest(int par1, int par2) {
 		super(par1, Material.ground);
 		this.field_94443_a = par2;
-		setCreativeTab(CreativeTabs.tabDecorations);
+		setCreativeTab(Diamerald.tabDiamerald);
 		setHardness(2.5f);
 		setResistance(5.0f);
 

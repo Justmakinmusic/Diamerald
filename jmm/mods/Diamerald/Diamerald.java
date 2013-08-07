@@ -3,6 +3,7 @@ package jmm.mods.Diamerald;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -32,17 +33,29 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(modid = "Diamerald", name = "Diamerald", version = "1.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class Diamerald {
-	
-	//Enum ToolMaterial//
-	
-	public static EnumToolMaterial DIAMERALD = EnumHelper.addToolMaterial("DIAMERALD", 3, 2000, 12.0f, 6.0f, 10);
-	public static EnumToolMaterial BLACKDIAMERALD = EnumHelper.addToolMaterial("BLACKDIAMERALD", 3, 2500, 16.0f, 14.0f, 10);
-	
-	//Enum ArmorMaterial//
-	
-	public static EnumArmorMaterial diamerald = EnumHelper.addArmorMaterial("diamerald", 33, new int[] { 4, 9, 7, 4 }, 10);
-	public static EnumArmorMaterial blackdiamerald = EnumHelper.addArmorMaterial("blackdiamerald", 33, new int[] { 5, 10, 8, 5 }, 10);
-	
+
+	// Enum ToolMaterial//
+
+	public static EnumToolMaterial DIAMERALD = EnumHelper.addToolMaterial(
+			"DIAMERALD", 3, 2000, 12.0f, 6.0f, 10);
+	public static EnumToolMaterial BLACKDIAMERALD = EnumHelper.addToolMaterial(
+			"BLACKDIAMERALD", 3, 2500, 16.0f, 14.0f, 10);
+
+	// Enum ArmorMaterial//
+
+	public static EnumArmorMaterial diamerald = EnumHelper.addArmorMaterial(
+			"diamerald", 33, new int[] { 4, 9, 7, 4 }, 10);
+	public static EnumArmorMaterial blackdiamerald = EnumHelper
+			.addArmorMaterial("blackdiamerald", 33, new int[] { 5, 10, 8, 5 },
+					10);
+
+	// Creative Tab//
+
+	public static CreativeTabs tabDiamerald = new CreativeTabs("tabDiamerald") {
+		public ItemStack getIconItemStack() {
+			return new ItemStack(Diamerald.Diameraldgem, 1, 0);
+		}
+	};
 
 	// Blocks and Items //
 
@@ -163,29 +176,25 @@ public class Diamerald {
 		Diameraldgem = (new Diameraldgem(DiameraldgemID))
 				.setUnlocalizedName("Diameraldgem");
 		Roughgem = (new Roughgem(RoughgemID)).setUnlocalizedName("Roughgem");
-		Diameraldsword = (new Diameraldsword(DiameraldswordID,
-				DIAMERALD)).setUnlocalizedName("Diameraldsword");
-		Diameraldpickaxe = (new Diameraldpickaxe(DiameraldpickaxeID,
-				DIAMERALD)).setUnlocalizedName("Diameraldpick");
-		Diameraldaxe = (new Diameraldaxe(DiameraldaxeID,
-				DIAMERALD)).setUnlocalizedName("Diameraldaxe");
-		Diameraldshovel = (new Diameraldshovel(DiameraldshovelID,
-				DIAMERALD)).setUnlocalizedName("Diameraldshovel");
-		Diameraldhoe = (new Diameraldhoe(DiameraldhoeID,
-				DIAMERALD)).setUnlocalizedName("Diameraldhoe");
-		Diameraldbow = (ItemBow) (new Diameraldbow(DiameraldbowID,
-				DIAMERALD)).setUnlocalizedName("Dbow");
-		Diameraldhelmet = (new Diameraldhelmet(DiameraldhelmetID,
-				diamerald, 3, 0)
-				.setUnlocalizedName("Diameraldhelmet"));
-		Diameraldplate = (new Diameraldplate(DiameraldplateID,
-				diamerald, 3, 1)
+		Diameraldsword = (new Diameraldsword(DiameraldswordID, DIAMERALD))
+				.setUnlocalizedName("Diameraldsword");
+		Diameraldpickaxe = (new Diameraldpickaxe(DiameraldpickaxeID, DIAMERALD))
+				.setUnlocalizedName("Diameraldpick");
+		Diameraldaxe = (new Diameraldaxe(DiameraldaxeID, DIAMERALD))
+				.setUnlocalizedName("Diameraldaxe");
+		Diameraldshovel = (new Diameraldshovel(DiameraldshovelID, DIAMERALD))
+				.setUnlocalizedName("Diameraldshovel");
+		Diameraldhoe = (new Diameraldhoe(DiameraldhoeID, DIAMERALD))
+				.setUnlocalizedName("Diameraldhoe");
+		Diameraldbow = (ItemBow) (new Diameraldbow(DiameraldbowID, DIAMERALD))
+				.setUnlocalizedName("Dbow");
+		Diameraldhelmet = (new Diameraldhelmet(DiameraldhelmetID, diamerald, 3,
+				0).setUnlocalizedName("Diameraldhelmet"));
+		Diameraldplate = (new Diameraldplate(DiameraldplateID, diamerald, 3, 1)
 				.setUnlocalizedName("Diameraldplate"));
-		Diameraldlegs = (new Diameraldlegs(DiameraldlegsID,
-				diamerald, 3, 2)
+		Diameraldlegs = (new Diameraldlegs(DiameraldlegsID, diamerald, 3, 2)
 				.setUnlocalizedName("Diameraldlegs"));
-		Diameraldboots = (new Diameraldboots(DiameraldbootsID,
-				diamerald, 3, 3)
+		Diameraldboots = (new Diameraldboots(DiameraldbootsID, diamerald, 3, 3)
 				.setUnlocalizedName("Diameraldboots"));
 		BlockDirtchest = (new BlockDirtchest(DirtchestID, 0))
 				.setUnlocalizedName("Dirtchest");
@@ -194,8 +203,7 @@ public class Diamerald {
 		blackRoughgem = (new blackRoughgem(blackRoughgemID))
 				.setUnlocalizedName("blackRoughgem");
 		blackDiameraldsword = (new blackDiameraldsword(blackDiameraldswordID,
-				BLACKDIAMERALD))
-				.setUnlocalizedName("blackDiameraldsword");
+				BLACKDIAMERALD)).setUnlocalizedName("blackDiameraldsword");
 		blackDiameraldpickaxe = (new blackDiameraldpickaxe(
 				blackDiameraldpickaxeID, BLACKDIAMERALD))
 				.setUnlocalizedName("blackDiameraldpick");
@@ -209,6 +217,7 @@ public class Diamerald {
 		GameRegistry.registerBlock(Diameraldore, "Diameraldore");
 
 		GameRegistry.registerWorldGenerator(new WorldGeneratorDiamerald());
+		LanguageRegistry.instance().addStringLocalization("itemGroup.tabDiamerald", "en_US", "Diamerald");
 		LanguageRegistry.addName(Diameraldore, "Diamerald ore");
 		LanguageRegistry.addName(Diameraldgem, "Diamerald");
 		LanguageRegistry.addName(blackDiameraldgem, "Black Diamerald");
@@ -296,7 +305,8 @@ public class Diamerald {
 				Item.stick });
 		GameRegistry.addRecipe(new ItemStack(Diameraldhelmet, 1), new Object[] {
 				"DDD", "D D", 'D', Diamerald.Diameraldgem });
-		GameRegistry.addRecipe(new ItemStack(blackDiameraldhelmet, 1),
+		GameRegistry
+				.addRecipe(new ItemStack(blackDiameraldhelmet, 1),
 						new Object[] { "BBB", "B B", 'B',
 								Diamerald.blackDiameraldgem });
 		GameRegistry.addRecipe(new ItemStack(Diameraldplate, 1), new Object[] {

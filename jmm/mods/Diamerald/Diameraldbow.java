@@ -32,7 +32,7 @@ public class Diameraldbow extends ItemBow {
 		super(par1);
 		this.maxStackSize = 1;
 		this.setMaxDamage(2000);
-		this.setCreativeTab(CreativeTabs.tabCombat);
+		this.setCreativeTab(Diamerald.tabDiamerald);
 		this.toolMaterial = par2EnumToolMaterial;
 
 	}

@@ -17,7 +17,7 @@ public class Diameraldore extends Block {
 	public Diameraldore(int i) {
 
 		super(i, Material.rock);
-		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.setCreativeTab(Diamerald.tabDiamerald);
 		setHardness(5f).setResistance(10f);
 
 	}

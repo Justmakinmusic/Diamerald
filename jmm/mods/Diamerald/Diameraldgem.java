@@ -12,7 +12,7 @@ public class Diameraldgem extends Item {
 	public Diameraldgem(int i){
 		super(i);
 		maxStackSize=64;
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 

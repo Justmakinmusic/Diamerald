@@ -33,7 +33,7 @@ public class blackDiameraldsword extends ItemSword {
 		this.toolMaterial = par2EnumToolMaterial;
 		this.maxStackSize = 1;
 		this.setMaxDamage(par2EnumToolMaterial.getMaxUses());
-		this.setCreativeTab(CreativeTabs.tabCombat);
+		this.setCreativeTab(Diamerald.tabDiamerald);
 		this.weaponDamage = 4.0f + par2EnumToolMaterial.getDamageVsEntity();
 
 	}
