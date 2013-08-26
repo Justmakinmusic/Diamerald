@@ -1,5 +1,7 @@
 package jmm.mods.Diamerald;
 
+import thermalexpansion.api.crafting.CraftingManagers;
+import thermalexpansion.api.item.ItemRegistry;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,6 +27,7 @@ import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -59,7 +62,7 @@ public class Diamerald {
 
 	// Blocks and Items //
 
-	public static Block Diameraldore;
+	public static Block oreDiamerald;
 	public static Block GSTorch;
 	public static Block BlockDirtchest;
 	public static Item Diameraldgem;
@@ -80,10 +83,12 @@ public class Diamerald {
 	public static Item blackDiameraldpickaxe;
 	public static Item blackDiameraldhelmet;
 	public static Item Diameralddust;
+	public static Item EmeralddustTiny;
+	public static Item Emeralddust;
 
 	// Config intIDs//
 
-	public int DiameraldoreID;
+	public int oreDiameraldID;
 	public int GSTorchID;
 	public int RoughgemID;
 	public int DiameraldgemID;
@@ -104,6 +109,10 @@ public class Diamerald {
 	public int blackDiameraldpickaxeID;
 	public int blackDiameraldhelmetID;
 	public int DiameralddustID;
+	public int EmeralddustTinyID;
+	public int EmeralddustID;
+	
+	//Proxy and Preload//
 
 	@SidedProxy(clientSide = "jmm.mods.Diamerald.DiameraldClient", serverSide = "jmm.mods.Diamerald.DiameraldProxy")
 	public static DiameraldProxy proxy;
@@ -115,7 +124,7 @@ public class Diamerald {
 
 		config.load();
 
-		DiameraldoreID = config.getBlock("Diameraldore ID",
+		oreDiameraldID = config.getBlock("oreDiamerald ID",
 				Configuration.CATEGORY_BLOCK, 500).getInt();
 		GSTorchID = config.getBlock("GSTorch ID", Configuration.CATEGORY_BLOCK,
 				512).getInt();
@@ -157,19 +166,25 @@ public class Diamerald {
 				Configuration.CATEGORY_ITEM, 3857).getInt();
 		DiameralddustID = config.getItem("Diameralddust ID",
 				Configuration.CATEGORY_ITEM, 3859).getInt();
+		EmeralddustTinyID = config.getItem("EmeralddustTiny ID",
+				Configuration.CATEGORY_ITEM, 3860).getInt();
+		EmeralddustID = config.getItem("Emeralddust ID",
+				Configuration.CATEGORY_ITEM, 3861).getInt();
 
 		config.save();
 
 	}
+	
+	//Load//
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 
 		proxy.registerRenderInformation();
 
-		Diameraldore = (new Diameraldore(DiameraldoreID))
-				.setUnlocalizedName("Diameraldore");
-		MinecraftForge.setBlockHarvestLevel(Diameraldore, "pickaxe", 2);
+		oreDiamerald = (new Diameraldore(oreDiameraldID))
+				.setUnlocalizedName("oreDiamerald");
+		MinecraftForge.setBlockHarvestLevel(oreDiamerald, "pickaxe", 2);
 		GSTorch = (new GSTorch(GSTorchID, Material.glass))
 				.setUnlocalizedName("GStorch").setHardness(0.0f)
 				.setLightValue(1.0f);
@@ -213,22 +228,18 @@ public class Diamerald {
 
 		// Registering things//
 
-		OreDictionary.registerOre(DiameraldgemID, Diameraldgem);
-		GameRegistry.registerBlock(Diameraldore, "Diameraldore");
+		OreDictionary.registerOre(DiameraldgemID, new ItemStack(Diameraldgem));
+		OreDictionary.registerOre(oreDiameraldID, new ItemStack(oreDiamerald));
+		GameRegistry.registerBlock(oreDiamerald, "oreDiamerald");
 
 		GameRegistry.registerWorldGenerator(new WorldGeneratorDiamerald());
-		LanguageRegistry.instance().addStringLocalization("itemGroup.tabDiamerald", "en_US", "Diamerald");
-		LanguageRegistry.addName(Diameraldore, "Diamerald ore");
+		LanguageRegistry.instance().addStringLocalization(
+				"itemGroup.tabDiamerald", "en_US", "Diamerald");
+		LanguageRegistry.addName(oreDiamerald, "Diamerald ore");
 		LanguageRegistry.addName(Diameraldgem, "Diamerald");
 		LanguageRegistry.addName(blackDiameraldgem, "Black Diamerald");
 		LanguageRegistry.addName(Roughgem, "Rough Gem");
 		LanguageRegistry.addName(blackRoughgem, "Black Rough Gem");
-		GameRegistry.addSmelting(Diamerald.Roughgem.itemID, new ItemStack(
-				Diamerald.Diameraldgem, 1), 500.0f);
-		GameRegistry.addSmelting(Diamerald.blackRoughgem.itemID, new ItemStack(
-				Diamerald.blackDiameraldgem, 1), 500.0f);
-		GameRegistry.addSmelting(Diamerald.Diameraldore.blockID, new ItemStack(
-				Diamerald.Diameraldgem, 1), 500.0f);
 		LanguageRegistry.addName(Diameraldsword, "Diamerald sword");
 		LanguageRegistry.addName(Diameraldpickaxe, "Diamerald pickaxe");
 		LanguageRegistry.addName(blackDiameraldsword, "Black Diamerald sword");
@@ -280,6 +291,12 @@ public class Diamerald {
 
 		// Recipes//
 
+		GameRegistry.addSmelting(Diamerald.Roughgem.itemID, new ItemStack(
+				Diamerald.Diameraldgem, 1), 500.0f);
+		GameRegistry.addSmelting(Diamerald.blackRoughgem.itemID, new ItemStack(
+				Diamerald.blackDiameraldgem, 1), 500.0f);
+		GameRegistry.addSmelting(Diamerald.oreDiamerald.blockID, new ItemStack(
+				Diamerald.Diameraldgem, 1), 500.0f);
 		GameRegistry.addRecipe(new ItemStack(Diameraldsword, 1), new Object[] {
 				" D ", " D ", " S ", 'D', Diamerald.Diameraldgem, 'S',
 				Item.stick });
@@ -322,26 +339,63 @@ public class Diamerald {
 				" G", 'G', Block.glowStone });
 		GameRegistry.addShapelessRecipe(new ItemStack(Roughgem, 1),
 				new Object[] { Item.diamond, Item.emerald });
-		GameRegistry.addShapelessRecipe(new ItemStack(blackRoughgem, 1),
-				new Object[] { Diamerald.Roughgem, Item.dyePowder,
-						Item.dyePowder });
+		GameRegistry.addRecipe(new ItemStack(blackRoughgem, 1), new Object[] {
+				" I ", "IRI", " I ", 'R', Diamerald.Roughgem, 'I',
+				Item.dyePowder, });
 		GameRegistry.addRecipe(new ItemStack(BlockDirtchest, 1), new Object[] {
 				"AAA", "ACA", "AAA", 'A', Block.dirt, 'C', Block.chest });
+
+		// Recipes for other IC2//
 
 		if (Loader.isModLoaded("IC2")) {
 
 			Diameralddust = (new Diameralddust(DiameralddustID))
 					.setUnlocalizedName("Diameralddust");
-			Recipes.macerator.addRecipe(new ItemStack(Diameraldore, 1),
+			LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
+			Recipes.macerator.addRecipe(new ItemStack(oreDiamerald, 1),
 					new ItemStack(Diameralddust, 2));
 			Recipes.compressor.addRecipe(new ItemStack(Diameralddust, 1),
 					new ItemStack(Diameraldgem, 1));
 			Recipes.compressor.addRecipe(new ItemStack(Item.skull, 1, 1),
 					new ItemStack(blackDiameraldgem, 1));
-			LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
+			
+		}
+		
+	}
+			
+	@EventHandler
+	public void PostInit(FMLPostInitializationEvent event) {
+
+			// Recipes for ThermalExpansion//
+
+			if (Loader.isModLoaded("ThermalExpansion")) {
+
+				Diameralddust = (new Diameralddust(DiameralddustID))
+						.setUnlocalizedName("Diameralddust");
+				EmeralddustTiny = (new EmeralddustTiny(EmeralddustTinyID))
+						.setUnlocalizedName("EmeralddustTiny");
+				Emeralddust = (new Emeralddust(EmeralddustID))
+						.setUnlocalizedName("Emeralddust");
+				LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
+				LanguageRegistry.addName(EmeralddustTiny, "Tiny Emerald Dust");
+				LanguageRegistry.addName(Emeralddust, "Emerald Dust");
+				GameRegistry.addRecipe(new ItemStack(Emeralddust,1), new Object[]{
+					"EE", "EE", 'E', Diamerald.EmeralddustTiny});
+				CraftingManagers.smelterManager.addRecipe(400, new ItemStack(
+						Emeralddust, 1), new ItemStack(Block.sand, 1),
+						new ItemStack(Item.emerald, 1), ItemRegistry.getItem(
+								"slagRich", 1), 5);
+				CraftingManagers.smelterManager.addRecipe(400, new ItemStack(
+						Emeralddust, 1), ItemRegistry.getItem("slagRich", 1),
+						new ItemStack(Item.emerald, 2));
+				CraftingManagers.pulverizerManager.addRecipe(400,
+						new ItemStack(oreDiamerald, 1), new ItemStack(
+								Diameralddust, 2), new ItemStack(
+								EmeralddustTiny, 1), 20);
+			}
 
 		}
 
 	}
 
-}
+
