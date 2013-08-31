@@ -381,17 +381,17 @@ public class Diamerald {
 				LanguageRegistry.addName(Emeralddust, "Emerald Dust");
 				GameRegistry.addRecipe(new ItemStack(Emeralddust,1), new Object[]{
 					"EE", "EE", 'E', Diamerald.EmeralddustTiny});
-				CraftingManagers.smelterManager.addRecipe(400, new ItemStack(
+				CraftingManagers.smelterManager.addRecipe(200, new ItemStack(
 						Emeralddust, 1), new ItemStack(Block.sand, 1),
 						new ItemStack(Item.emerald, 1), ItemRegistry.getItem(
 								"slagRich", 1), 5);
-				CraftingManagers.smelterManager.addRecipe(400, new ItemStack(
+				CraftingManagers.smelterManager.addRecipe(600, new ItemStack(
 						Emeralddust, 1), ItemRegistry.getItem("slagRich", 1),
 						new ItemStack(Item.emerald, 2));
 				CraftingManagers.pulverizerManager.addRecipe(400,
 						new ItemStack(oreDiamerald, 1), new ItemStack(
 								Diameralddust, 2), new ItemStack(
-								EmeralddustTiny, 1), 20);
+								EmeralddustTiny, 1), 10);
 			}
 
 		}
