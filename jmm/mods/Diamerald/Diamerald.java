@@ -382,8 +382,8 @@ public class Diamerald {
 				GameRegistry.addRecipe(new ItemStack(Emeralddust,1), new Object[]{
 					"EE", "EE", 'E', Diamerald.EmeralddustTiny});
 				CraftingManagers.smelterManager.addRecipe(200, new ItemStack(
-						Emeralddust, 1), new ItemStack(Block.sand, 1),
-						new ItemStack(Item.emerald, 1), ItemRegistry.getItem(
+						Emeralddust, 2), new ItemStack(Block.sand, 1),
+						new ItemStack(Item.emerald, 2), ItemRegistry.getItem(
 								"slagRich", 1), 5);
 				CraftingManagers.smelterManager.addRecipe(600, new ItemStack(
 						Emeralddust, 1), ItemRegistry.getItem("slagRich", 1),
