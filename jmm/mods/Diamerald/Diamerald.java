@@ -2,6 +2,7 @@ package jmm.mods.Diamerald;
 
 import thermalexpansion.api.crafting.CraftingManagers;
 import thermalexpansion.api.item.ItemRegistry;
+import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.Configuration;
@@ -111,8 +113,8 @@ public class Diamerald {
 	public int DiameralddustID;
 	public int EmeralddustTinyID;
 	public int EmeralddustID;
-	
-	//Proxy and Preload//
+
+	// Proxy and Preload//
 
 	@SidedProxy(clientSide = "jmm.mods.Diamerald.DiameraldClient", serverSide = "jmm.mods.Diamerald.DiameraldProxy")
 	public static DiameraldProxy proxy;
@@ -174,8 +176,8 @@ public class Diamerald {
 		config.save();
 
 	}
-	
-	//Load//
+
+	// Load//
 
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
@@ -352,50 +354,49 @@ public class Diamerald {
 			Diameralddust = (new Diameralddust(DiameralddustID))
 					.setUnlocalizedName("Diameralddust");
 			LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
-			Recipes.macerator.addRecipe(new ItemStack(oreDiamerald, 1),
-					new ItemStack(Diameralddust, 2));
-			Recipes.compressor.addRecipe(new ItemStack(Diameralddust, 1),
-					new ItemStack(Diameraldgem, 1));
-			Recipes.compressor.addRecipe(new ItemStack(Item.skull, 1, 1),
-					new ItemStack(blackDiameraldgem, 1));
-			
+			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(
+					oreDiamerald)), null, new ItemStack(Diameralddust, 2));
+			Recipes.compressor.addRecipe(new RecipeInputItemStack(
+					new ItemStack(Diameralddust)), null, new ItemStack(
+					Diameraldgem, 1));
+			Recipes.compressor.addRecipe(new RecipeInputItemStack(
+					new ItemStack(Item.skull, 1, 1)), null, new ItemStack(
+					blackDiameraldgem, 1));
+
 		}
-		
+
 	}
-			
+
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event) {
 
-			// Recipes for ThermalExpansion//
+		// Recipes for ThermalExpansion//
 
-			if (Loader.isModLoaded("ThermalExpansion")) {
+		if (Loader.isModLoaded("ThermalExpansion")) {
 
-				Diameralddust = (new Diameralddust(DiameralddustID))
-						.setUnlocalizedName("Diameralddust");
-				EmeralddustTiny = (new EmeralddustTiny(EmeralddustTinyID))
-						.setUnlocalizedName("EmeralddustTiny");
-				Emeralddust = (new Emeralddust(EmeralddustID))
-						.setUnlocalizedName("Emeralddust");
-				LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
-				LanguageRegistry.addName(EmeralddustTiny, "Tiny Emerald Dust");
-				LanguageRegistry.addName(Emeralddust, "Emerald Dust");
-				GameRegistry.addRecipe(new ItemStack(Emeralddust,1), new Object[]{
-					"EE", "EE", 'E', Diamerald.EmeralddustTiny});
-				CraftingManagers.smelterManager.addRecipe(200, new ItemStack(
-						Emeralddust, 2), new ItemStack(Block.sand, 1),
-						new ItemStack(Item.emerald, 2), ItemRegistry.getItem(
-								"slagRich", 1), 5);
-				CraftingManagers.smelterManager.addRecipe(600, new ItemStack(
-						Emeralddust, 1), ItemRegistry.getItem("slagRich", 1),
-						new ItemStack(Item.emerald, 2));
-				CraftingManagers.pulverizerManager.addRecipe(400,
-						new ItemStack(oreDiamerald, 1), new ItemStack(
-								Diameralddust, 2), new ItemStack(
-								EmeralddustTiny, 1), 10);
-			}
-
+			Diameralddust = (new Diameralddust(DiameralddustID))
+					.setUnlocalizedName("Diameralddust");
+			EmeralddustTiny = (new EmeralddustTiny(EmeralddustTinyID))
+					.setUnlocalizedName("EmeralddustTiny");
+			Emeralddust = (new Emeralddust(EmeralddustID))
+					.setUnlocalizedName("Emeralddust");
+			LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
+			LanguageRegistry.addName(EmeralddustTiny, "Tiny Emerald Dust");
+			LanguageRegistry.addName(Emeralddust, "Emerald Dust");
+			GameRegistry.addRecipe(new ItemStack(Emeralddust, 1), new Object[] {
+					"EE", "EE", 'E', Diamerald.EmeralddustTiny });
+			CraftingManagers.smelterManager.addRecipe(200, new ItemStack(
+					Emeralddust, 2), new ItemStack(Block.sand, 1),
+					new ItemStack(Item.emerald, 2), ItemRegistry.getItem(
+							"slagRich", 1), 5);
+			CraftingManagers.smelterManager.addRecipe(600, new ItemStack(
+					Emeralddust, 1), ItemRegistry.getItem("slagRich", 1),
+					new ItemStack(Item.emerald, 2));
+			CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
+					oreDiamerald, 1), new ItemStack(Diameralddust, 2),
+					new ItemStack(EmeralddustTiny, 1), 10);
 		}
 
 	}
 
-
+}
