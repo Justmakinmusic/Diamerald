@@ -30,7 +30,7 @@ public class WorldGeneratorDiamerald implements IWorldGenerator {
 			int Zcoord = BlockZ + random.nextInt(16);
 			int Ycoord = random.nextInt(16);
 
-			(new WorldGenMinable(Diamerald.Diameraldore.blockID, 4)).generate(
+			(new WorldGenMinable(Diamerald.oreDiamerald.blockID, 4)).generate(
 					world, random, Xcoord, Ycoord, Zcoord);
 		}
 
@@ -47,7 +47,7 @@ public class WorldGeneratorDiamerald implements IWorldGenerator {
 			int Zcoord = BlockZ + random.nextInt(16);
 			int Ycoord = random.nextInt(16);
 
-			(new WorldGenMinable(Diamerald.Diameraldore.blockID, 8)).generate(
+			(new WorldGenMinable(Diamerald.oreDiamerald.blockID, 8)).generate(
 					world, random, Xcoord, Ycoord, Zcoord);
 		}
 

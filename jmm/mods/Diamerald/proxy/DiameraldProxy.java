@@ -1,14 +1,11 @@
-package jmm.mods.Diamerald;
-
+package jmm.mods.Diamerald.proxy;
 
 
 import net.minecraftforge.client.MinecraftForgeClient;
 
-public class DiameraldClient extends DiameraldProxy {
+public class DiameraldProxy {
 
-	@Override
 	public void registerRenderInformation()
-
 	{
 
 	}

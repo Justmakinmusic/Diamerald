@@ -1,5 +1,6 @@
-package jmm.mods.Diamerald;
+package jmm.mods.Diamerald.items;
 
+import jmm.mods.Diamerald.Diamerald;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumArmorMaterial;

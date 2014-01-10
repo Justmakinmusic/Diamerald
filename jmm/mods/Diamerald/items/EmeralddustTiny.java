@@ -1,15 +1,14 @@
-package jmm.mods.Diamerald;
+package jmm.mods.Diamerald.items;
 
+import jmm.mods.Diamerald.Diamerald;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class blackDiameraldgem extends Item {
+public class EmeralddustTiny extends Item {
 	
-	
-	public blackDiameraldgem(int i){
+	public EmeralddustTiny(int i){
 		super(i);
 		maxStackSize=64;
 		this.setCreativeTab(Diamerald.tabDiamerald);
@@ -19,7 +18,7 @@ public class blackDiameraldgem extends Item {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister)
 	{
-		this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackDiameraldgem");
+		this.itemIcon = par1IconRegister.registerIcon("Diamerald:EmeralddustTiny");
 	}
 
 }

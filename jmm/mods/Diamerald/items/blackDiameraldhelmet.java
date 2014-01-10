@@ -1,6 +1,6 @@
-package jmm.mods.Diamerald;
+package jmm.mods.Diamerald.items;
 
-import net.minecraft.block.Block;
+import jmm.mods.Diamerald.Diamerald;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;

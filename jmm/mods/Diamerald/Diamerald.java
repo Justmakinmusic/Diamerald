@@ -1,19 +1,41 @@
 package jmm.mods.Diamerald;
 
-import thermalexpansion.api.crafting.CraftingManagers;
-import thermalexpansion.api.item.ItemRegistry;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
+import jmm.mods.Diamerald.blocks.BlockDirtchest;
+import jmm.mods.Diamerald.blocks.Diameraldore;
+import jmm.mods.Diamerald.blocks.GSTorch;
+import jmm.mods.Diamerald.items.Diameraldaxe;
+import jmm.mods.Diamerald.items.Diameraldboots;
+import jmm.mods.Diamerald.items.Diameraldbow;
+import jmm.mods.Diamerald.items.Diameralddust;
+import jmm.mods.Diamerald.items.Diameraldgem;
+import jmm.mods.Diamerald.items.Diameraldhelmet;
+import jmm.mods.Diamerald.items.Diameraldhoe;
+import jmm.mods.Diamerald.items.Diameraldlegs;
+import jmm.mods.Diamerald.items.Diameraldpickaxe;
+import jmm.mods.Diamerald.items.Diameraldplate;
+import jmm.mods.Diamerald.items.Diameraldshovel;
+import jmm.mods.Diamerald.items.Diameraldsword;
+import jmm.mods.Diamerald.items.Emeralddust;
+import jmm.mods.Diamerald.items.EmeralddustTiny;
+import jmm.mods.Diamerald.items.Roughgem;
+import jmm.mods.Diamerald.items.berylSlag;
+import jmm.mods.Diamerald.items.blackDiameraldgem;
+import jmm.mods.Diamerald.items.blackDiameraldhelmet;
+import jmm.mods.Diamerald.items.blackDiameraldpickaxe;
+import jmm.mods.Diamerald.items.blackDiameraldsword;
+import jmm.mods.Diamerald.items.blackRoughgem;
+import jmm.mods.Diamerald.proxy.DiameraldProxy;
+import jmm.mods.Diamerald.tedc.TileEntityChestDC;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
@@ -21,21 +43,18 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "Diamerald", name = "Diamerald", version = "1.0")
+@Mod(modid = "Diamerald", name = "Diamerald", version = "1.6.4_1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class Diamerald {
 
@@ -87,6 +106,7 @@ public class Diamerald {
 	public static Item Diameralddust;
 	public static Item EmeralddustTiny;
 	public static Item Emeralddust;
+	public static Item berylSlag;
 
 	// Config intIDs//
 
@@ -113,10 +133,11 @@ public class Diamerald {
 	public int DiameralddustID;
 	public int EmeralddustTinyID;
 	public int EmeralddustID;
+	public int berylSlagID;
 
 	// Proxy and Preload//
 
-	@SidedProxy(clientSide = "jmm.mods.Diamerald.DiameraldClient", serverSide = "jmm.mods.Diamerald.DiameraldProxy")
+	@SidedProxy(clientSide = "jmm.mods.Diamerald.proxy.DiameraldClient", serverSide = "jmm.mods.Diamerald.proxy.DiameraldProxy")
 	public static DiameraldProxy proxy;
 
 	@EventHandler
@@ -172,6 +193,8 @@ public class Diamerald {
 				Configuration.CATEGORY_ITEM, 3860).getInt();
 		EmeralddustID = config.getItem("Emeralddust ID",
 				Configuration.CATEGORY_ITEM, 3861).getInt();
+		berylSlagID = config.getItem("berylSlag ID",
+				Configuration.CATEGORY_ITEM, 3862).getInt();
 
 		config.save();
 
@@ -355,24 +378,24 @@ public class Diamerald {
 					.setUnlocalizedName("Diameralddust");
 			LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(
-					oreDiamerald)), null, new ItemStack(Diameralddust, 2));
+					oreDiamerald, 1)), null, (new ItemStack(Diameralddust, 2)));
 			Recipes.compressor.addRecipe(new RecipeInputItemStack(
-					new ItemStack(Diameralddust)), null, new ItemStack(
-					Diameraldgem, 1));
+					new ItemStack(Diameralddust, 1)), null, (new ItemStack(
+					Diameraldgem, 1)));
 			Recipes.compressor.addRecipe(new RecipeInputItemStack(
-					new ItemStack(Item.skull, 1, 1)), null, new ItemStack(
-					blackDiameraldgem, 1));
+					new ItemStack(Item.skull, 1, 1)), null, (new ItemStack(
+					blackDiameraldgem, 1)));
 
 		}
-
-	}
-
-	@EventHandler
-	public void PostInit(FMLPostInitializationEvent event) {
 
 		// Recipes for ThermalExpansion//
 
 		if (Loader.isModLoaded("ThermalExpansion")) {
+
+			// CraftingManagers.smelterManager.addRecipe(200, new ItemStack(
+			// Emeralddust, 2), new ItemStack(Block.sand, 1),
+			// new ItemStack(Item.emerald, 2), ItemRegistry.getItem(
+			// "slagRich", 1), 5);
 
 			Diameralddust = (new Diameralddust(DiameralddustID))
 					.setUnlocalizedName("Diameralddust");
@@ -380,21 +403,103 @@ public class Diamerald {
 					.setUnlocalizedName("EmeralddustTiny");
 			Emeralddust = (new Emeralddust(EmeralddustID))
 					.setUnlocalizedName("Emeralddust");
+			berylSlag = (new berylSlag(berylSlagID))
+					.setUnlocalizedName("berylSlag");
 			LanguageRegistry.addName(Diameralddust, "Diamerald Dust");
 			LanguageRegistry.addName(EmeralddustTiny, "Tiny Emerald Dust");
 			LanguageRegistry.addName(Emeralddust, "Emerald Dust");
+			LanguageRegistry.addName(berylSlag, "Beryl Slag");
 			GameRegistry.addRecipe(new ItemStack(Emeralddust, 1), new Object[] {
 					"EE", "EE", 'E', Diamerald.EmeralddustTiny });
-			CraftingManagers.smelterManager.addRecipe(200, new ItemStack(
-					Emeralddust, 2), new ItemStack(Block.sand, 1),
-					new ItemStack(Item.emerald, 2), ItemRegistry.getItem(
-							"slagRich", 1), 5);
-			CraftingManagers.smelterManager.addRecipe(600, new ItemStack(
-					Emeralddust, 1), ItemRegistry.getItem("slagRich", 1),
-					new ItemStack(Item.emerald, 2));
-			CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
-					oreDiamerald, 1), new ItemStack(Diameralddust, 2),
-					new ItemStack(EmeralddustTiny, 1), 10);
+
+			{
+				NBTTagCompound toSend = new NBTTagCompound();
+
+				toSend.setInteger("energy", 10000);
+				toSend.setCompoundTag("primaryInput", new NBTTagCompound());
+				toSend.setCompoundTag("secondaryInput", new NBTTagCompound());
+				toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
+				toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
+				new ItemStack(Emeralddust, 2).writeToNBT(toSend
+						.getCompoundTag("primaryInput"));
+				new ItemStack(Block.sand, 1).writeToNBT(toSend
+						.getCompoundTag("secondaryInput"));
+				new ItemStack(Item.emerald, 2).writeToNBT(toSend
+						.getCompoundTag("primaryOutput"));
+				new ItemStack(berylSlag, 1).writeToNBT(toSend
+						.getCompoundTag("secondaryOutput"));
+				toSend.setInteger("secondaryChance", 5);
+				FMLInterModComms.sendMessage("ThermalExpansion",
+						"SmelterRecipe", toSend);
+			}
+
+			// CraftingManagers.smelterManager.addRecipe(600, new ItemStack(
+			// Emeralddust, 1), ItemRegistry.getItem("slagRich", 1),
+			// new ItemStack(Item.emerald, 2));
+
+			{
+				NBTTagCompound toSend = new NBTTagCompound();
+				toSend.setInteger("energy", 6000);
+				toSend.setCompoundTag("primaryInput", new NBTTagCompound());
+				toSend.setCompoundTag("secondaryInput", new NBTTagCompound());
+				toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
+				new ItemStack(Emeralddust, 1).writeToNBT(toSend
+						.getCompoundTag("primaryInput"));
+				new ItemStack(berylSlag, 1).writeToNBT(toSend
+						.getCompoundTag("secondaryInput"));
+				new ItemStack(Item.emerald, 2).writeToNBT(toSend
+						.getCompoundTag("primaryOutput"));
+				FMLInterModComms.sendMessage("ThermalExpansion",
+						"SmelterRecipe", toSend);
+			}
+
+			// CraftingManagers.smelterManager.addRecipe(400, new ItemStack(
+			// Diameralddust, 2), new ItemStack(Block.sand, 1),
+			// new ItemStack(Diamerald.Diameraldgem, 2), ItemRegistry.getItem(
+			// "slagRich", 1), 5);
+
+			{
+				NBTTagCompound toSend = new NBTTagCompound();
+				toSend.setInteger("energy", 10000);
+				toSend.setCompoundTag("primaryInput", new NBTTagCompound());
+				toSend.setCompoundTag("secondaryInput", new NBTTagCompound());
+				toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
+				toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
+				new ItemStack(Diameralddust, 2).writeToNBT(toSend
+						.getCompoundTag("primaryInput"));
+				new ItemStack(Block.sand, 1).writeToNBT(toSend
+						.getCompoundTag("secondaryInput"));
+				new ItemStack(Diameraldgem, 2).writeToNBT(toSend
+						.getCompoundTag("primaryOutput"));
+				new ItemStack(berylSlag, 1).writeToNBT(toSend
+						.getCompoundTag("secondaryOutput"));
+				toSend.setInteger("secondaryChance", 5);
+				FMLInterModComms.sendMessage("ThermalExpansion",
+						"SmelterRecipe", toSend);
+			}
+
+			// CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
+			// oreDiamerald, 1), new ItemStack(Diameralddust, 2),
+			// new ItemStack(EmeralddustTiny, 1), 10);
+
+			{
+				NBTTagCompound toSend = new NBTTagCompound();
+				toSend.setInteger("energy", 8000);
+				toSend.setCompoundTag("input", new NBTTagCompound());
+				toSend.setCompoundTag("primaryOutput", new NBTTagCompound());
+				toSend.setCompoundTag("secondaryOutput", new NBTTagCompound());
+				new ItemStack(oreDiamerald, 1).writeToNBT(toSend
+						.getCompoundTag("input"));
+				new ItemStack(Diameralddust, 2).writeToNBT(toSend
+						.getCompoundTag("primaryOutput"));
+				new ItemStack(EmeralddustTiny, 1).writeToNBT(toSend
+						.getCompoundTag("secondaryOutput"));
+				toSend.setInteger("secondaryChance", 10);
+				FMLInterModComms.sendMessage("ThermalExpansion",
+						"PulverizerRecipe", toSend);
+
+			}
+
 		}
 
 	}

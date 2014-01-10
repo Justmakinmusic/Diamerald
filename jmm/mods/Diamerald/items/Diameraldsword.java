@@ -1,34 +1,23 @@
-package jmm.mods.Diamerald;
+package jmm.mods.Diamerald.items;
 
-import com.google.common.collect.Multimap;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import jmm.mods.Diamerald.Diamerald;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class blackDiameraldsword extends ItemSword {
+public class Diameraldsword extends ItemSword {
 
 	private float weaponDamage;
 	private final EnumToolMaterial toolMaterial;
 
-	public blackDiameraldsword(int par1, EnumToolMaterial par2EnumToolMaterial) {
-
+	public Diameraldsword(int par1, EnumToolMaterial par2EnumToolMaterial) {
 		super(par1, par2EnumToolMaterial);
 		this.toolMaterial = par2EnumToolMaterial;
 		this.maxStackSize = 1;
@@ -36,13 +25,6 @@ public class blackDiameraldsword extends ItemSword {
 		this.setCreativeTab(Diamerald.tabDiamerald);
 		this.weaponDamage = 4.0f + par2EnumToolMaterial.getDamageVsEntity();
 
-	}
-
-	public void onCreated(ItemStack par1ItemStack, World par2World,
-			EntityPlayer par3EntityPlayer) {
-		par1ItemStack.addEnchantment(Enchantment.sharpness, 1);
-		par1ItemStack.addEnchantment(Enchantment.unbreaking, 5);
-		par1ItemStack.addEnchantment(Enchantment.looting, 3);
 	}
 
 	public float func_82803_g() {
@@ -82,13 +64,14 @@ public class blackDiameraldsword extends ItemSword {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return par2ItemStack.itemID == Diamerald.blackDiameraldgem.itemID;
+		return par2ItemStack.itemID == Diamerald.Diameraldgem.itemID;
+
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {
 		this.itemIcon = par1IconRegister
-				.registerIcon("Diamerald:blackDiameraldsword");
+				.registerIcon("Diamerald:Diameraldsword");
 	}
 
 }
