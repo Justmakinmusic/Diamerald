@@ -10,8 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Diameraldlegs extends ItemArmor {
 
-	public Diameraldlegs(ArmorMaterial par2ArmorMaterial, int par3,
-			int par4) {
+	public Diameraldlegs(ArmorMaterial par2ArmorMaterial, int par3, int par4) {
 		super(par2ArmorMaterial, par3, par4);
 		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
@@ -21,19 +20,17 @@ public class Diameraldlegs extends ItemArmor {
 		this.itemIcon = par1IconRegister
 				.registerIcon("Diamerald:Diameraldlegs");
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return  par2ItemStack.getItem() == Diamerald.Diameraldgem;
-				
+		return par2ItemStack.getItem() == Diamerald.Diameraldgem;
+
 	}
 
-	public String getArmorTexture(ItemStack par1, Entity entity, int slot, int layer) {
-		if (par1 == new ItemStack(Diamerald.Diameraldlegs))
-		{
-			return "diamerald:textures/models/armor/diamerald_layer_2.png";
-		}
+	public String getArmorTexture(ItemStack par1, Entity entity, int slot,
+			int layer) {
+
 		return "diamerald:textures/models/armor/diamerald_layer_2.png";
 	}
 

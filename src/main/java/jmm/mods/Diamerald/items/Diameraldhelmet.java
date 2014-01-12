@@ -1,6 +1,5 @@
 package jmm.mods.Diamerald.items;
 
-
 import jmm.mods.Diamerald.Diamerald;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -11,8 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Diameraldhelmet extends ItemArmor {
 
-	public Diameraldhelmet(ArmorMaterial par2ArmorMaterial,
-			int par3, int par4) {
+	public Diameraldhelmet(ArmorMaterial par2ArmorMaterial, int par3, int par4) {
 		super(par2ArmorMaterial, par3, par4);
 		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
@@ -22,21 +20,18 @@ public class Diameraldhelmet extends ItemArmor {
 		this.itemIcon = par1IconRegister
 				.registerIcon("Diamerald:Diameraldhelmet");
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return  par2ItemStack.getItem() == Diamerald.Diameraldgem;
-				
+		return par2ItemStack.getItem() == Diamerald.Diameraldgem;
+
 	}
 
-	public String getArmorTexture(ItemStack par1, Entity entity, int slot, String type) {
-		if (par1 == new ItemStack(Diamerald.Diameraldhelmet)) 
-		{
-			return "diamerald:textures/models/armor/diamerald_layer_1.png";
-		}
-		
+	public String getArmorTexture(ItemStack par1, Entity entity, int slot,
+			String type) {
+
 		return "diamerald:textures/models/armor/diamerald_layer_1.png";
 	}
-	
+
 }
