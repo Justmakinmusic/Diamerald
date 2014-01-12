@@ -30,12 +30,8 @@ public class Diameraldlegs extends ItemArmor {
 	}
 
 	public String getArmorTexture(ItemStack par1, Entity entity, int slot, int layer) {
-		if (par1 == new ItemStack(Diamerald.Diameraldhelmet)
-				|| par1 == new ItemStack(Diamerald.Diameraldplate)
-				|| par1 == new ItemStack(Diamerald.Diameraldboots)) {
-			return "diamerald:textures/models/armor/diamerald_layer_1.png";
-		}
-		if (par1 == new ItemStack(Diamerald.Diameraldlegs)) {
+		if (par1 == new ItemStack(Diamerald.Diameraldlegs))
+		{
 			return "diamerald:textures/models/armor/diamerald_layer_2.png";
 		}
 		return "diamerald:textures/models/armor/diamerald_layer_2.png";

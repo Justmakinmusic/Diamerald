@@ -40,16 +40,13 @@ public class blackDiameraldhelmet extends ItemArmor {
 		return par2ItemStack.getItem() == Diamerald.blackDiameraldgem;
 	}
 
-	public String getArmorTexture(ItemStack par1, Entity entity, int slot, int layer) {
+	public String getArmorTexture(ItemStack par1, Entity entity, int slot, String type) {
 		if (par1 == new ItemStack(Diamerald.blackDiameraldhelmet))
 		{
 			return "diamerald:textures/models/armor/blackdiamerald_layer_1.png";
 		}
-		if (par1 == new ItemStack(Diamerald.Diameraldlegs)) 
-		{
-			return "diamerald:textures/models/armor/diamerald_layer_2.png";
-		}
-		return "diamerald:textures/models/armor/diamerald_layer_2.png";
+		
+		return "diamerald:textures/models/armor/blackdiamerald_layer_1.png";
 	}
 	
 }
