@@ -11,8 +11,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Diameraldlegs extends ItemArmor {
 
-	public Diameraldlegs(int par1, EnumArmorMaterial par2EnumArmorMaterial, int par3,
-			int par4) {
+	public Diameraldlegs(int par1, EnumArmorMaterial par2EnumArmorMaterial,
+			int par3, int par4) {
 		super(par1, par2EnumArmorMaterial, par3, par4);
 		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
@@ -22,23 +22,17 @@ public class Diameraldlegs extends ItemArmor {
 		this.itemIcon = par1IconRegister
 				.registerIcon("Diamerald:Diameraldlegs");
 	}
-	
+
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return  par2ItemStack.itemID == Diamerald.Diameraldgem.itemID;
-				
+		return par2ItemStack.itemID == Diamerald.Diameraldgem.itemID;
+
 	}
 
-	public String getArmorTexture(ItemStack par1, Entity entity, int slot, int layer) {
-		if (par1.itemID == Diamerald.Diameraldhelmet.itemID
-				|| par1.itemID == Diamerald.Diameraldplate.itemID
-				|| par1.itemID == Diamerald.Diameraldboots.itemID) {
-			return "diamerald:textures/models/armor/diamerald_layer_1.png";
-		}
-		if (par1.itemID == Diamerald.Diameraldlegs.itemID) {
-			return "diamerald:textures/models/armor/diamerald_layer_2.png";
-		}
+	public String getArmorTexture(ItemStack par1, Entity entity, int slot,
+			String type) 
+	{
 		return "diamerald:textures/models/armor/diamerald_layer_2.png";
 	}
 
