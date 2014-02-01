@@ -7,12 +7,12 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Diameraldore extends Block {
+public class oreDiamerald extends Block {
 
-	public Diameraldore(int i) {
+	public oreDiamerald(int i) {
 
 		super(Material.field_151576_e);
-		this.setHarvestLevel("pickaxe", 2);
+		this.setHarvestLevel("pickaxe", 3);
 		this.func_149647_a(Diamerald.tabDiamerald);
 		func_149711_c(5f).func_149752_b(10f);
 
@@ -21,7 +21,7 @@ public class Diameraldore extends Block {
 	@SideOnly(Side.CLIENT)
 	public void func_149651_a(IIconRegister p_149651_1_) {
 		this.field_149761_L = p_149651_1_
-				.registerIcon("Diamerald:Diameraldore");
+				.registerIcon("Diamerald:oreDiamerald");
 	}
 
 }

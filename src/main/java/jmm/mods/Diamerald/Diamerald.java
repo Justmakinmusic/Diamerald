@@ -1,7 +1,7 @@
 package jmm.mods.Diamerald;
 
 import jmm.mods.Diamerald.blocks.BlockDirtchest;
-import jmm.mods.Diamerald.blocks.Diameraldore;
+import jmm.mods.Diamerald.blocks.oreDiamerald;
 import jmm.mods.Diamerald.blocks.GSTorch;
 import jmm.mods.Diamerald.items.Diameraldaxe;
 import jmm.mods.Diamerald.items.Diameraldboots;
@@ -51,16 +51,16 @@ import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = "Diamerald", name = "Diamerald", version = "1.7.2_0")
+@Mod(modid = "Diamerald", name = "Diamerald", version = "1.7.2_1")
 
 public class Diamerald {
 
 	// Enum ToolMaterial//
 
 	public static ToolMaterial DIAMERALD = EnumHelper.addToolMaterial(
-			"DIAMERALD", 3, 2000, 12.0f, 6.0f, 10);
+			"DIAMERALD", 4, 2000, 12.0f, 6.0f, 10);
 	public static ToolMaterial BLACKDIAMERALD = EnumHelper.addToolMaterial(
-			"BLACKDIAMERALD", 3, 2500, 16.0f, 14.0f, 10);
+			"BLACKDIAMERALD", 4, 2500, 16.0f, 14.0f, 10);
 
 	// Enum ArmorMaterial//
 
@@ -77,6 +77,8 @@ public class Diamerald {
 		}
 
 	};
+	
+	
 
 	// Blocks and Items //
 
@@ -195,18 +197,9 @@ public class Diamerald {
 				Configuration.CATEGORY_GENERAL, 3862).getInt();
 
 		config.save();
-
-	}
-
-	// Load//
-
-	@EventHandler
-	public void load(FMLInitializationEvent event) {
-
-		proxy.registerRenderInformation();
-
-		oreDiamerald = (new Diameraldore(oreDiameraldID))
-				.func_149663_c("oreDiamerald");
+		
+		oreDiamerald = (new oreDiamerald(oreDiameraldID))
+				.func_149663_c("oreDiamerald").func_149658_d("Diameraldore");
 		GSTorch = (new GSTorch(GSTorchID)).func_149663_c("GSTorch");
 		Diameraldgem = (new Diameraldgem(DiameraldgemID)).setUnlocalizedName(
 				"Diameraldgem");
@@ -269,6 +262,15 @@ public class Diamerald {
 		GameRegistry.registerBlock(BlockDirtchest, "Dirtchest");
 		GameRegistry.registerTileEntity(TileEntityChestDC.class,
 				"TileEntityChestDC");
+
+	}
+
+	// Load//
+
+	@EventHandler
+	public void load(FMLInitializationEvent event) {
+
+		proxy.registerRenderInformation();
 
 		// Loot generation//
 
@@ -349,7 +351,7 @@ public class Diamerald {
 				new Object[] { Items.diamond, Items.emerald });
 		GameRegistry.addRecipe(new ItemStack(blackRoughgem, 1), new Object[] {
 						" I ", "IRI", " I ", 'R', Diamerald.Roughgem, 'I',
-						Items.dye, });
+						Items.dye });
 		GameRegistry.addRecipe(new ItemStack(BlockDirtchest, 1), new Object[] {
 				"AAA", "ACA", "AAA", 'A', Blocks.dirt, 'C', Blocks.chest });
 
