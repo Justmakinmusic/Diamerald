@@ -3,8 +3,8 @@ package jmm.mods.Diamerald;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 import jmm.mods.Diamerald.blocks.BlockDirtchest;
-import jmm.mods.Diamerald.blocks.Diameraldore;
 import jmm.mods.Diamerald.blocks.GSTorch;
+import jmm.mods.Diamerald.blocks.oreDiamerald;
 import jmm.mods.Diamerald.items.Diameraldaxe;
 import jmm.mods.Diamerald.items.Diameraldboots;
 import jmm.mods.Diamerald.items.Diameraldbow;
@@ -61,9 +61,9 @@ public class Diamerald {
 	// Enum ToolMaterial//
 
 	public static EnumToolMaterial DIAMERALD = EnumHelper.addToolMaterial(
-			"DIAMERALD", 3, 2000, 12.0f, 6.0f, 10);
+			"DIAMERALD", 4, 2000, 12.0f, 6.0f, 10);
 	public static EnumToolMaterial BLACKDIAMERALD = EnumHelper.addToolMaterial(
-			"BLACKDIAMERALD", 3, 2500, 16.0f, 14.0f, 10);
+			"BLACKDIAMERALD", 4, 2500, 16.0f, 14.0f, 10);
 
 	// Enum ArmorMaterial//
 
@@ -207,9 +207,9 @@ public class Diamerald {
 
 		proxy.registerRenderInformation();
 
-		oreDiamerald = (new Diameraldore(oreDiameraldID))
+		oreDiamerald = (new oreDiamerald(oreDiameraldID))
 				.setUnlocalizedName("oreDiamerald");
-		MinecraftForge.setBlockHarvestLevel(oreDiamerald, "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(oreDiamerald, "pickaxe", 3);
 		GSTorch = (new GSTorch(GSTorchID, Material.glass))
 				.setUnlocalizedName("GStorch").setHardness(0.0f)
 				.setLightValue(1.0f);
