@@ -41,7 +41,7 @@ public class blackDiameraldhelmet extends ItemArmor {
 
 	public String getArmorTexture(ItemStack par1, Entity entity, int slot,
 			String type) {
-		return "diamerald:textures/models/armor/blackdiamerald_layer_1.png";
+		return  "diamerald:textures/models/armor/blackdiamerald_layer_1.png";
 	}
 
 }

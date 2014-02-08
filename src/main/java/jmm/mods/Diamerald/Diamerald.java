@@ -27,6 +27,7 @@ import jmm.mods.Diamerald.items.blackRoughgem;
 import jmm.mods.Diamerald.proxy.DiameraldProxy;
 import jmm.mods.Diamerald.tedc.TileEntityChestDC;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -107,32 +108,6 @@ public class Diamerald {
 	public static Item Emeralddust;
 	public static Item berylSlag;
 
-	// Config intIDs//
-
-	public int oreDiameraldID;
-	public int GSTorchID;
-	public int RoughgemID;
-	public int DiameraldgemID;
-	public int DiameraldswordID;
-	public int DiameraldpickaxeID;
-	public int DiameraldaxeID;
-	public int DiameraldshovelID;
-	public int DiameraldhoeID;
-	public int DiameraldbowID;
-	public int DiameraldhelmetID;
-	public int DiameraldplateID;
-	public int DiameraldlegsID;
-	public int DiameraldbootsID;
-	public int DirtchestID;
-	public int blackRoughgemID;
-	public int blackDiameraldgemID;
-	public int blackDiameraldswordID;
-	public int blackDiameraldpickaxeID;
-	public int blackDiameraldhelmetID;
-	public int DiameralddustID;
-	public int EmeralddustTinyID;
-	public int EmeralddustID;
-	public int berylSlagID;
 
 	// Proxy and Preload//
 
@@ -142,68 +117,14 @@ public class Diamerald {
 	@EventHandler
 	public void PreLoad(FMLPreInitializationEvent event) {
 
-		Configuration config = new Configuration(
-				event.getSuggestedConfigurationFile());
-
-		config.load();
-
-		oreDiameraldID = config.get("oreDiamerald ID",
-				Configuration.CATEGORY_GENERAL, 500).getInt();
-		GSTorchID = config.get("GSTorch ID", Configuration.CATEGORY_GENERAL,
-				512).getInt();
-		RoughgemID = config.get("Roughgem ID", Configuration.CATEGORY_GENERAL,
-				3852).getInt();
-		DiameraldgemID = config.get("Diameraldgem ID",
-				Configuration.CATEGORY_GENERAL, 3841).getInt();
-		DiameraldswordID = config.get("Diameraldsword ID",
-				Configuration.CATEGORY_GENERAL, 3842).getInt();
-		DiameraldpickaxeID = config.get("Diameraldpickaxe ID",
-				Configuration.CATEGORY_GENERAL, 3843).getInt();
-		DiameraldaxeID = config.get("Diameraldaxe ID",
-				Configuration.CATEGORY_GENERAL, 3844).getInt();
-		DiameraldshovelID = config.get("Diameraldshovel ID",
-				Configuration.CATEGORY_GENERAL, 3845).getInt();
-		DiameraldhoeID = config.get("Diameraldhoe ID",
-				Configuration.CATEGORY_GENERAL, 3846).getInt();
-		DiameraldbowID = config.get("Diameraldbow ID",
-				Configuration.CATEGORY_GENERAL, 3851).getInt();
-		DiameraldhelmetID = config.get("Diameraldhelmet ID",
-				Configuration.CATEGORY_GENERAL, 3847).getInt();
-		DiameraldplateID = config.get("Diameraldplate ID",
-				Configuration.CATEGORY_GENERAL, 3848).getInt();
-		DiameraldlegsID = config.get("Diameraldlegs ID",
-				Configuration.CATEGORY_GENERAL, 3849).getInt();
-		DiameraldbootsID = config.get("Diameraldboots ID",
-				Configuration.CATEGORY_GENERAL, 3850).getInt();
-		DirtchestID = config.get("Dirtchest ID",
-				Configuration.CATEGORY_GENERAL, 513).getInt();
-		blackRoughgemID = config.get("blackRoughgem ID",
-				Configuration.CATEGORY_GENERAL, 3853).getInt();
-		blackDiameraldgemID = config.get("blackDiameraldgem ID",
-				Configuration.CATEGORY_GENERAL, 3854).getInt();
-		blackDiameraldswordID = config.get("blackDiameraldsword ID",
-				Configuration.CATEGORY_GENERAL, 3855).getInt();
-		blackDiameraldpickaxeID = config.get("blackDiameraldpickaxe ID",
-				Configuration.CATEGORY_GENERAL, 3856).getInt();
-		blackDiameraldhelmetID = config.get("blackDiameraldhelmet ID",
-				Configuration.CATEGORY_GENERAL, 3857).getInt();
-		DiameralddustID = config.get("Diameralddust ID",
-				Configuration.CATEGORY_GENERAL, 3859).getInt();
-		EmeralddustTinyID = config.get("EmeralddustTiny ID",
-				Configuration.CATEGORY_GENERAL, 3860).getInt();
-		EmeralddustID = config.get("Emeralddust ID",
-				Configuration.CATEGORY_GENERAL, 3861).getInt();
-		berylSlagID = config.get("berylSlag ID",
-				Configuration.CATEGORY_GENERAL, 3862).getInt();
-
-		config.save();
+	    //Init Blocks and Items//
 		
-		oreDiamerald = (new oreDiamerald(oreDiameraldID))
-				.func_149663_c("oreDiamerald").func_149658_d("Diameraldore");
-		GSTorch = (new GSTorch(GSTorchID)).func_149663_c("GSTorch");
-		Diameraldgem = (new Diameraldgem(DiameraldgemID)).setUnlocalizedName(
+		oreDiamerald = new oreDiamerald()
+				.setBlockName("oreDiamerald").setBlockTextureName("oreDiamerald");
+		GSTorch = new GSTorch(Material.glass).setBlockName("GSTorch").setBlockTextureName("GStorch");
+		Diameraldgem = new Diameraldgem().setUnlocalizedName(
 				"Diameraldgem");
-		Roughgem = (new Roughgem(RoughgemID)).setUnlocalizedName("Roughgem");
+		Roughgem = new Roughgem().setUnlocalizedName("Roughgem");
 		Diameraldsword = (new Diameraldsword(DIAMERALD))
 				.setUnlocalizedName("Diameraldsword");
 		Diameraldpickaxe = (new Diameraldpickaxe(DIAMERALD))
@@ -224,11 +145,11 @@ public class Diamerald {
 				.setUnlocalizedName("Diameraldlegs"));
 		Diameraldboots = (new Diameraldboots(diamerald, 3, 3)
 				.setUnlocalizedName("Diameraldboots"));
-		BlockDirtchest = (new BlockDirtchest(DirtchestID, 0))
-				.func_149663_c("Dirtchest");
-		blackDiameraldgem = (new blackDiameraldgem(blackDiameraldgemID))
+		BlockDirtchest = new BlockDirtchest(0, Material.ground)
+				.setBlockName("Dirtchest").setBlockTextureName("dirt");
+		blackDiameraldgem = new blackDiameraldgem()
 				.setUnlocalizedName("blackDiameraldgem");
-		blackRoughgem = (new blackRoughgem(blackRoughgemID))
+		blackRoughgem = new blackRoughgem()
 				.setUnlocalizedName("blackRoughgem");
 		blackDiameraldsword = (new blackDiameraldsword(BLACKDIAMERALD))
 				.setUnlocalizedName("blackDiameraldsword");
@@ -237,7 +158,7 @@ public class Diamerald {
 		blackDiameraldhelmet = (new blackDiameraldhelmet(blackdiamerald, 3, 0)
 				.setUnlocalizedName("blackDiameraldhelmet"));
 
-		// Registering things//
+		// Registering Blocks and Items //
 
 		GameRegistry.registerWorldGenerator(new WorldGeneratorDiamerald(), 1);
 		GameRegistry.registerBlock(oreDiamerald, "oreDiamerald");
@@ -258,7 +179,7 @@ public class Diamerald {
 		GameRegistry.registerItem(Diameraldlegs, "Diameraldlegs");
 		GameRegistry.registerItem(Diameraldboots, "Diameraldboots");
 		GameRegistry.registerItem(Diameraldbow, "Diameraldbow");
-		GameRegistry.registerBlock(GSTorch, "Glowstone Torch");
+		GameRegistry.registerBlock(GSTorch, "GSTorch");
 		GameRegistry.registerBlock(BlockDirtchest, "Dirtchest");
 		GameRegistry.registerTileEntity(TileEntityChestDC.class,
 				"TileEntityChestDC");
@@ -355,7 +276,7 @@ public class Diamerald {
 		GameRegistry.addRecipe(new ItemStack(BlockDirtchest, 1), new Object[] {
 				"AAA", "ACA", "AAA", 'A', Blocks.dirt, 'C', Blocks.chest });
 
-		// Recipes for other IC2//
+		// Recipes for IC2//
 
 		/*
 		 * if (Loader.isModLoaded("IC2")) {
@@ -373,17 +294,18 @@ public class Diamerald {
 		 * 
 		 * }
 		 */
+		
 		// Recipes for ThermalExpansion//
 
 		if (Loader.isModLoaded("ThermalExpansion")) {
 
-			Diameralddust = (new Diameralddust(DiameralddustID))
+			Diameralddust = new Diameralddust()
 					.setUnlocalizedName("Diameralddust");
-			EmeralddustTiny = (new EmeralddustTiny(EmeralddustTinyID))
+			EmeralddustTiny = new EmeralddustTiny()
 					.setUnlocalizedName("EmeralddustTiny");
-			Emeralddust = (new Emeralddust(EmeralddustID))
+			Emeralddust = new Emeralddust()
 					.setUnlocalizedName("Emeralddust");
-			berylSlag = (new berylSlag(berylSlagID))
+			berylSlag = new berylSlag()
 					.setUnlocalizedName("berylSlag");
 			GameRegistry.addRecipe(new ItemStack(Emeralddust, 1), new Object[] {
 					"EE", "EE", 'E', Diamerald.EmeralddustTiny });

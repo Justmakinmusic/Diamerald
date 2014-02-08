@@ -33,12 +33,12 @@ public class BlockDirtchest extends BlockContainer {
 	private final Random random = new Random();
 	public final int field_149956_a;
 
-	public BlockDirtchest(int par1, int par2) {
-		super(Material.field_151578_c);
-		this.field_149956_a = par2;
-		func_149647_a(Diamerald.tabDiamerald);
-		func_149711_c(2.5f);
-		func_149752_b(5.0f);
+	public BlockDirtchest(int i, Material material) {
+		super(material);
+		this.field_149956_a = i;
+		setCreativeTab(Diamerald.tabDiamerald);
+		setHardness(2.5f);
+		setResistance(5.0f);
 
 	}
 
@@ -54,16 +54,16 @@ public class BlockDirtchest extends BlockContainer {
 
 	public void onBlockAdded(World p_149726_1_, int p_149726_2_,
 			int p_149726_3_, int p_149726_4_) {
-		super.func_149726_b(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
+		super.onBlockAdded(p_149726_1_, p_149726_2_, p_149726_3_, p_149726_4_);
 		this.unifyAdjacentDirtchests(p_149726_1_, p_149726_2_, p_149726_3_,
 				p_149726_4_);
-		Block block = p_149726_1_.func_147439_a(p_149726_2_, p_149726_3_,
+		Block block = p_149726_1_.getBlock(p_149726_2_, p_149726_3_,
 				p_149726_4_ - 1);
-		Block block1 = p_149726_1_.func_147439_a(p_149726_2_, p_149726_3_,
+		Block block1 = p_149726_1_.getBlock(p_149726_2_, p_149726_3_,
 				p_149726_4_ + 1);
-		Block block2 = p_149726_1_.func_147439_a(p_149726_2_ - 1, p_149726_3_,
+		Block block2 = p_149726_1_.getBlock(p_149726_2_ - 1, p_149726_3_,
 				p_149726_4_);
-		Block block3 = p_149726_1_.func_147439_a(p_149726_2_ + 1, p_149726_3_,
+		Block block3 = p_149726_1_.getBlock(p_149726_2_ + 1, p_149726_3_,
 				p_149726_4_);
 
 		if (block == this) {
@@ -87,16 +87,16 @@ public class BlockDirtchest extends BlockContainer {
 		}
 	}
 
-	public void func_149689_a(World p_149689_1_, int p_149689_2_,
+	public void onBlockPlacedBy(World p_149689_1_, int p_149689_2_,
 			int p_149689_3_, int p_149689_4_, EntityLivingBase p_149689_5_,
 			ItemStack p_149689_6_) {
-		Block block = p_149689_1_.func_147439_a(p_149689_2_, p_149689_3_,
+		Block block = p_149689_1_.getBlock(p_149689_2_, p_149689_3_,
 				p_149689_4_ - 1);
-		Block block1 = p_149689_1_.func_147439_a(p_149689_2_, p_149689_3_,
+		Block block1 = p_149689_1_.getBlock(p_149689_2_, p_149689_3_,
 				p_149689_4_ + 1);
-		Block block2 = p_149689_1_.func_147439_a(p_149689_2_ - 1, p_149689_3_,
+		Block block2 = p_149689_1_.getBlock(p_149689_2_ - 1, p_149689_3_,
 				p_149689_4_);
-		Block block3 = p_149689_1_.func_147439_a(p_149689_2_ + 1, p_149689_3_,
+		Block block3 = p_149689_1_.getBlock(p_149689_2_ + 1, p_149689_3_,
 				p_149689_4_);
 		byte b0 = 0;
 		int l = MathHelper
@@ -150,7 +150,7 @@ public class BlockDirtchest extends BlockContainer {
 		}
 
 		if (p_149689_6_.hasDisplayName()) {
-			((TileEntityChestDC) p_149689_1_.func_147438_o(p_149689_2_,
+			((TileEntityChestDC) p_149689_1_.getTileEntity(p_149689_2_,
 					p_149689_3_, p_149689_4_)).func_145976_a(p_149689_6_
 					.getDisplayName());
 		}
@@ -159,13 +159,13 @@ public class BlockDirtchest extends BlockContainer {
 	public void unifyAdjacentDirtchests(World p_149954_1_, int p_149954_2_,
 			int p_149954_3_, int p_149954_4_) {
 		if (!p_149954_1_.isRemote) {
-			Block block = p_149954_1_.func_147439_a(p_149954_2_, p_149954_3_,
+			Block block = p_149954_1_.getBlock(p_149954_2_, p_149954_3_,
 					p_149954_4_ - 1);
-			Block block1 = p_149954_1_.func_147439_a(p_149954_2_, p_149954_3_,
+			Block block1 = p_149954_1_.getBlock(p_149954_2_, p_149954_3_,
 					p_149954_4_ + 1);
-			Block block2 = p_149954_1_.func_147439_a(p_149954_2_ - 1,
+			Block block2 = p_149954_1_.getBlock(p_149954_2_ - 1,
 					p_149954_3_, p_149954_4_);
-			Block block3 = p_149954_1_.func_147439_a(p_149954_2_ + 1,
+			Block block3 = p_149954_1_.getBlock(p_149954_2_ + 1,
 					p_149954_3_, p_149954_4_);
 			boolean flag = true;
 			int l;
@@ -197,10 +197,10 @@ public class BlockDirtchest extends BlockContainer {
 					}
 				} else {
 					l = block2 == this ? p_149954_2_ - 1 : p_149954_2_ + 1;
-					block4 = p_149954_1_.func_147439_a(l, p_149954_3_,
+					block4 = p_149954_1_.getBlock(l, p_149954_3_,
 							p_149954_4_ - 1);
 					i1 = block2 == this ? p_149954_2_ - 1 : p_149954_2_ + 1;
-					block5 = p_149954_1_.func_147439_a(i1, p_149954_3_,
+					block5 = p_149954_1_.getBlock(i1, p_149954_3_,
 							p_149954_4_ + 1);
 					b0 = 3;
 					flag1 = true;
@@ -231,10 +231,10 @@ public class BlockDirtchest extends BlockContainer {
 				}
 			} else {
 				l = block == this ? p_149954_4_ - 1 : p_149954_4_ + 1;
-				block4 = p_149954_1_.func_147439_a(p_149954_2_ - 1,
+				block4 = p_149954_1_.getBlock(p_149954_2_ - 1,
 						p_149954_3_, l);
 				i1 = block == this ? p_149954_4_ - 1 : p_149954_4_ + 1;
-				block5 = p_149954_1_.func_147439_a(p_149954_2_ + 1,
+				block5 = p_149954_1_.getBlock(p_149954_2_ + 1,
 						p_149954_3_, i1);
 				b0 = 5;
 				flag1 = true;
@@ -272,22 +272,22 @@ public class BlockDirtchest extends BlockContainer {
 		int l = 0;
 
 		if (p_149742_1_
-				.func_147439_a(p_149742_2_ - 1, p_149742_3_, p_149742_4_) == this) {
+				.getBlock(p_149742_2_ - 1, p_149742_3_, p_149742_4_) == this) {
 			++l;
 		}
 
 		if (p_149742_1_
-				.func_147439_a(p_149742_2_ + 1, p_149742_3_, p_149742_4_) == this) {
+				.getBlock(p_149742_2_ + 1, p_149742_3_, p_149742_4_) == this) {
 			++l;
 		}
 
 		if (p_149742_1_
-				.func_147439_a(p_149742_2_, p_149742_3_, p_149742_4_ - 1) == this) {
+				.getBlock(p_149742_2_, p_149742_3_, p_149742_4_ - 1) == this) {
 			++l;
 		}
 
 		if (p_149742_1_
-				.func_147439_a(p_149742_2_, p_149742_3_, p_149742_4_ + 1) == this) {
+				.getBlock(p_149742_2_, p_149742_3_, p_149742_4_ + 1) == this) {
 			++l;
 		}
 
@@ -303,33 +303,33 @@ public class BlockDirtchest extends BlockContainer {
 
 	private boolean isThereANeighborDirtchest(World p_149952_1_,
 			int p_149952_2_, int p_149952_3_, int p_149952_4_) {
-		return p_149952_1_.func_147439_a(p_149952_2_, p_149952_3_, p_149952_4_) != this ? false
-				: (p_149952_1_.func_147439_a(p_149952_2_ - 1, p_149952_3_,
+		return p_149952_1_.getBlock(p_149952_2_, p_149952_3_, p_149952_4_) != this ? false
+				: (p_149952_1_.getBlock(p_149952_2_ - 1, p_149952_3_,
 						p_149952_4_) == this ? true : (p_149952_1_
-						.func_147439_a(p_149952_2_ + 1, p_149952_3_,
+						.getBlock(p_149952_2_ + 1, p_149952_3_,
 								p_149952_4_) == this ? true : (p_149952_1_
-						.func_147439_a(p_149952_2_, p_149952_3_,
+						.getBlock(p_149952_2_, p_149952_3_,
 								p_149952_4_ - 1) == this ? true : p_149952_1_
-						.func_147439_a(p_149952_2_, p_149952_3_,
+						.getBlock(p_149952_2_, p_149952_3_,
 								p_149952_4_ + 1) == this)));
 	}
 
-	public void func_149695_a(World p_149695_1_, int p_149695_2_,
+	public void onNeighborBlockChange(World p_149695_1_, int p_149695_2_,
 			int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
-		super.func_149695_a(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_,
+		super.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_,
 				p_149695_5_);
 		TileEntityChestDC tileentitychestdc = (TileEntityChestDC) p_149695_1_
-				.func_147438_o(p_149695_2_, p_149695_3_, p_149695_4_);
+				.getTileEntity(p_149695_2_, p_149695_3_, p_149695_4_);
 
 		if (tileentitychestdc != null) {
-			tileentitychestdc.func_145836_u();
+			tileentitychestdc.updateContainingBlockInfo();
 		}
 	}
 
-	public void func_149749_a(World p_149749_1_, int p_149749_2_, int p_149749_3_,
+	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_,
 			int p_149749_4_, Block p_149749_5_, int p_149749_6_) {
 		TileEntityChestDC tileentitychestdc = (TileEntityChestDC) p_149749_1_
-				.func_147438_o(p_149749_2_, p_149749_3_, p_149749_4_);
+				.getTileEntity(p_149749_2_, p_149749_3_, p_149749_4_);
 
 		if (tileentitychestdc != null) {
 			for (int j1 = 0; j1 < tileentitychestdc.getSizeInventory(); ++j1) {
@@ -373,11 +373,11 @@ public class BlockDirtchest extends BlockContainer {
 			}
 		}
 
-		super.func_149749_a(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_,
+		super.breakBlock(p_149749_1_, p_149749_2_, p_149749_3_, p_149749_4_,
 				p_149749_5_, p_149749_6_);
 	}
 
-	 public boolean func_149727_a(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+	 public boolean onBlockActivated(World p_149727_1_, int p_149727_2_, int p_149727_3_, int p_149727_4_, EntityPlayer p_149727_5_, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
 	    {
 	        if (p_149727_1_.isRemote)
 	        {
@@ -397,7 +397,7 @@ public class BlockDirtchest extends BlockContainer {
 	}
 
 	public IInventory func_149951_m(World p_149951_1_, int p_149951_2_, int p_149951_3_, int p_149951_4_) {
-		Object object = (TileEntityChestDC) p_149951_1_.func_147438_o(p_149951_2_, p_149951_3_, p_149951_4_);
+		Object object = (TileEntityChestDC) p_149951_1_.getTileEntity(p_149951_2_, p_149951_3_, p_149951_4_);
 
 		if (object == null) {
 			return null;
@@ -405,71 +405,51 @@ public class BlockDirtchest extends BlockContainer {
 			return null;
 		} else if (isOcelotBlockingDirtchest(p_149951_1_, p_149951_2_, p_149951_3_, p_149951_4_)) {
 			return null;
-		} else if (p_149951_1_.func_147439_a(p_149951_2_ - 1, p_149951_3_, p_149951_4_) == this && (p_149951_1_.isSideSolid(p_149951_2_ - 1, p_149951_3_ + 1, p_149951_4_, DOWN) || isOcelotBlockingDirtchest(
+		} else if (p_149951_1_.getBlock(p_149951_2_ - 1, p_149951_3_, p_149951_4_) == this && (p_149951_1_.isSideSolid(p_149951_2_ - 1, p_149951_3_ + 1, p_149951_4_, DOWN) || isOcelotBlockingDirtchest(
 				p_149951_1_, p_149951_2_ - 1, p_149951_3_, p_149951_4_))) {
 			return null;
-		} else if (p_149951_1_.func_147439_a(p_149951_2_ + 1, p_149951_3_, p_149951_4_) == this && (p_149951_1_.isSideSolid(p_149951_2_ + 1, p_149951_3_ + 1, p_149951_4_, DOWN) || isOcelotBlockingDirtchest(
+		} else if (p_149951_1_.getBlock(p_149951_2_ + 1, p_149951_3_, p_149951_4_) == this && (p_149951_1_.isSideSolid(p_149951_2_ + 1, p_149951_3_ + 1, p_149951_4_, DOWN) || isOcelotBlockingDirtchest(
 				p_149951_1_, p_149951_2_ + 1, p_149951_3_, p_149951_4_))) {
 			return null;
-		} else if (p_149951_1_.func_147439_a(p_149951_2_, p_149951_3_, p_149951_4_ - 1) == this && (p_149951_1_.isSideSolid(p_149951_2_, p_149951_3_ + 1, p_149951_4_ - 1, DOWN) || isOcelotBlockingDirtchest(
+		} else if (p_149951_1_.getBlock(p_149951_2_, p_149951_3_, p_149951_4_ - 1) == this && (p_149951_1_.isSideSolid(p_149951_2_, p_149951_3_ + 1, p_149951_4_ - 1, DOWN) || isOcelotBlockingDirtchest(
 				p_149951_1_, p_149951_2_, p_149951_3_, p_149951_4_ - 1))) {
 			return null;
-		} else if (p_149951_1_.func_147439_a(p_149951_2_, p_149951_3_, p_149951_4_ + 1) == this && (p_149951_1_.isSideSolid(p_149951_2_, p_149951_3_ + 1, p_149951_4_ + 1, DOWN) || isOcelotBlockingDirtchest(
+		} else if (p_149951_1_.getBlock(p_149951_2_, p_149951_3_, p_149951_4_ + 1) == this && (p_149951_1_.isSideSolid(p_149951_2_, p_149951_3_ + 1, p_149951_4_ + 1, DOWN) || isOcelotBlockingDirtchest(
 						p_149951_1_, p_149951_2_, p_149951_3_, p_149951_4_ + 1))) {
 			return null;
 		} else {
-			if (p_149951_1_.func_147439_a(p_149951_2_ - 1, p_149951_3_, p_149951_4_) == this) {
+			if (p_149951_1_.getBlock(p_149951_2_ - 1, p_149951_3_, p_149951_4_) == this) {
 				object = new InventoryLargeChest("Large Dirtchest",
-						(TileEntityChestDC) p_149951_1_.func_147438_o(p_149951_2_ - 1, p_149951_3_, p_149951_4_), (IInventory)object);
+						(TileEntityChestDC) p_149951_1_.getTileEntity(p_149951_2_ - 1, p_149951_3_, p_149951_4_), (IInventory)object);
 			}
 
-			if (p_149951_1_.func_147439_a(p_149951_2_ + 1, p_149951_3_, p_149951_4_) == this) {
+			if (p_149951_1_.getBlock(p_149951_2_ + 1, p_149951_3_, p_149951_4_) == this) {
 				object = new InventoryLargeChest("Large Dirtchest",
 						(IInventory) object,
-						(TileEntityChestDC) p_149951_1_.func_147438_o(p_149951_2_ + 1, p_149951_3_, p_149951_4_));
+						(TileEntityChestDC) p_149951_1_.getTileEntity(p_149951_2_ + 1, p_149951_3_, p_149951_4_));
 			}
 
-			if (p_149951_1_.func_147439_a(p_149951_2_, p_149951_3_, p_149951_4_ - 1) == this) {
+			if (p_149951_1_.getBlock(p_149951_2_, p_149951_3_, p_149951_4_ - 1) == this) {
 				object = new InventoryLargeChest("Large Dirtchest",
-						(TileEntityChestDC) p_149951_1_.func_147438_o(p_149951_2_, p_149951_3_, p_149951_4_ - 1), (IInventory) object);
+						(TileEntityChestDC) p_149951_1_.getTileEntity(p_149951_2_, p_149951_3_, p_149951_4_ - 1), (IInventory) object);
 			}
 
-			if (p_149951_1_.func_147439_a(p_149951_2_, p_149951_3_, p_149951_4_ + 1) == this) {
+			if (p_149951_1_.getBlock(p_149951_2_, p_149951_3_, p_149951_4_ + 1) == this) {
 				object = new InventoryLargeChest("Large Dirtchest",
 						(IInventory) object,
-						(TileEntityChestDC) p_149951_1_.func_147438_o(p_149951_2_, p_149951_3_, p_149951_4_ + 1));
+						(TileEntityChestDC) p_149951_1_.getTileEntity(p_149951_2_, p_149951_3_, p_149951_4_ + 1));
 			}
 
 			return (IInventory) object;
 		}
 	}
 
-	 public TileEntity func_149915_a(World p_149915_1_, int p_149915_2_)
+	 public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	    {
 	        TileEntityChestDC tileentitychestdc = new TileEntityChestDC();
 	        return tileentitychestdc;
 	    }
 
-	public boolean canProvidePower() {
-		return this.field_149956_a == 1;
-	}
-
-	public int func_149709_b(IBlockAccess p_149709_1_, int p_149709_2_,
-			int p_149709_3_, int p_149709_4_, int p_149709_5_) {
-		if (!this.func_149744_f()) {
-			return 0;
-		} else {
-			int i1 = ((TileEntityChestDC) p_149709_1_.func_147438_o(
-					p_149709_2_, p_149709_3_, p_149709_4_)).field_145987_o;
-			return MathHelper.clamp_int(i1, 0, 15);
-		}
-	}
-
-	public int func_149748_c(IBlockAccess p_149748_1_, int p_149748_2_,
-			int p_149748_3_, int p_149748_4_, int p_149748_5_) {
-		return p_149748_5_ == 1 ? this.func_149709_b(p_149748_1_, p_149748_2_,
-				p_149748_3_, p_149748_4_, p_149748_5_) : 0;
-	}
 
 	public static boolean isOcelotBlockingDirtchest(World par0World, int par1,
 			int par2, int par3) {
@@ -504,8 +484,8 @@ public class BlockDirtchest extends BlockContainer {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void func_149651_a(IIconRegister par1IconRegister) {
-		this.field_149761_L = par1IconRegister.registerIcon("dirt");
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon("dirt");
 
 	}
 

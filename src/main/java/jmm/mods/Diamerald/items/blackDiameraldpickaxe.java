@@ -29,7 +29,7 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 		par1ItemStack.addEnchantment(Enchantment.fortune, 3);
 	}
 
-	public boolean func_150894_a(ItemStack p_150894_1_, World p_150894_2_,
+	public boolean onBlockDestroyed(ItemStack p_150894_1_, World p_150894_2_,
 			Block p_150894_3_, int p_150894_4_, int p_150894_5_,
 			int p_150894_6_, EntityLivingBase p_150894_7_) {
 		int direction = MathHelper
@@ -41,7 +41,7 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 			for (int j = -1; j < 2; j++) {
 				for (int k = -1; k < 2; k++) {
 					if (offsetY[dir] == 0) {
-						Block blockToTest = p_150894_2_.func_147439_a(
+						Block blockToTest = p_150894_2_.getBlock(
 								p_150894_4_ + k + Direction.offsetX[direction],
 								p_150894_5_ + i, p_150894_6_ + j
 										+ Direction.offsetZ[direction]);
@@ -54,7 +54,7 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 									+ Direction.offsetZ[direction], true);
 					} else {
 						Block blockToTest = p_150894_2_
-								.func_147439_a(p_150894_4_ + k, p_150894_5_ + i
+								.getBlock(p_150894_4_ + k, p_150894_5_ + i
 										+ offsetY[dir], p_150894_6_ + j);
 						if (blockToTest != null
 								&& blockToTest != Blocks.bedrock

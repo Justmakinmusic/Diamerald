@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Roughgem extends Item {
 
-	public Roughgem(int i){
+	public Roughgem(){
 		super();
 		maxStackSize=64;
 		this.setCreativeTab(Diamerald.tabDiamerald);

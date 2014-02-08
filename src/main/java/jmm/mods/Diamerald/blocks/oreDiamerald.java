@@ -9,18 +9,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class oreDiamerald extends Block {
 
-	public oreDiamerald(int i) {
+	public oreDiamerald() {
 
-		super(Material.field_151576_e);
+		super(Material.rock);
 		this.setHarvestLevel("pickaxe", 3);
-		this.func_149647_a(Diamerald.tabDiamerald);
-		func_149711_c(5f).func_149752_b(10f);
+		this.setCreativeTab(Diamerald.tabDiamerald);
+		setHardness(5f).setResistance(10f);
 
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void func_149651_a(IIconRegister p_149651_1_) {
-		this.field_149761_L = p_149651_1_
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister
 				.registerIcon("Diamerald:oreDiamerald");
 	}
 

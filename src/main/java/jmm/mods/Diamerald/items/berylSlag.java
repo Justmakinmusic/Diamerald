@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class berylSlag extends Item {
 
-	public berylSlag(int i) {
+	public berylSlag() {
 		super();
 		maxStackSize = 64;
 		this.setCreativeTab(Diamerald.tabDiamerald);

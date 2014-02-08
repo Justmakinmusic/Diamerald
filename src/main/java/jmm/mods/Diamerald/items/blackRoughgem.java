@@ -9,7 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class blackRoughgem extends Item {
 	
 	
-	public blackRoughgem(int i){
+	public blackRoughgem(){
 		super();
 		maxStackSize=64;
 		this.setCreativeTab(Diamerald.tabDiamerald);

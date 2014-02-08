@@ -8,7 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Emeralddust extends Item {
 	
-	public Emeralddust(int i){
+	public Emeralddust(){
 		super();
 		maxStackSize=64;
 		this.setCreativeTab(Diamerald.tabDiamerald);
