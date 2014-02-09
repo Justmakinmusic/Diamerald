@@ -46,19 +46,16 @@ public class Diameraldhoe extends ItemHoe {
 			}
 			for (int i = -2; i < 3; i++) {
 				for (int j = -2; j < 3; j++) {
-					Block block = par3World.getBlock(par4 + j, par5, par6
-							+ i);
-//					Block block1 = par3World.func_147439_a(par4 + j, par5 + 1,
-//							par6 + i);
+					Block block = par3World.getBlock(par4 + j, par5, par6+ i);
+					boolean block1 = par3World.isAirBlock(par4 + j, par5 + 1,par6 + i);
 
-					if (!((par7 == 0 || par3World.getBlock(par4 + j, par5 + 1, par6 + i).isAir(par3World, par4 + j, par5 + 1, par6
-									+ i) && block != Blocks.grass) && block != Blocks.dirt)) {
+					if (!((par7 == 0 || block1 != true || block != Blocks.grass) && block != Blocks.dirt)) {
 						Block block2 = Blocks.farmland;
 						par3World.playSoundEffect(
 										(double) ((float) par4 + j + 0.5F),
 										(double) ((float) par5 + 0.5F),
 										(double) ((float) par6 + j + 0.5F),
-										block2.stepSound.func_150496_b(),
+										block2.stepSound.getStepResourcePath(),
 										(block2.stepSound.getVolume() + 1.0F) / 2.0F,
 										block2.stepSound.getPitch() * 0.8F);
 						if (!par3World.isRemote) {
