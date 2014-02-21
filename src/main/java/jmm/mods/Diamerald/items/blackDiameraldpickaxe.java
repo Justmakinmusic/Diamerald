@@ -19,7 +19,6 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 
 	public blackDiameraldpickaxe(ToolMaterial par2ToolMaterial) {
 		super(par2ToolMaterial);
-		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	public void onCreated(ItemStack par1ItemStack, World par2World,
@@ -29,38 +28,38 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 		par1ItemStack.addEnchantment(Enchantment.fortune, 3);
 	}
 
-	public boolean onBlockDestroyed(ItemStack p_150894_1_, World p_150894_2_,
-			Block p_150894_3_, int p_150894_4_, int p_150894_5_,
-			int p_150894_6_, EntityLivingBase p_150894_7_) {
+	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World,
+			Block par3Block, int par4, int par5,
+			int par6, EntityLivingBase par7EntityLivingBase) {
 		int direction = MathHelper
-				.floor_double((double) ((p_150894_7_.rotationYaw * 4F) / 360F) + 0.5D) & 3;
+				.floor_double((double) ((par7EntityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 		int dir = MathHelper
-				.floor_double((double) ((p_150894_7_.rotationPitch * 4F) / 360F) + 0.5D) & 3;
+				.floor_double((double) ((par7EntityLivingBase.rotationPitch * 4F) / 360F) + 0.5D) & 3;
 		int[] offsetY = new int[] { 0, -1, 0, 1 };
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
 				for (int k = -1; k < 2; k++) {
 					if (offsetY[dir] == 0) {
-						Block blockToTest = p_150894_2_.getBlock(
-								p_150894_4_ + k + Direction.offsetX[direction],
-								p_150894_5_ + i, p_150894_6_ + j
+						Block blockToTest = par2World.getBlock(
+								par4 + k + Direction.offsetX[direction],
+								par5 + i, par6 + j
 										+ Direction.offsetZ[direction]);
 						if (blockToTest != null
 								&& blockToTest != Blocks.bedrock
 								&& func_150897_b(blockToTest))
-							p_150894_2_.func_147480_a(p_150894_4_ + k
-									+ Direction.offsetX[direction], p_150894_5_
-									+ i, p_150894_6_ + j
+							par2World.func_147480_a(par4 + k
+									+ Direction.offsetX[direction], par5
+									+ i, par6 + j
 									+ Direction.offsetZ[direction], true);
 					} else {
-						Block blockToTest = p_150894_2_
-								.getBlock(p_150894_4_ + k, p_150894_5_ + i
-										+ offsetY[dir], p_150894_6_ + j);
+						Block blockToTest = par2World
+								.getBlock(par4 + k, par5 + i
+										+ offsetY[dir], par6 + j);
 						if (blockToTest != null
 								&& blockToTest != Blocks.bedrock
 								&& func_150897_b(blockToTest))
-							p_150894_2_.func_147480_a(p_150894_4_ + k,
-									p_150894_5_ + i + offsetY[dir], p_150894_6_
+							par2World.func_147480_a(par4 + k,
+									par5 + i + offsetY[dir], par6
 											+ j, true);
 					}
 
@@ -69,7 +68,7 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 			}
 
 		}
-		p_150894_1_.damageItem(1, p_150894_7_);
+		par1ItemStack.damageItem(1, par7EntityLivingBase);
 		return true;
 	}
 

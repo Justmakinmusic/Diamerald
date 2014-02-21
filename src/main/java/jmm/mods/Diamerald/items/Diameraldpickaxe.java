@@ -11,7 +11,6 @@ public class Diameraldpickaxe extends ItemPickaxe {
 
 	public Diameraldpickaxe(ToolMaterial par2ToolMaterial) {
 		super(par2ToolMaterial);
-		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	@Override

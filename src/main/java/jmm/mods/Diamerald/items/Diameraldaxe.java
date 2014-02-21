@@ -15,7 +15,6 @@ public class Diameraldaxe extends ItemAxe {
 	public Diameraldaxe(ToolMaterial par2ToolMaterial) {
 		super(par2ToolMaterial);
 		this.toolMaterial = par2ToolMaterial;
-		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	@Override

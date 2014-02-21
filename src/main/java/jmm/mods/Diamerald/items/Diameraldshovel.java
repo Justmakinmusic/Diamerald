@@ -11,7 +11,6 @@ public class Diameraldshovel extends ItemSpade {
 
 	public Diameraldshovel( ToolMaterial par2ToolMaterial) {
 		super(par2ToolMaterial);
-		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	@Override

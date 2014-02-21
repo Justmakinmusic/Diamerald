@@ -11,7 +11,6 @@ public class berylSlag extends Item {
 	public berylSlag() {
 		super();
 		maxStackSize = 64;
-		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	@SideOnly(Side.CLIENT)

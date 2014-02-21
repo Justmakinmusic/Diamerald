@@ -13,7 +13,6 @@ public class oreDiamerald extends Block {
 
 		super(Material.rock);
 		this.setHarvestLevel("pickaxe", 3);
-		this.setCreativeTab(Diamerald.tabDiamerald);
 		setHardness(5f).setResistance(10f);
 
 	}

@@ -24,7 +24,6 @@ public class Diameraldbow extends ItemBow {
 		super();
 		this.maxStackSize = 1;
 		this.setMaxDamage(2000);
-		this.setCreativeTab(Diamerald.tabDiamerald);
 		this.toolMaterial = par2ToolMaterial;
 
 	}

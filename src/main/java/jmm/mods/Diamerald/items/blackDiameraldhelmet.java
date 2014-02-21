@@ -16,7 +16,6 @@ public class blackDiameraldhelmet extends ItemArmor {
 	public blackDiameraldhelmet(ArmorMaterial par2ArmorMaterial, int par3,
 			int par4) {
 		super(par2ArmorMaterial, par3, par4);
-		this.setCreativeTab(Diamerald.tabDiamerald);
 	}
 
 	@SideOnly(Side.CLIENT)
