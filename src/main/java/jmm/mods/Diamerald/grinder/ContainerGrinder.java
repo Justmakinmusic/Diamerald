@@ -20,6 +20,8 @@ public class ContainerGrinder extends Container
     private int lastCookTime;
     private int lastBurnTime;
     private int lastItemBurnTime;
+    private int lastItemCookTime;
+    private int lastFuelLevel;
        
 
     public ContainerGrinder(InventoryPlayer par1InventoryPlayer, TileEntityGrinder par2TileEntityGrinder)
@@ -51,6 +53,7 @@ public class ContainerGrinder extends Container
         par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.grinderCookTime);
         par1ICrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
         par1ICrafting.sendProgressBarUpdate(this, 2, this.tileGrinder.currentItemBurnTime);
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
     }
 
     /**
@@ -78,11 +81,18 @@ public class ContainerGrinder extends Container
             {
                 icrafting.sendProgressBarUpdate(this, 2, this.tileGrinder.currentItemBurnTime);
             }
+            
+            if (this.lastItemCookTime != this.tileGrinder.itemCookTime)
+            {
+            	icrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
+            }
+           
         }
 
         this.lastCookTime = this.tileGrinder.grinderCookTime;
         this.lastBurnTime = this.tileGrinder.grinderBurnTime;
         this.lastItemBurnTime = this.tileGrinder.currentItemBurnTime;
+        this.lastItemCookTime = this.tileGrinder.itemCookTime;
     }
 
     @SideOnly(Side.CLIENT)
@@ -102,6 +112,12 @@ public class ContainerGrinder extends Container
         {
             this.tileGrinder.currentItemBurnTime = par2;
         }
+        
+        if (par1 == 0)
+        {
+        	this.tileGrinder.itemCookTime = par2;
+        }
+        
     }
 
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)

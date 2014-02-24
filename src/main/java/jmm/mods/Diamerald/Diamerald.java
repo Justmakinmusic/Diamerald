@@ -49,7 +49,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "Diamerald", name = "Diamerald", version = "1.7.2_1")
+@Mod(modid = "Diamerald", name = "Diamerald", version = "1.7.2_3")
+
 public class Diamerald {
 
 	@Instance("Diamerald")
@@ -159,8 +160,8 @@ public class Diamerald {
 		blackDiameraldhelmet = GameRegistry.registerItem(new blackDiameraldhelmet(blackdiamerald, 3, 0), "blackDiameraldhelmet", "Diamerald")
 				.setUnlocalizedName("blackDiameraldhelmet").setCreativeTab(tabDiamerald);
 		Diameralddust = GameRegistry.registerItem(new Ddusts(), "Diameralddust", "Diamerald").setUnlocalizedName("Diameralddust").setCreativeTab(tabDiamerald);
-		EmeralddustTiny = GameRegistry.registerItem(new Ddusts(), "EmeralddustTiny", "Diamerald").setUnlocalizedName("EmeralddustTiny").setCreativeTab(tabDiamerald);;
-		Emeralddust = GameRegistry.registerItem(new Ddusts(), "Emeralddust", "Diamerald").setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);
+//		EmeralddustTiny = GameRegistry.registerItem(new Ddusts(), "EmeralddustTiny", "Diamerald").setUnlocalizedName("EmeralddustTiny").setCreativeTab(tabDiamerald);;
+//		Emeralddust = GameRegistry.registerItem(new Ddusts(), "Emeralddust", "Diamerald").setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);
 		Golddust = GameRegistry.registerItem(new Ddusts(), "Golddust", "Diamerald").setUnlocalizedName("Golddust").setCreativeTab(tabDiamerald);
 		Irondust = GameRegistry.registerItem(new Ddusts(), "Irondust", "Diamerald").setUnlocalizedName("Irondust").setCreativeTab(tabDiamerald);
 

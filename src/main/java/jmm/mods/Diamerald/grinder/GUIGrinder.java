@@ -43,10 +43,16 @@ public class GUIGrinder extends GuiContainer
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
         int i1;
         
+        if (this.tileGrinder.canSmelt())
+        {
+            i1 = this.tileGrinder.getItemTimeScaled(12);
+            this.drawTexturedModalRect(k + 62, l + 52 + 12 - i1, 176, 11 - i1, 4, i1 + 2);
+        }
+      
         if (this.tileGrinder.isBurning())
         {
-            i1 = this.tileGrinder.getBurnTimeRemainingScaled(12);
-            this.drawTexturedModalRect(k + 14, l + 18 + 12 - i1, 176, 12 - i1, 4, i1 + 2);
+        	 i1 = this.tileGrinder.getBurnTimeRemainingScaled(12);
+             this.drawTexturedModalRect(k + 14, l + 18 + 13 - i1, 176, 13 - i1, 4, i1 + 1); // i1 + 2);
         }
 
         i1 = this.tileGrinder.getCookProgressScaled(24);
