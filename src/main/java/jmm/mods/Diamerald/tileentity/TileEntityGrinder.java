@@ -94,7 +94,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 	public String getInventoryName() {
 		return Integer.toString(this.grinderBurnTime);
-		// return this.hasCustomInventoryName() ? this.name : "Grinder";
+//		 return this.hasCustomInventoryName() ? this.name : "Grinder";
 	}
 
 	public boolean hasCustomInventoryName() {
@@ -120,8 +120,8 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			}
 		}
 
-		this.grinderBurnTime = tileEntityTag.getShort("BurnTime");
-		this.grinderCookTime = tileEntityTag.getShort("CookTime");
+		this.grinderBurnTime = tileEntityTag.getInteger("BurnTime");
+		this.grinderCookTime = tileEntityTag.getInteger("CookTime");
 		this.currentItemBurnTime = this.grinderBurnTime; // getItemBurnTime(this.grinderItemStacks[1]);
 
 		// Read info for GrinderSound location
@@ -138,8 +138,8 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 	public void writeToNBT(NBTTagCompound tileEntityTag) {
 		super.writeToNBT(tileEntityTag);
-		tileEntityTag.setShort("BurnTime", (short) this.grinderBurnTime);
-		tileEntityTag.setShort("CookTime", (short) this.grinderCookTime);
+		tileEntityTag.setInteger("BurnTime", this.grinderBurnTime);
+		tileEntityTag.setInteger("CookTime", this.grinderCookTime);
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.grinderItemStacks.length; ++i) {
