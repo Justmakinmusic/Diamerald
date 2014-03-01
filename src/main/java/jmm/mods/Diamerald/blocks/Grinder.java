@@ -48,9 +48,6 @@ public class Grinder extends BlockContainer
         return Item.getItemFromBlock(Diamerald.Grinder);
     }
 
-    /**
-     * Called whenever the block is added into the world. Args: world, x, y, z
-     */
     public void onBlockAdded(World par1World, int x, int y, int z)
     {
         super.onBlockAdded(par1World, x, y, z);
@@ -90,11 +87,6 @@ public class Grinder extends BlockContainer
             par1World.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, b0, 2);
         }
     }
-
-    /**
-     * Gets the block's texture. Args: side, meta
-     */
-    
     
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1side, int par2meta)
@@ -111,10 +103,6 @@ public class Grinder extends BlockContainer
         this.bottom = par1.registerIcon("Diamerald:grinder_bottom");
     }
 
-    /**
-     * Called upon block activation (right click on the block.)
-     */
-    
     public boolean onBlockActivated(World par1World, int xCoord, int yCoord, int zCoord, EntityPlayer par5Player, int par6, float par7, float par8, float par9)
     {
     	
@@ -134,9 +122,6 @@ public class Grinder extends BlockContainer
         }
     }
 
-    /**
-     * Update which block the Grinder is using depending on whether or not it is burning
-     */
    public static void updateGrinderBlockState(boolean par0, World par2World, int xCoord, int yCoord, int zCoord)
     {
         int l = par2World.getBlockMetadata(xCoord, yCoord, zCoord);
@@ -162,17 +147,11 @@ public class Grinder extends BlockContainer
         }
     }
 
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing the block.
-     */
     public TileEntity createNewTileEntity(World par1World, int par2)
     {
         return new TileEntityGrinder();
     }
 
-    /**
-     * Called when the block is placed in the world.
-     */
     public void onBlockPlacedBy(World par1World, int xCoord, int yCoord, int zCoord, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
         int l = MathHelper.floor_double((double)(par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
@@ -254,10 +233,6 @@ public class Grinder extends BlockContainer
         super.breakBlock(par1World, xCoord, yCoord, zCoord, par5Block, par6);
     }
 
-   
-    /**
-     * Gets an item for the block being called on. Args: world, x, y, z
-     */
     @SideOnly(Side.CLIENT)
     public Item getItem(World par1World, int xCoord, int yCoord, int zCoord)
     {

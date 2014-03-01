@@ -56,9 +56,6 @@ public class ContainerGrinder extends Container
         par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
     }
 
-    /**
-     * Looks for changes made in the container, sends them to every listener.
-     */
     public void detectAndSendChanges()
     {
         super.detectAndSendChanges();
@@ -125,9 +122,6 @@ public class ContainerGrinder extends Container
         return this.tileGrinder.isUseableByPlayer(par1EntityPlayer);
     }
 
-    /**
-     * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
-     */
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;

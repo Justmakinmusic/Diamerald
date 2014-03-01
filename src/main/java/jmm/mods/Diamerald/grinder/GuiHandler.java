@@ -8,6 +8,7 @@ import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler 
 {
+	//returns an instance of container for server
 	 @Override
      public Object getServerGuiElement(int id, EntityPlayer player, World world,
                      int x, int y, int z) {
