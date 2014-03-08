@@ -1,5 +1,7 @@
 package jmm.mods.Diamerald.grinder;
 
+import jmm.mods.Diamerald.Diamerald;
+import jmm.mods.Diamerald.PacketHandler.PacketGrinder;
 import jmm.mods.Diamerald.grinder.ContainerGrinder;
 import jmm.mods.Diamerald.tileentity.TileEntityGrinder;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -57,5 +59,7 @@ public class GUIGrinder extends GuiContainer
 
         i1 = this.tileGrinder.getCookProgressScaled(24);
         this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
+        
+        Diamerald.packetPipeline.sendToServer(new PacketGrinder(tileGrinder.grinderBurnTime, tileGrinder.xCoord, tileGrinder.yCoord, tileGrinder.zCoord));
     }
 }

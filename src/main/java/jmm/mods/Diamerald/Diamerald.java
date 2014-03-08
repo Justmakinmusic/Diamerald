@@ -1,5 +1,6 @@
 package jmm.mods.Diamerald;
 
+import jmm.mods.Diamerald.PacketHandler.PacketPipeline;
 import jmm.mods.Diamerald.blocks.BlockDirtchest;
 import jmm.mods.Diamerald.blocks.GSTorch;
 import jmm.mods.Diamerald.blocks.Grinder;
@@ -45,6 +46,7 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -114,6 +116,7 @@ public class Diamerald {
 
 	@SidedProxy(clientSide = "jmm.mods.Diamerald.proxy.DiameraldClient", serverSide = "jmm.mods.Diamerald.proxy.DiameraldProxy")
 	public static DiameraldProxy proxy;
+	public static final PacketPipeline packetPipeline = new PacketPipeline();
 
 	@EventHandler
 	public void PreLoad(FMLPreInitializationEvent event) {
@@ -211,6 +214,7 @@ public class Diamerald {
 	public void load(FMLInitializationEvent event) {
 
 		proxy.registerRenderInformation();
+		packetPipeline.initalise();
 
 		// Loot generation//
 
@@ -412,6 +416,13 @@ public class Diamerald {
 
 		}
 
+	}
+	
+	@EventHandler
+	public void PostInit(FMLPostInitializationEvent evt) {
+		
+		packetPipeline.postInitialise();
+		
 	}
 
 }
