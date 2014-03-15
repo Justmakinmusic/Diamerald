@@ -25,8 +25,7 @@ public class GrinderRecipes
      * The list of grinding results.
      */
     private Map grindingList = new HashMap();
-    private Map experienceList = new HashMap();
-    
+    private Map experienceList = new HashMap();      
 
     /**
      * Used to call methods addSmelting and getSmeltingResult.
@@ -38,18 +37,18 @@ public class GrinderRecipes
     
     private GrinderRecipes()
     {
-    	 this.addGrinderRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.Diameralddust,2), 1.0F);
-         this.addGrinderRecipe(Blocks.iron_ore, new ItemStack(Diamerald.Irondust,2), 0.7F);
-         this.addGrinderRecipe(Blocks.gold_ore, new ItemStack(Diamerald.Golddust,2), 1.0F);
-         
+    	 this.addGrinderRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.Diameralddust), 0f);
+         this.addGrinderRecipe(Blocks.iron_ore, new ItemStack(Diamerald.Irondust), 0F);
+         this.addGrinderRecipe(Blocks.gold_ore, new ItemStack(Diamerald.Golddust), 0F);
+         this.addGrinderRecipe(Blocks.emerald_ore, new ItemStack(Diamerald.Emeralddust), 0F);
     }
     
     public void addGrinderRecipe(Block input, ItemStack output1, float xp)
     {
-        this.addSmelting(Item.getItemFromBlock(input), output1, xp);
+        this.func_151396_a(Item.getItemFromBlock(input), output1, xp);
     }
 
-    public void addSmelting(Item item, ItemStack itemstack, float xp)
+    public void func_151396_a(Item item, ItemStack itemstack, float xp)
     {
         this.addSmelting(new ItemStack(item, 1, 32767), itemstack, xp);
     }
@@ -66,10 +65,10 @@ public class GrinderRecipes
     	this.input = input;
     	this.output1 = output1;
     	this.output2 = output2;
-        this.addSmelting(Item.getItemFromBlock(input), output1, output2, chance, xp);
+        this.func_151396_a(Item.getItemFromBlock(input), output1, output2, chance, xp);
     }
 
-    public void addSmelting(Item item, ItemStack output1, ItemStack output2, int chance, float xp)
+    public void func_151396_a(Item item, ItemStack output1, ItemStack output2, int chance, float xp)
     {
         this.addSmelting(new ItemStack(item, 1, 32767), output1, output2, chance, xp);
     }

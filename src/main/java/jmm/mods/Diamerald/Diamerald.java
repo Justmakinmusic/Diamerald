@@ -1,6 +1,5 @@
 package jmm.mods.Diamerald;
 
-import jmm.mods.Diamerald.PacketHandler.PacketPipeline;
 import jmm.mods.Diamerald.blocks.BlockDirtchest;
 import jmm.mods.Diamerald.blocks.GSTorch;
 import jmm.mods.Diamerald.blocks.Grinder;
@@ -22,6 +21,7 @@ import jmm.mods.Diamerald.items.berylSlag;
 import jmm.mods.Diamerald.items.blackDiameraldhelmet;
 import jmm.mods.Diamerald.items.blackDiameraldpickaxe;
 import jmm.mods.Diamerald.items.blackDiameraldsword;
+import jmm.mods.Diamerald.packethandler.PacketPipeline;
 import jmm.mods.Diamerald.proxy.DiameraldProxy;
 import jmm.mods.Diamerald.tileentity.TileEntityChestDC;
 import jmm.mods.Diamerald.tileentity.TileEntityGrinder;
@@ -164,42 +164,14 @@ public class Diamerald {
 				.setUnlocalizedName("blackDiameraldhelmet").setCreativeTab(tabDiamerald);
 		Diameralddust = GameRegistry.registerItem(new Ddusts(), "Diameralddust", "Diamerald").setUnlocalizedName("Diameralddust").setCreativeTab(tabDiamerald);
 //		EmeralddustTiny = GameRegistry.registerItem(new Ddusts(), "EmeralddustTiny", "Diamerald").setUnlocalizedName("EmeralddustTiny").setCreativeTab(tabDiamerald);;
-//		Emeralddust = GameRegistry.registerItem(new Ddusts(), "Emeralddust", "Diamerald").setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);
+		Emeralddust = GameRegistry.registerItem(new Ddusts(), "Emeralddust", "Diamerald").setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);
 		Golddust = GameRegistry.registerItem(new Ddusts(), "Golddust", "Diamerald").setUnlocalizedName("Golddust").setCreativeTab(tabDiamerald);
 		Irondust = GameRegistry.registerItem(new Ddusts(), "Irondust", "Diamerald").setUnlocalizedName("Irondust").setCreativeTab(tabDiamerald);
 
-		// Registering Blocks and Items //
+		// Registering WorldGenerator, TileEntity, Gui //
 
 		GameRegistry.registerWorldGenerator(new WorldGeneratorDiamerald(), 1);
-/*		GameRegistry.registerBlock(oreDiamerald, "oreDiamerald");
-		GameRegistry.registerBlock(GSTorch, "GSTorch");
-		GameRegistry.registerBlock(BlockDirtchest, "Dirtchest");
-		GameRegistry.registerBlock(Grinder, "Grinder");
-		GameRegistry.registerBlock(Grinder_on, "Grinder_on");
-		GameRegistry.registerItem(Diameraldgem, "Diameraldgem");
-		GameRegistry.registerItem(blackDiameraldgem, "blackDiameraldgem");
-		GameRegistry.registerItem(Roughgem, "Roughgem");
-		GameRegistry.registerItem(blackRoughgem, "blackRoughgem");
-		GameRegistry.registerItem(Diameraldsword, "Diameraldsword");
-		GameRegistry.registerItem(Diameraldpickaxe, "Diameraldpickaxe");
-		GameRegistry.registerItem(blackDiameraldsword, "blackDiameraldsword");
-		GameRegistry.registerItem(blackDiameraldpickaxe,
-				"blackDiameraldpickaxe");
-		GameRegistry.registerItem(Diameraldhoe, "Diameraldhoe");
-		GameRegistry.registerItem(blackDiameraldhelmet, "blackDiameraldhelmet");
-		GameRegistry.registerItem(Diameraldaxe, "Diameraldaxe");
-		GameRegistry.registerItem(Diameraldshovel, "Diameraldshovel");
-		GameRegistry.registerItem(Diameraldhelmet, "Diameraldhelmet");
-		GameRegistry.registerItem(Diameraldplate, "Diameraldplate");
-		GameRegistry.registerItem(Diameraldlegs, "Diameraldlegs");
-		GameRegistry.registerItem(Diameraldboots, "Diameraldboots");
-		GameRegistry.registerItem(Diameraldbow, "Diameraldbow");
-		GameRegistry.registerItem(Diameralddust, "Diameralddust");
-		GameRegistry.registerItem(EmeralddustTiny, "EmeralddustTiny");
-		GameRegistry.registerItem(Emeralddust, "Emeralddust");
-		GameRegistry.registerItem(Golddust, "Golddust");
-		GameRegistry.registerItem(Irondust,"Irondust");
-*/		GameRegistry.registerTileEntity(TileEntityChestDC.class,
+		GameRegistry.registerTileEntity(TileEntityChestDC.class,
 				"TileEntityChestDC");
 		GameRegistry.registerTileEntity(TileEntityGrinder.class,
 				"TileEntityGrinder");
@@ -303,6 +275,7 @@ public class Diamerald {
 		GameRegistry.addSmelting(Diamerald.Golddust, new ItemStack(Items.gold_ingot, 1), 0.7f);
 		GameRegistry.addSmelting(Diamerald.Irondust, new ItemStack(Items.iron_ingot, 1), 0.7f);
 		GameRegistry.addSmelting(Diamerald.Diameralddust, new ItemStack(Diamerald.Diameraldgem, 1), 1.0f);
+		GameRegistry.addSmelting(Diamerald.Emeralddust, new ItemStack(Items.emerald, 1), 0.8f);
 		GameRegistry.addRecipe(new ItemStack(Grinder, 1), new Object[] { "IGI",
 				"RFR", "XPX", 'I', Items.iron_ingot, 'G', Items.gold_ingot, 'X', Blocks.stone, 'R', Items.redstone, 'F',
 				Items.flint, 'P', Blocks.piston });

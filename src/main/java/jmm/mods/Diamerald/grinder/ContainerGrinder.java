@@ -1,16 +1,12 @@
 package jmm.mods.Diamerald.grinder;
 
-import jmm.mods.Diamerald.grinder.GrinderRecipes;
 import jmm.mods.Diamerald.tileentity.TileEntityGrinder;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -21,7 +17,7 @@ public class ContainerGrinder extends Container
     private int lastBurnTime;
     private int lastItemBurnTime;
     private int lastItemCookTime;
-    private int lastFuelLevel;
+   
        
 
     public ContainerGrinder(InventoryPlayer par1InventoryPlayer, TileEntityGrinder par2TileEntityGrinder)
@@ -30,7 +26,7 @@ public class ContainerGrinder extends Container
         this.addSlotToContainer(new Slot(par2TileEntityGrinder, 0, 56, 34));
         this.addSlotToContainer(new Slot(par2TileEntityGrinder, 1, 8, 52));
         this.addSlotToContainer(new SlotGrinder(par1InventoryPlayer.player, par2TileEntityGrinder, 2, 116, 35));
-//        this.addSlotToContainer(new SlotGrinder(par1InventoryPlayer.player, par3TileEntityGrinder, 3, 143, 35));
+//        this.addSlotToContainer(new SlotGrinder(par1InventoryPlayer.player, par2TileEntityGrinder, 3, 143, 35));
         int i;
 
         for (i = 0; i < 3; ++i)
@@ -47,14 +43,13 @@ public class ContainerGrinder extends Container
         }
     }
 
-    public void addCraftingToCrafters(ICrafting par1ICrafting)
+    /*public void addCraftingToCrafters(ICrafting par1ICrafting)
     {
         super.addCraftingToCrafters(par1ICrafting);
         par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.grinderCookTime);
         par1ICrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
-        par1ICrafting.sendProgressBarUpdate(this, 2, this.tileGrinder.currentItemBurnTime);
         par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
-    }
+    }*/
 
     public void detectAndSendChanges()
     {
@@ -68,8 +63,13 @@ public class ContainerGrinder extends Container
             {
                 icrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.grinderCookTime);
             }
-
+            
             if (this.lastBurnTime != this.tileGrinder.grinderBurnTime)
+            {
+                icrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
+            }
+
+/*            if (this.lastBurnTime != this.tileGrinder.grinderBurnTime)
             {
                 icrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
             }
@@ -78,7 +78,7 @@ public class ContainerGrinder extends Container
             {
                 icrafting.sendProgressBarUpdate(this, 2, this.tileGrinder.currentItemBurnTime);
             }
-            
+*/            
             if (this.lastItemCookTime != this.tileGrinder.itemCookTime)
             {
             	icrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
@@ -88,31 +88,30 @@ public class ContainerGrinder extends Container
 
         this.lastCookTime = this.tileGrinder.grinderCookTime;
         this.lastBurnTime = this.tileGrinder.grinderBurnTime;
-        this.lastItemBurnTime = this.tileGrinder.currentItemBurnTime;
         this.lastItemCookTime = this.tileGrinder.itemCookTime;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int par1, int par2)
+	@SideOnly(Side.CLIENT)
+    public void updateProgressBar(int slot, int value)
     {
-        if (par1 == 0)
+        if (slot == 0)
         {
-            this.tileGrinder.grinderCookTime = par2;
+            this.tileGrinder.grinderCookTime = value;
         }
 
-        if (par1 == 1)
+        if (slot == 1)
         {
-            this.tileGrinder.grinderBurnTime = par2;
+            this.tileGrinder.grinderBurnTime = value;
         }
 
-        if (par1 == 2)
+       /* if (slot == 2)
         {
-            this.tileGrinder.currentItemBurnTime = par2;
-        }
+            this.tileGrinder.currentItemBurnTime = value;
+        }*/
         
-        if (par1 == 0)
+        if (slot == 0)
         {
-        	this.tileGrinder.itemCookTime = par2;
+        	this.tileGrinder.itemCookTime = value;
         }
         
     }
