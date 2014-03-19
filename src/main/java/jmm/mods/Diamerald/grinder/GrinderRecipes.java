@@ -6,27 +6,23 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import jmm.mods.Diamerald.Diamerald;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
 
 
 public class GrinderRecipes
 {
 	private static final GrinderRecipes grinderBase = new GrinderRecipes();
-	 Block input;
-	 ItemStack output1;
-	 ItemStack output2;
-	 int chance;
+	
     /**
      * The list of grinding results.
      */
     private Map grindingList = new HashMap();
-    private Map experienceList = new HashMap();      
-
+    private Map experienceList = new HashMap();
+   
     /**
      * Used to call methods addSmelting and getSmeltingResult.
      */
@@ -36,49 +32,44 @@ public class GrinderRecipes
     }
     
     private GrinderRecipes()
-    {
-    	 this.addGrinderRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.Diameralddust), 0f);
-         this.addGrinderRecipe(Blocks.iron_ore, new ItemStack(Diamerald.Irondust), 0F);
-         this.addGrinderRecipe(Blocks.gold_ore, new ItemStack(Diamerald.Golddust), 0F);
-         this.addGrinderRecipe(Blocks.emerald_ore, new ItemStack(Diamerald.Emeralddust), 0F);
+    {	
+    	 this.addRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.Diameralddust));
+         this.addRecipe(Blocks.iron_ore, new ItemStack(Diamerald.Irondust));
+         this.addRecipe(Blocks.gold_ore, new ItemStack(Diamerald.Golddust));
+         this.addRecipe(Blocks.emerald_ore, new ItemStack(Diamerald.Emeralddust));
     }
     
-    public void addGrinderRecipe(Block input, ItemStack output1, float xp)
+    public void func_151393_a(Block input, ItemStack output)
     {
-        this.func_151396_a(Item.getItemFromBlock(input), output1, xp);
+        this.func_151396_a(Item.getItemFromBlock(input), output);
     }
 
-    public void func_151396_a(Item item, ItemStack itemstack, float xp)
+    public void func_151396_a(Item item, ItemStack itemstack)
     {
-        this.addSmelting(new ItemStack(item, 1, 32767), itemstack, xp);
+        this.func_151394_a(new ItemStack(item, 1, 32767), itemstack);
     }
 
-    public void addSmelting(ItemStack itemstack, ItemStack itemstack2, float xp)
+    public void func_151394_a(ItemStack itemstack, ItemStack itemstack2)
     {
         this.grindingList.put(itemstack, itemstack2);
-        this.experienceList.put(itemstack2, Float.valueOf(xp));
+        //this.experienceList.put(itemstack2, Float.valueOf(xp));
     }
     
-       //Not Implemented Yet//
-    public void addGrinderRecipe(Block input, ItemStack output1, ItemStack output2, int chance, float xp)
+    public void addRecipe (Block input, ItemStack output)
     {
-    	this.input = input;
-    	this.output1 = output1;
-    	this.output2 = output2;
-        this.func_151396_a(Item.getItemFromBlock(input), output1, output2, chance, xp);
+    	this.func_151393_a(input, output);
     }
-
-    public void func_151396_a(Item item, ItemStack output1, ItemStack output2, int chance, float xp)
+    
+    public void addRecipe (Item input, ItemStack output)
     {
-        this.addSmelting(new ItemStack(item, 1, 32767), output1, output2, chance, xp);
+    	this.func_151396_a(input, output);
     }
-
-    public void addSmelting(ItemStack input, ItemStack output1, ItemStack output2, int chance, float xp)
+    
+    public void addRecipe(ItemStack input, ItemStack output)
     {
-        this.grindingList.put(input, output2);
-        this.experienceList.put(output2, Float.valueOf(xp));
+        this.func_151394_a(input, output);
     }
-
+  
     /**
      * Returns the smelting result of an item.
      */
@@ -95,10 +86,13 @@ public class GrinderRecipes
             }
 
             entry = (Entry)iterator.next();
+       
         }
+        
         while (!this.func_151397_a(par1ItemStack, (ItemStack)entry.getKey()));
 
         return (ItemStack)entry.getValue();
+        
     }
 
     private boolean func_151397_a(ItemStack par1Item, ItemStack par2Item)
