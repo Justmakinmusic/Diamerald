@@ -26,7 +26,7 @@ public class ContainerGrinder extends Container
         this.addSlotToContainer(new Slot(par2TileEntityGrinder, 0, 56, 34));
         this.addSlotToContainer(new Slot(par2TileEntityGrinder, 1, 8, 52));
         this.addSlotToContainer(new SlotGrinder(par1InventoryPlayer.player, par2TileEntityGrinder, 2, 116, 35));
-//        this.addSlotToContainer(new SlotGrinder(par1InventoryPlayer.player, par2TileEntityGrinder, 3, 143, 35));
+        this.addSlotToContainer(new SlotGrinder(par1InventoryPlayer.player, par2TileEntityGrinder, 3, 143, 35));
         int i;
 
         for (i = 0; i < 3; ++i)

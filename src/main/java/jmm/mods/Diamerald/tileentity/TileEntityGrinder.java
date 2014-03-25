@@ -22,15 +22,15 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 	private static final int[] slotsTop = new int[] { 0 };
 	private static final int[] slotsBottom = new int[] { 2, 1 };
 	private static final int[] slotsSides = new int[] { 1, 2 };
-	private ItemStack[] grinderItemStacks = new ItemStack[3];
+	private ItemStack[] grinderItemStacks = new ItemStack[4];
 	private static final int GRINDER_MAX_FUEL = 30000;
 	public int grinderBurnTime;
 	public int grinderCookTime;
 	public int itemCookTime;
 	private String name;
-	// private static SoundHandler sndHandler
-	// =FMLClientHandler.instance().getClient().getSoundHandler();
-	// private GrinderSound sound = null;
+	//private static SoundHandler sndHandler = FMLClientHandler.instance()
+	//		.getClient().getSoundHandler();
+	//private GrinderSound sound = null;
 	private boolean soundIsOn = false;
 
 	public int getSizeInventory() {
@@ -92,9 +92,9 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 	}
 
 	public String getInventoryName() {
-		
+
 		return String.valueOf(this.grinderBurnTime);
-		//return this.hasCustomInventoryName() ? this.name : "Grinder";
+		// return this.hasCustomInventoryName() ? this.name : "Grinder";
 	}
 
 	public boolean hasCustomInventoryName() {
@@ -124,11 +124,10 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		this.grinderCookTime = tileEntityTag.getInteger("CookTime");
 
 		// Read info for GrinderSound location
-		// NBTTagCompound soundTag =
-		// tileEntityTag.getCompoundTag("GrinderSound");
-		// this.soundIsOn = tileEntityTag.getBoolean("SoundIsOn");
-		// sound = new GrinderSound(0,0,0);
-		// sound.readFromNBT(soundTag);
+		//NBTTagCompound soundTag = tileEntityTag.getCompoundTag("GrinderSound");
+		//this.soundIsOn = tileEntityTag.getBoolean("SoundIsOn");
+		//sound = new GrinderSound(0, 0, 0);
+		//sound.readFromNBT(soundTag);
 
 		if (tileEntityTag.hasKey("CustomName", 8)) {
 			this.name = tileEntityTag.getString("CustomName");
@@ -153,10 +152,10 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		tileEntityTag.setTag("Items", nbttaglist);
 
 		// Write info for GrinderSound location
-		// NBTTagCompound soundTag = new NBTTagCompound();
-		// sound.writeToNBT(soundTag);
-		// tileEntityTag.setTag("GrinderSound", soundTag);
-		// tileEntityTag.setBoolean("SoundIsOn",false);
+		//NBTTagCompound soundTag = new NBTTagCompound();
+		//sound.writeToNBT(soundTag);
+		//tileEntityTag.setTag("GrinderSound", soundTag);
+		//tileEntityTag.setBoolean("SoundIsOn", false);
 
 		if (this.hasCustomInventoryName()) {
 			tileEntityTag.setString("CustomName", this.name);
@@ -165,29 +164,26 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 	@Override
 	public Packet getDescriptionPacket() {
-		
-		 NBTTagCompound tag = new NBTTagCompound();
-	        writeToNBT(tag);
-	        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
+
+		NBTTagCompound tag = new NBTTagCompound();
+		writeToNBT(tag);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
 	}
-	
+
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
-	{
-		 readFromNBT(packet.func_148857_g());
-	        updateEntity();
-	        worldObj.getTileEntity(xCoord, yCoord, zCoord);
-
-	}
-
-/*	@Override
 	public void onDataPacket(NetworkManager net,
 			S35PacketUpdateTileEntity packet) {
 		readFromNBT(packet.func_148857_g());
 		updateEntity();
 		worldObj.getTileEntity(xCoord, yCoord, zCoord);
+
 	}
-*/
+
+	/*
+	 * @Override public void onDataPacket(NetworkManager net,
+	 * S35PacketUpdateTileEntity packet) { readFromNBT(packet.func_148857_g());
+	 * updateEntity(); worldObj.getTileEntity(xCoord, yCoord, zCoord); }
+	 */
 	public int getInventoryStackLimit() {
 		return 64;
 	}
@@ -219,70 +215,83 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 	}
 
 	// startSound being tested against worldObj.playSoundEffect//
-	/*
-	 * public void startSound() {
-	 * 
-	 * if (!this.worldObj.isRemote) {
-	 * 
-	 * if (!sndHandler.isSoundPlaying(sound)) { System.out.println("Playing: "+
-	 * sound.getPositionedSoundLocation()); sndHandler.stopSound(sound);
-	 * sndHandler.playSound(sound); soundIsOn = true; } } }
-	 * 
-	 * // stopSound being tested against worldObj.playSoundEffect//
-	 * 
-	 * public void stopSound() { if (!this.worldObj.isRemote) { if (soundIsOn) {
-	 * System.out.println("Stopping: "+ sound.getPositionedSoundLocation());
-	 * sndHandler.stopSound(sound); soundIsOn = false; } } }
-	 */
+/*
+	public void startSound() {
 
+		if (!this.worldObj.isRemote) {
+
+			if (!sndHandler.isSoundPlaying(sound)) {
+				System.out.println("Playing: "
+						+ sound.getPositionedSoundLocation());
+				sndHandler.stopSound(sound);
+				sndHandler.playSound(sound);
+				soundIsOn = true;
+			}
+		}
+	}
+
+	// stopSound being tested against worldObj.playSoundEffect//
+
+	public void stopSound() {
+		if (!this.worldObj.isRemote) {
+			if (soundIsOn) {
+				System.out.println("Stopping: "
+						+ sound.getPositionedSoundLocation());
+				sndHandler.stopSound(sound);
+				soundIsOn = false;
+			}
+		}
+	}
+*/
 	public void updateEntity() {
 		boolean flag = this.grinderBurnTime > 0;
 		boolean flag1 = false;
 		boolean soundWasOn = soundIsOn;
-		/*
-		 * if (!this.worldObj.isRemote && sound == null) {
-		 * System.out.println("TileEntityGrinder " + this.toString() + " is");
-		 * sound = new GrinderSound(this.xCoord, this.yCoord, this.zCoord); }
-		 */
+/*
+		if (!this.worldObj.isRemote && sound == null) {
+			System.out.println("TileEntityGrinder " + this.toString() + " is");
+			sound = new GrinderSound(this.xCoord, this.yCoord, this.zCoord);
+		}
+*/
 		if (this.grinderItemStacks[0] != null && this.isBurning()
 				&& this.isGrinding()) {
-			// this.startSound();
+			//this.startSound();
 			soundIsOn = true;
-			this.worldObj.playSoundEffect((double) this.xCoord + 0.5D,
-					(double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D,
-					"Diamerald:Grindersnd", 0.5F, 0.5F);
+			 this.worldObj.playSoundEffect((double) this.xCoord + 0.5D,
+			 (double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D,
+			 "Diamerald:Grindersnd", 0.5F, 0.5F);
 			--this.grinderBurnTime;
 		}
 
 		else {
 			soundIsOn = false;
-			// this.stopSound();
+			//this.stopSound();
 		}
 
 		if (!this.worldObj.isRemote) {
 
 			int moreFuelToBurn = getItemBurnTime(this.grinderItemStacks[1]);
 
-			 if (moreFuelToBurn > 0) {
+			if (moreFuelToBurn > 0) {
 
-			 if (this.grinderBurnTime + moreFuelToBurn <= GRINDER_MAX_FUEL) {
-				 this.grinderBurnTime += moreFuelToBurn;
+				if (this.grinderBurnTime + moreFuelToBurn <= GRINDER_MAX_FUEL) {
+					this.grinderBurnTime += moreFuelToBurn;
 
-				if (this.grinderBurnTime > 0) {
-					flag1 = true;
+					if (this.grinderBurnTime > 0) {
+						flag1 = true;
 
-					if (this.grinderItemStacks[1] != null) {
-						--this.grinderItemStacks[1].stackSize;
+						if (this.grinderItemStacks[1] != null) {
+							--this.grinderItemStacks[1].stackSize;
 
-						if (this.grinderItemStacks[1].stackSize == 0) {
-							this.grinderItemStacks[1] = grinderItemStacks[1]
-									.getItem().getContainerItem(
-											grinderItemStacks[1]);
+							if (this.grinderItemStacks[1].stackSize == 0) {
+								this.grinderItemStacks[1] = grinderItemStacks[1]
+										.getItem().getContainerItem(
+												grinderItemStacks[1]);
+							}
 						}
 					}
 				}
-			 }
-		   }
+			}
 
 			if (this.isBurning() && this.canSmelt()) {
 				++this.grinderCookTime;
@@ -315,7 +324,8 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		for (int i = 0; i < oreNames.length; ++i) {
 			if (oreNames[i].contains("ore")) {
 				if (OreDictionary.getOres(oreNames[i]) != null) {
-					for (int j = 0; j < OreDictionary.getOres(oreNames[i]).size(); ++j) {
+					for (int j = 0; j < OreDictionary.getOres(oreNames[i])
+							.size(); ++j) {
 						if (OreDictionary.getOres(oreNames[i]).get(j).getItem() == itemstack
 								.getItem()) {
 							return true;
@@ -327,7 +337,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		return false;
 	}
 
-	private boolean canSmelt() {
+	/*private boolean canSmelt() {
 		if (this.grinderItemStacks[0] == null) {
 			return false;
 		} else {
@@ -336,7 +346,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 			if (itemstack == null)
 
-				return false;							
+				return false;
 
 			if (!isOre(this.grinderItemStacks[0]))
 
@@ -345,12 +355,13 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			if (this.grinderItemStacks[2] == null)
 
 				return true;
-			
+
 			if (!this.grinderItemStacks[2].isItemEqual(itemstack))
 
 				return false;
-			
-			int result = grinderItemStacks[2].stackSize + itemstack.stackSize*2;
+
+			int result = grinderItemStacks[2].stackSize + itemstack.stackSize
+					* 2;
 
 			return result <= getInventoryStackLimit()
 					&& result <= this.grinderItemStacks[2].getMaxStackSize();
@@ -364,10 +375,70 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 			if (this.grinderItemStacks[2] == null) {
 				this.grinderItemStacks[2] = itemstack.copy();
-				this.grinderItemStacks[2].stackSize*=2;
+				this.grinderItemStacks[2].stackSize *= 2;
 			} else if (this.grinderItemStacks[2].getItem() == itemstack
 					.getItem()) {
-				this.grinderItemStacks[2].stackSize += itemstack.stackSize*2;
+				this.grinderItemStacks[2].stackSize += itemstack.stackSize * 2;
+			}
+
+			--this.grinderItemStacks[0].stackSize;
+
+			if (this.grinderItemStacks[0].stackSize <= 0) {
+				this.grinderItemStacks[0] = null;
+			}
+		}
+	}*/
+	
+	private boolean canSmelt() {
+		if (this.grinderItemStacks[0] == null) {
+			return false;
+		} else {
+			ItemStack itemstack = GrinderRecipes.smelting().getSmeltingResult(
+					this.grinderItemStacks[0]);
+			ItemStack itemstack2 = GrinderRecipes.smelting().getOutput2(this.grinderItemStacks[0]);
+
+			if (itemstack == null || itemstack2 == null)
+
+				return false;
+
+			if (!isOre(this.grinderItemStacks[0]))
+
+				return false;
+
+			if (this.grinderItemStacks[2] == null && this.grinderItemStacks[3] == null)
+
+				return true;
+
+			if (!this.grinderItemStacks[2].isItemEqual(itemstack) && !this.grinderItemStacks[3].isItemEqual(itemstack2))
+
+				return false;
+
+			int result = grinderItemStacks[2].stackSize + itemstack.stackSize
+					* 2;
+			int result2 = grinderItemStacks[3].stackSize + itemstack2.stackSize;
+
+			return result <= getInventoryStackLimit()
+					&& result <= this.grinderItemStacks[2].getMaxStackSize() && result2 <= getInventoryStackLimit()
+							&& result2 <= this.grinderItemStacks[3].getMaxStackSize();
+		}
+	}
+
+	public void smeltItem() {
+		if (this.canSmelt()) {
+			ItemStack itemstack = GrinderRecipes.smelting().getSmeltingResult(
+					this.grinderItemStacks[0]);
+			ItemStack itemstack2 = GrinderRecipes.smelting().getOutput2(
+					this.grinderItemStacks[0]);
+
+			if (this.grinderItemStacks[2] == null && this.grinderItemStacks[3] == null) {
+				this.grinderItemStacks[2] = itemstack.copy();
+				this.grinderItemStacks[2].stackSize *= 2;
+				this.grinderItemStacks[3] = itemstack2.copy();
+			} else if (this.grinderItemStacks[2].getItem() == itemstack
+					.getItem() && this.grinderItemStacks[3].getItem() == itemstack2
+							.getItem()) {
+				this.grinderItemStacks[2].stackSize += itemstack.stackSize * 2;
+				this.grinderItemStacks[3].stackSize += itemstack.stackSize;
 			}
 
 			--this.grinderItemStacks[0].stackSize;
@@ -387,7 +458,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 				return 10000;
 			if (item == Items.blaze_rod)
 				return 2000;
-		    return GameRegistry.getFuelValue(par1ItemStack);
+			return GameRegistry.getFuelValue(par1ItemStack);
 		}
 
 	}

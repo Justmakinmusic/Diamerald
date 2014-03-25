@@ -42,10 +42,11 @@ public class Ddusts extends Item{
 						
 						if (unlocalizedName.equals("item.EmeralddustTiny"))
 							this.itemIcon = par1IconRegister.registerIcon("Diamerald:EmeralddustTiny");
-				
-				
-			
-		
+						else
+							
+							if (unlocalizedName.equals("item.berylSlag"))
+								this.itemIcon = par1IconRegister.registerIcon("Diamerald:berylSlag");
+						
 	}
 
 }

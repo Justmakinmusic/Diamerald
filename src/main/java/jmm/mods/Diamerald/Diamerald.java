@@ -81,7 +81,6 @@ public class Diamerald {
 		public Item getTabIconItem() {
 			return Diamerald.Diameraldgem;
 		}
-
 	};
 
 	// Blocks and Items //
@@ -231,16 +230,16 @@ public class Diamerald {
 		Emeralddust = GameRegistry
 				.registerItem(new Ddusts(), "Emeralddust", "Diamerald")
 				.setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);
-		berylSlag = GameRegistry
+		/*berylSlag = GameRegistry
 				.registerItem(new Ddusts(), "berylSlag", "Diamerald")
-				.setUnlocalizedName("berylSlag").setCreativeTab(tabDiamerald);
+				.setUnlocalizedName("berylSlag").setCreativeTab(tabDiamerald);*/
 		Golddust = GameRegistry
 				.registerItem(new Ddusts(), "Golddust", "Diamerald")
 				.setUnlocalizedName("Golddust").setCreativeTab(tabDiamerald);
 		Irondust = GameRegistry
 				.registerItem(new Ddusts(), "Irondust", "Diamerald")
 				.setUnlocalizedName("Irondust").setCreativeTab(tabDiamerald);
-
+		
 		// Registering WorldGenerator, Ore, TileEntity, Gui //
 		
         OreDictionary.registerOre("oreDiamerald", oreDiamerald);
@@ -358,13 +357,13 @@ public class Diamerald {
 				'X', Blocks.stone, 'R', Items.redstone, 'F', Items.flint, 'P',
 				Blocks.piston });
 
-		// Recipes for IC2//
+		//IC2 Integration//
 
 		if (Loader.isModLoaded("IC2")) {
 			
-			GrinderRecipes.smelting().addRecipe(IC2Items.getItem("tinOre"), IC2Items.getItem("tinDust"));
-			GrinderRecipes.smelting().addRecipe(IC2Items.getItem("leadOre"), IC2Items.getItem("leadDust"));
-			GrinderRecipes.smelting().addRecipe(IC2Items.getItem("copperOre"), IC2Items.getItem("copperDust"));
+			GrinderRecipes.smelting().addGrinderRecipe(IC2Items.getItem("tinOre"), IC2Items.getItem("tinDust"));
+			GrinderRecipes.smelting().addGrinderRecipe(IC2Items.getItem("leadOre"), IC2Items.getItem("leadDust"));
+			GrinderRecipes.smelting().addGrinderRecipe(IC2Items.getItem("copperOre"), IC2Items.getItem("copperDust"));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(
 					oreDiamerald, 1)), null, (new ItemStack(Diameralddust, 2)));
 			Recipes.compressor.addRecipe(new RecipeInputItemStack(
@@ -375,7 +374,7 @@ public class Diamerald {
 					blackDiameraldgem, 1)));
 		}
 
-		// Recipes for ThermalExpansion//
+		//ThermalExpansion Integration//
 
 		if (Loader.isModLoaded("ThermalExpansion")) {
 
@@ -383,9 +382,9 @@ public class Diamerald {
 					.registerItem(new Ddusts(), "EmeralddustTiny", "Diamerald")
 					.setUnlocalizedName("EmeralddustTiny")
 					.setCreativeTab(tabDiamerald);
-			Emeralddust = GameRegistry
+			/*Emeralddust = GameRegistry
 					.registerItem(new Ddusts(), "Emeralddust", "Diamerald")
-					.setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);
+					.setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);*/
 			berylSlag = GameRegistry
 					.registerItem(new Ddusts(), "berylSlag", "Diamerald")
 					.setUnlocalizedName("berylSlag").setCreativeTab(tabDiamerald);
