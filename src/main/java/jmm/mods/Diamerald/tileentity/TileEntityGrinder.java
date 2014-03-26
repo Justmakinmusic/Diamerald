@@ -397,7 +397,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 					this.grinderItemStacks[0]);
 			ItemStack itemstack2 = GrinderRecipes.smelting().getOutput2(this.grinderItemStacks[0]);
 
-			if (itemstack == null || itemstack2 == null)
+			if (itemstack == null)// || itemstack2 == null)
 
 				return false;
 
@@ -405,16 +405,15 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 				return false;
 
-			if (this.grinderItemStacks[2] == null && this.grinderItemStacks[3] == null)
+			if (this.grinderItemStacks[2] == null || this.grinderItemStacks[3] == null)
 
 				return true;
 
-			if (!this.grinderItemStacks[2].isItemEqual(itemstack) && !this.grinderItemStacks[3].isItemEqual(itemstack2))
+			if (!this.grinderItemStacks[2].isItemEqual(itemstack) || !this.grinderItemStacks[3].isItemEqual(itemstack2))
 
 				return false;
 
-			int result = grinderItemStacks[2].stackSize + itemstack.stackSize
-					* 2;
+			int result = grinderItemStacks[2].stackSize + itemstack.stackSize * 2;
 			int result2 = grinderItemStacks[3].stackSize + itemstack2.stackSize;
 
 			return result <= getInventoryStackLimit()
@@ -430,15 +429,19 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			ItemStack itemstack2 = GrinderRecipes.smelting().getOutput2(
 					this.grinderItemStacks[0]);
 
-			if (this.grinderItemStacks[2] == null && this.grinderItemStacks[3] == null) {
+			if (this.grinderItemStacks[2] == null) /*|| this.grinderItemStacks[3] == null)*/ {
 				this.grinderItemStacks[2] = itemstack.copy();
 				this.grinderItemStacks[2].stackSize *= 2;
+			}
+				if (this.grinderItemStacks[3] == null){
 				this.grinderItemStacks[3] = itemstack2.copy();
+				
 			} else if (this.grinderItemStacks[2].getItem() == itemstack
-					.getItem() && this.grinderItemStacks[3].getItem() == itemstack2
-							.getItem()) {
+					.getItem()) /*|| this.grinderItemStacks[3].getItem() == itemstack2.getItem())*/ {
 				this.grinderItemStacks[2].stackSize += itemstack.stackSize * 2;
-				this.grinderItemStacks[3].stackSize += itemstack.stackSize;
+				//this.grinderItemStacks[3].stackSize += itemstack2.stackSize;
+			} else if (this.grinderItemStacks[3].getItem() == itemstack2.getItem()) {
+				this.grinderItemStacks[3].stackSize += itemstack2.stackSize;
 			}
 
 			--this.grinderItemStacks[0].stackSize;
