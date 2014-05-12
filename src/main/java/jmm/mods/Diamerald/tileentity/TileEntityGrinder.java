@@ -337,7 +337,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		return false;
 	}
 
-	/*private boolean canSmelt() {
+	private boolean canSmelt() {
 		if (this.grinderItemStacks[0] == null) {
 			return false;
 		} else {
@@ -387,8 +387,8 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 				this.grinderItemStacks[0] = null;
 			}
 		}
-	}*/
-	
+	}
+/*	
 	private boolean canSmelt() {
 		if (this.grinderItemStacks[0] == null) {
 			return false;
@@ -417,7 +417,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			int result2 = grinderItemStacks[3].stackSize + itemstack2.stackSize;
 
 			return result <= getInventoryStackLimit()
-					&& result <= this.grinderItemStacks[2].getMaxStackSize() && result2 <= getInventoryStackLimit()
+					&& result <= this.grinderItemStacks[2].getMaxStackSize() || result2 <= getInventoryStackLimit()
 							&& result2 <= this.grinderItemStacks[3].getMaxStackSize();
 		}
 	}
@@ -429,19 +429,20 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			ItemStack itemstack2 = GrinderRecipes.smelting().getOutput2(
 					this.grinderItemStacks[0]);
 
-			if (this.grinderItemStacks[2] == null) /*|| this.grinderItemStacks[3] == null)*/ {
+			if (this.grinderItemStacks[2] == null || this.grinderItemStacks[3] == null) {
 				this.grinderItemStacks[2] = itemstack.copy();
 				this.grinderItemStacks[2].stackSize *= 2;
-			}
-				if (this.grinderItemStacks[3] == null){
 				this.grinderItemStacks[3] = itemstack2.copy();
+			//}
+				//if (this.grinderItemStacks[3] == null){
+				//this.grinderItemStacks[3] = itemstack2.copy();
 				
 			} else if (this.grinderItemStacks[2].getItem() == itemstack
-					.getItem()) /*|| this.grinderItemStacks[3].getItem() == itemstack2.getItem())*/ {
+					.getItem() || this.grinderItemStacks[3].getItem() == itemstack2.getItem()) {
 				this.grinderItemStacks[2].stackSize += itemstack.stackSize * 2;
-				//this.grinderItemStacks[3].stackSize += itemstack2.stackSize;
-			} else if (this.grinderItemStacks[3].getItem() == itemstack2.getItem()) {
 				this.grinderItemStacks[3].stackSize += itemstack2.stackSize;
+			//} else if (this.grinderItemStacks[3].getItem() == itemstack2.getItem()) {
+			//	this.grinderItemStacks[3].stackSize += itemstack2.stackSize;
 			}
 
 			--this.grinderItemStacks[0].stackSize;
@@ -451,7 +452,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			}
 		}
 	}
-
+*/
 	public static int getItemBurnTime(ItemStack par1ItemStack) {
 		if (par1ItemStack == null) {
 			return 0;
