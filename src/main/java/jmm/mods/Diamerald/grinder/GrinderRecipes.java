@@ -43,6 +43,7 @@ public class GrinderRecipes
          this.addGrinderRecipe(Blocks.iron_ore, new ItemStack(Diamerald.Irondust));
          this.addGrinderRecipe(Blocks.gold_ore, new ItemStack(Diamerald.Golddust));
          this.addGrinderRecipe(Blocks.emerald_ore, new ItemStack(Diamerald.Emeralddust));
+         this.addGrinderRecipe(Blocks.diamond_ore, new ItemStack(Diamerald.Diamonddust));
          //this.addGrinderRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.Diameralddust), new ItemStack(Diamerald.EmeralddustTiny));
     }
     

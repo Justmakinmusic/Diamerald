@@ -46,6 +46,16 @@ public class Ddusts extends Item{
 							
 							if (unlocalizedName.equals("item.berylSlag"))
 								this.itemIcon = par1IconRegister.registerIcon("Diamerald:berylSlag");
+		
+							else
+								
+								if (unlocalizedName.equals("item.blackDiameralddust"))
+									this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackDiameralddust");
+		
+								else
+									
+									if (unlocalizedName.equals("item.Diamonddust"))
+										this.itemIcon = par1IconRegister.registerIcon("Diamerald:Diamonddust");
 						
 	}
 

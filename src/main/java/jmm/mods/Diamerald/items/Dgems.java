@@ -28,7 +28,7 @@ public class Dgems extends Item {
 			if (unlocalizedName.equals("item.blackDiameraldgem"))
 				this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackDiameraldgem");
 		
-			else
+			/*else
 				
 				if (unlocalizedName.equals("item.Roughgem"))
 					this.itemIcon = par1IconRegister.registerIcon("Diamerald:Roughgem");
@@ -37,7 +37,7 @@ public class Dgems extends Item {
 					
 					if (unlocalizedName.equals("item.blackRoughgem"))
 						this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackRoughgem");
-		
+		*/
 	}
 
 
