@@ -71,7 +71,7 @@ public class blackDiameraldsword extends ItemSword {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == Diamerald.blackDiameraldgem;
+		return par2ItemStack.getItem() == Diamerald.gem_BlackDiamerald;
 	}
 
 	@SideOnly(Side.CLIENT)

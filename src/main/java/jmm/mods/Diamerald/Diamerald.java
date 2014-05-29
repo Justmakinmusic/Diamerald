@@ -79,7 +79,7 @@ public class Diamerald {
 
 	public static CreativeTabs tabDiamerald = new CreativeTabs("tabDiamerald") {
 		public Item getTabIconItem() {
-			return Diamerald.Diameraldgem;
+			return Diamerald.gem_Diamerald;
 		}
 	};
 
@@ -90,7 +90,7 @@ public class Diamerald {
 	public static Block BlockDirtchest;
 	public static Block Grinder;
 	public static Block Grinder_on;
-	public static Item Diameraldgem;
+	public static Item gem_Diamerald;
 	public static Item Diameraldsword;
 	public static Item Diameraldpickaxe;
 	public static Item Diameraldaxe;
@@ -103,18 +103,18 @@ public class Diamerald {
 	public static ItemBow Diameraldbow;
 	// public static Item Roughgem;
 	// public static Item blackRoughgem;
-	public static Item blackDiameraldgem;
+	public static Item gem_BlackDiamerald;
 	public static Item blackDiameraldsword;
 	public static Item blackDiameraldpickaxe;
 	public static Item blackDiameraldhelmet;
-	public static Item Diameralddust;
-	public static Item blackDiameralddust;
-	public static Item EmeralddustTiny;
-	public static Item Emeralddust;
-	public static Item Diamonddust;
+	public static Item dust_Diamerald;
+	public static Item dust_BlackDiamerald;
+	public static Item dust_EmeraldTiny;
+	public static Item dust_Emerald;
+	public static Item dust_Diamond;
 	public static Item berylSlag;
-	public static Item Golddust;
-	public static Item Irondust;
+	public static Item dust_Gold;
+	public static Item dust_Iron;
 
 	// Proxy and Preload//
 
@@ -146,9 +146,9 @@ public class Diamerald {
 				.registerBlock(new Grinder(true), "Grinder_on")
 				.setBlockName("Grinder").setLightLevel(0.5f)
 				.setBlockName("Grinder");
-		Diameraldgem = GameRegistry
-				.registerItem(new Dgems(), "Diameraldgem", "Diamerald")
-				.setUnlocalizedName("Diameraldgem")
+		gem_Diamerald = GameRegistry
+				.registerItem(new Dgems(), "gem_Diamerald", "Diamerald")
+				.setUnlocalizedName("gem_Diamerald")
 				.setCreativeTab(tabDiamerald);
 		/*
 		 * Roughgem = GameRegistry .registerItem(new Dgems(), "Roughgem",
@@ -201,9 +201,9 @@ public class Diamerald {
 						"Diameraldboots", "Diamerald")
 				.setUnlocalizedName("Diameraldboots")
 				.setCreativeTab(tabDiamerald);
-		blackDiameraldgem = GameRegistry
-				.registerItem(new Dgems(), "blackDiameraldgem", "Diamerald")
-				.setUnlocalizedName("blackDiameraldgem")
+		gem_BlackDiamerald = GameRegistry
+				.registerItem(new Dgems(), "gem_BlackDiamerald", "Diamerald")
+				.setUnlocalizedName("gem_BlackDiamerald")
 				.setCreativeTab(tabDiamerald);
 		/*
 		 * blackRoughgem = GameRegistry .registerItem(new Dgems(),
@@ -225,39 +225,46 @@ public class Diamerald {
 						"blackDiameraldhelmet", "Diamerald")
 				.setUnlocalizedName("blackDiameraldhelmet")
 				.setCreativeTab(tabDiamerald);
-		Diameralddust = GameRegistry
-				.registerItem(new Ddusts(), "Diameralddust", "Diamerald")
-				.setUnlocalizedName("Diameralddust")
+		dust_Diamerald = GameRegistry
+				.registerItem(new Ddusts(), "dust_Diamerald", "Diamerald")
+				.setUnlocalizedName("dust_Diamerald")
 				.setCreativeTab(tabDiamerald);
-		blackDiameralddust = GameRegistry
-				.registerItem(new Ddusts(), "blackDiameralddust", "Diamerald")
-				.setUnlocalizedName("blackDiameralddust")
+		dust_BlackDiamerald = GameRegistry
+				.registerItem(new Ddusts(), "dust_BlackDiamerald", "Diamerald")
+				.setUnlocalizedName("dust_BlackDiamerald")
 				.setCreativeTab(tabDiamerald);
 		/*EmeralddustTiny = GameRegistry
 				.registerItem(new Ddusts(), "EmeralddustTiny", "Diamerald")
 				.setUnlocalizedName("EmeralddustTiny")
 				.setCreativeTab(tabDiamerald);*/
-		Emeralddust = GameRegistry
-				.registerItem(new Ddusts(), "Emeralddust", "Diamerald")
-				.setUnlocalizedName("Emeralddust").setCreativeTab(tabDiamerald);
-		Diamonddust = GameRegistry
-				.registerItem(new Ddusts(), "Diamonddust", "Diamerald")
-				.setUnlocalizedName("Diamonddust").setCreativeTab(tabDiamerald);
+		dust_Emerald = GameRegistry
+				.registerItem(new Ddusts(), "dust_Emerald", "Diamerald")
+				.setUnlocalizedName("dust_Emerald").setCreativeTab(tabDiamerald);
+		dust_Diamond = GameRegistry
+				.registerItem(new Ddusts(), "dust_Diamond", "Diamerald")
+				.setUnlocalizedName("dust_Diamond").setCreativeTab(tabDiamerald);
 		/*
 		 * berylSlag = GameRegistry .registerItem(new Ddusts(), "berylSlag",
 		 * "Diamerald")
 		 * .setUnlocalizedName("berylSlag").setCreativeTab(tabDiamerald);
 		 */
-		Golddust = GameRegistry
-				.registerItem(new Ddusts(), "Golddust", "Diamerald")
-				.setUnlocalizedName("Golddust").setCreativeTab(tabDiamerald);
-		Irondust = GameRegistry
-				.registerItem(new Ddusts(), "Irondust", "Diamerald")
-				.setUnlocalizedName("Irondust").setCreativeTab(tabDiamerald);
+		dust_Gold = GameRegistry
+				.registerItem(new Ddusts(), "dust_Gold", "Diamerald")
+				.setUnlocalizedName("dust_Gold").setCreativeTab(tabDiamerald);
+		dust_Iron = GameRegistry
+				.registerItem(new Ddusts(), "dust_Iron", "Diamerald")
+				.setUnlocalizedName("dust_Iron").setCreativeTab(tabDiamerald);
 
 		// Registering WorldGenerator, Ore, TileEntity, Gui //
 
 		OreDictionary.registerOre("oreDiamerald", oreDiamerald);
+		OreDictionary.registerOre("gem_Diamerald", gem_Diamerald);
+		OreDictionary.registerOre("gem_BlackDiamerald", gem_BlackDiamerald);
+		OreDictionary.registerOre("dust_BlackDiamerald", dust_BlackDiamerald);
+		OreDictionary.registerOre("dust_Emerald", dust_Emerald);
+		OreDictionary.registerOre("dust_Diamond", dust_Diamond);
+		OreDictionary.registerOre("dust_Gold", dust_Gold);
+		OreDictionary.registerOre("dust_Iron", dust_Iron);
 		GameRegistry.registerWorldGenerator(new WorldGeneratorDiamerald(), 1);
 		GameRegistry.registerTileEntity(TileEntityChestDC.class,
 				"TileEntityChestDC");
@@ -279,28 +286,28 @@ public class Diamerald {
 
 		ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 		ChestGenHooks.getInfo(ChestGenHooks.MINESHAFT_CORRIDOR).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 		ChestGenHooks.getInfo(ChestGenHooks.VILLAGE_BLACKSMITH).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 		ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_DESERT_CHEST).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 		ChestGenHooks.getInfo(ChestGenHooks.PYRAMID_JUNGLE_CHEST).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 		ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_LIBRARY).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 		ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CORRIDOR).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 		ChestGenHooks.getInfo(ChestGenHooks.STRONGHOLD_CROSSING).addItem(
 				new WeightedRandomChestContent(new ItemStack(
-						Diamerald.Diameraldgem), 1, 3, 20));
+						Diamerald.gem_Diamerald), 1, 3, 20));
 
 		// Recipes//
 
@@ -309,47 +316,47 @@ public class Diamerald {
 		GameRegistry.addSmelting(Diamerald.blackRoughgem, new ItemStack(
 				Diamerald.blackDiameraldgem, 1), 500.0f);*/
 		GameRegistry.addSmelting(Diamerald.oreDiamerald, new ItemStack(
-				Diamerald.Diameraldgem, 1), 500.0f);
+				Diamerald.gem_Diamerald, 1), 500.0f);
 		GameRegistry.addRecipe(new ItemStack(Diameraldsword, 1), new Object[] {
-				" D ", " D ", " S ", 'D', Diamerald.Diameraldgem, 'S',
+				" D ", " D ", " S ", 'D', Diamerald.gem_Diamerald, 'S',
 				Items.stick });
 		GameRegistry.addRecipe(new ItemStack(Diameraldpickaxe, 1),
 				new Object[] { "DDD", " S ", " S ", 'D',
-						Diamerald.Diameraldgem, 'S', Items.stick });
+						Diamerald.gem_Diamerald, 'S', Items.stick });
 		GameRegistry
 				.addRecipe(new ItemStack(blackDiameraldsword, 1), new Object[] {
-						" B ", " S ", " R ", 'B', Diamerald.blackDiameraldgem,
+						" B ", " S ", " R ", 'B', Diamerald.gem_BlackDiamerald,
 						'S', new ItemStack(Items.skull, 1, 1), 'R',
 						Items.blaze_rod });
 		GameRegistry
 				.addRecipe(new ItemStack(blackDiameraldpickaxe, 1),
 						new Object[] { "BSB", " R ", " R ", 'B',
-								Diamerald.blackDiameraldgem, 'S',
+								Diamerald.gem_BlackDiamerald, 'S',
 								new ItemStack(Items.skull, 1, 1), 'R',
 								Items.blaze_rod });
 		GameRegistry.addRecipe(new ItemStack(Diameraldaxe, 1), new Object[] {
-				"DD ", "DS ", " S ", 'D', Diamerald.Diameraldgem, 'S',
+				"DD ", "DS ", " S ", 'D', Diamerald.gem_Diamerald, 'S',
 				Items.stick });
 		GameRegistry.addRecipe(new ItemStack(Diameraldshovel, 1), new Object[] {
-				" D ", " S ", " S ", 'D', Diamerald.Diameraldgem, 'S',
+				" D ", " S ", " S ", 'D', Diamerald.gem_Diamerald, 'S',
 				Items.stick });
 		GameRegistry.addRecipe(new ItemStack(Diameraldhoe, 1), new Object[] {
-				"DD ", " S ", " S ", 'D', Diamerald.Diameraldgem, 'S',
+				"DD ", " S ", " S ", 'D', Diamerald.gem_Diamerald, 'S',
 				Items.stick });
 		GameRegistry.addRecipe(new ItemStack(Diameraldhelmet, 1), new Object[] {
-				"DDD", "D D", 'D', Diamerald.Diameraldgem });
+				"DDD", "D D", 'D', Diamerald.gem_Diamerald });
 		GameRegistry
 				.addRecipe(new ItemStack(blackDiameraldhelmet, 1),
 						new Object[] { "BBB", "B B", 'B',
-								Diamerald.blackDiameraldgem });
+								Diamerald.gem_BlackDiamerald });
 		GameRegistry.addRecipe(new ItemStack(Diameraldplate, 1), new Object[] {
-				"D D", "DDD", "DDD", 'D', Diamerald.Diameraldgem });
+				"D D", "DDD", "DDD", 'D', Diamerald.gem_Diamerald });
 		GameRegistry.addRecipe(new ItemStack(Diameraldlegs, 1), new Object[] {
-				"DDD", "D D", "D D", 'D', Diamerald.Diameraldgem });
+				"DDD", "D D", "D D", 'D', Diamerald.gem_Diamerald });
 		GameRegistry.addRecipe(new ItemStack(Diameraldboots, 1), new Object[] {
-				"D D", "D D", 'D', Diamerald.Diameraldgem });
+				"D D", "D D", 'D', Diamerald.gem_Diamerald });
 		GameRegistry.addRecipe(new ItemStack(Diameraldbow, 1), new Object[] {
-				" DW", "B W", " DW", 'D', Diamerald.Diameraldgem, 'W',
+				" DW", "B W", " DW", 'D', Diamerald.gem_Diamerald, 'W',
 				Items.string, 'B', Items.blaze_rod });
 		GameRegistry.addRecipe(new ItemStack(GSTorch, 4), new Object[] { " G",
 				" S", 'G', Items.glowstone_dust, 'S', Items.stick });
@@ -359,21 +366,21 @@ public class Diamerald {
 		//		" I ", "IRI", " I ", 'R', Diamerald.Roughgem, 'I', Items.dye });
 		GameRegistry.addRecipe(new ItemStack(BlockDirtchest, 1), new Object[] {
 				"AAA", "ACA", "AAA", 'A', Blocks.dirt, 'C', Blocks.chest });
-		GameRegistry.addSmelting(Diamerald.Golddust, new ItemStack(
+		GameRegistry.addSmelting(Diamerald.dust_Gold, new ItemStack(
 				Items.gold_ingot, 1), 0.7f);
-		GameRegistry.addSmelting(Diamerald.Irondust, new ItemStack(
+		GameRegistry.addSmelting(Diamerald.dust_Iron, new ItemStack(
 				Items.iron_ingot, 1), 0.7f);
-		GameRegistry.addSmelting(Diamerald.Diameralddust, new ItemStack(
-				Diamerald.Diameraldgem, 1), 1.0f);
-		GameRegistry.addSmelting(Diamerald.blackDiameralddust, new ItemStack(
-				Diamerald.blackDiameraldgem, 1), 1.0f);
-		GameRegistry.addSmelting(Diamerald.Emeralddust, new ItemStack(
+		GameRegistry.addSmelting(Diamerald.dust_Diamerald, new ItemStack(
+				Diamerald.gem_Diamerald, 1), 1.0f);
+		GameRegistry.addSmelting(Diamerald.dust_BlackDiamerald, new ItemStack(
+				Diamerald.gem_BlackDiamerald, 1), 1.0f);
+		GameRegistry.addSmelting(Diamerald.dust_Emerald, new ItemStack(
 				Items.emerald, 1), 0.8f);
-		GameRegistry.addSmelting(Diamerald.Diamonddust, new ItemStack(Items.diamond, 1), 1.0f);
-		GameRegistry.addShapelessRecipe(new ItemStack(blackDiameralddust, 2),
-				new Object[] { Diamerald.Diameralddust, Items.blaze_powder, Items.dye });
-		GameRegistry.addShapelessRecipe(new ItemStack(Diameralddust, 2),
-				new Object[] { Diamerald.Diamonddust, Diamerald.Emeralddust });
+		GameRegistry.addSmelting(Diamerald.dust_Diamond, new ItemStack(Items.diamond, 1), 1.0f);
+		GameRegistry.addShapelessRecipe(new ItemStack(dust_BlackDiamerald, 2),
+				new Object[] { Diamerald.dust_Diamerald, Items.blaze_powder, Items.dye });
+		GameRegistry.addShapelessRecipe(new ItemStack(dust_Diamerald, 2),
+				new Object[] { Diamerald.dust_Diamond, Diamerald.dust_Emerald });
 		GameRegistry.addRecipe(new ItemStack(Grinder, 1), new Object[] { "IGI",
 				"RFR", "XPX", 'I', Items.iron_ingot, 'G', Items.gold_ingot,
 				'X', Blocks.stone, 'R', Items.redstone, 'F', Items.flint, 'P',
@@ -391,20 +398,20 @@ public class Diamerald {
 					IC2Items.getItem("copperOre"),
 					IC2Items.getItem("copperDust"));
 			Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(
-					oreDiamerald, 1)), null, (new ItemStack(Diameralddust, 2)));
+					oreDiamerald, 1)), null, (new ItemStack(dust_Diamerald, 2)));
 			Recipes.compressor.addRecipe(new RecipeInputItemStack(
-					new ItemStack(Diameralddust, 1)), null, (new ItemStack(
-					Diameraldgem, 1)));
+					new ItemStack(dust_Diamerald, 1)), null, (new ItemStack(
+							gem_Diamerald, 1)));
 			Recipes.compressor.addRecipe(new RecipeInputItemStack(
 					new ItemStack(Items.skull, 1, 1)), null, (new ItemStack(
-					blackDiameraldgem, 1)));
+					gem_BlackDiamerald, 1)));
 		}
 
 		// ThermalExpansion Integration//
 
 		if (Loader.isModLoaded("ThermalExpansion")) {
 
-			EmeralddustTiny = GameRegistry
+			dust_EmeraldTiny = GameRegistry
 					.registerItem(new Ddusts(), "EmeralddustTiny", "Diamerald")
 					.setUnlocalizedName("EmeralddustTiny")
 					.setCreativeTab(tabDiamerald);
@@ -418,8 +425,8 @@ public class Diamerald {
 					.setUnlocalizedName("berylSlag")
 					.setCreativeTab(tabDiamerald);
 			GameRegistry.registerItem(berylSlag, "berylSlag");
-			GameRegistry.addRecipe(new ItemStack(Emeralddust, 1), new Object[] {
-					"EE", "EE", 'E', Diamerald.EmeralddustTiny });
+			GameRegistry.addRecipe(new ItemStack(dust_Emerald, 1), new Object[] {
+					"EE", "EE", 'E', Diamerald.dust_EmeraldTiny });
 
 			{
 				NBTTagCompound toSend = new NBTTagCompound();
@@ -429,7 +436,7 @@ public class Diamerald {
 				toSend.setTag("secondaryInput", new NBTTagCompound());
 				toSend.setTag("primaryOutput", new NBTTagCompound());
 				toSend.setTag("secondaryOutput", new NBTTagCompound());
-				new ItemStack(Emeralddust, 2).writeToNBT(toSend
+				new ItemStack(dust_Emerald, 2).writeToNBT(toSend
 						.getCompoundTag("primaryInput"));
 				new ItemStack(Blocks.sand, 1).writeToNBT(toSend
 						.getCompoundTag("secondaryInput"));
@@ -448,7 +455,7 @@ public class Diamerald {
 				toSend.setTag("primaryInput", new NBTTagCompound());
 				toSend.setTag("secondaryInput", new NBTTagCompound());
 				toSend.setTag("primaryOutput", new NBTTagCompound());
-				new ItemStack(Emeralddust, 1).writeToNBT(toSend
+				new ItemStack(dust_Emerald, 1).writeToNBT(toSend
 						.getCompoundTag("primaryInput"));
 				new ItemStack(berylSlag, 1).writeToNBT(toSend
 						.getCompoundTag("secondaryInput"));
@@ -465,11 +472,11 @@ public class Diamerald {
 				toSend.setTag("secondaryInput", new NBTTagCompound());
 				toSend.setTag("primaryOutput", new NBTTagCompound());
 				toSend.setTag("secondaryOutput", new NBTTagCompound());
-				new ItemStack(Diameralddust, 2).writeToNBT(toSend
+				new ItemStack(dust_Diamerald, 2).writeToNBT(toSend
 						.getCompoundTag("primaryInput"));
 				new ItemStack(Blocks.sand, 1).writeToNBT(toSend
 						.getCompoundTag("secondaryInput"));
-				new ItemStack(Diameraldgem, 2).writeToNBT(toSend
+				new ItemStack(gem_Diamerald, 2).writeToNBT(toSend
 						.getCompoundTag("primaryOutput"));
 				new ItemStack(berylSlag, 1).writeToNBT(toSend
 						.getCompoundTag("secondaryOutput"));
@@ -486,9 +493,9 @@ public class Diamerald {
 				toSend.setTag("secondaryOutput", new NBTTagCompound());
 				new ItemStack(oreDiamerald, 1).writeToNBT(toSend
 						.getCompoundTag("input"));
-				new ItemStack(Diameralddust, 2).writeToNBT(toSend
+				new ItemStack(dust_Diamerald, 2).writeToNBT(toSend
 						.getCompoundTag("primaryOutput"));
-				new ItemStack(EmeralddustTiny, 1).writeToNBT(toSend
+				new ItemStack(dust_EmeraldTiny, 1).writeToNBT(toSend
 						.getCompoundTag("secondaryOutput"));
 				toSend.setInteger("secondaryChance", 10);
 				FMLInterModComms.sendMessage("ThermalExpansion",

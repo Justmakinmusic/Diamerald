@@ -35,7 +35,7 @@ public class blackDiameraldhelmet extends ItemArmor {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == Diamerald.blackDiameraldgem;
+		return par2ItemStack.getItem() == Diamerald.gem_BlackDiamerald;
 	}
 
 	public String getArmorTexture(ItemStack par1, Entity entity, int slot,

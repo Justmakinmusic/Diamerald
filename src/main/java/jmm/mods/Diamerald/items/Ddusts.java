@@ -20,27 +20,27 @@ public class Ddusts extends Item{
 	{
 		String unlocalizedName = this.getUnlocalizedName();
 		
-		if (unlocalizedName.equals("item.Diameralddust"))
+		if (unlocalizedName.equals("item.dust_Diamerald"))
 			this.itemIcon = par1IconRegister.registerIcon("Diamerald:Diameralddust");
 		
 		else
 			
-			if (unlocalizedName.equals("item.Golddust"))
+			if (unlocalizedName.equals("item.dust_Gold"))
 				this.itemIcon = par1IconRegister.registerIcon("Diamerald:DustGold");
 		
 			else
 				
-				if (unlocalizedName.equals("item.Irondust"))
+				if (unlocalizedName.equals("item.dust_Iron"))
 					this.itemIcon = par1IconRegister.registerIcon("Diamerald:DustIron");
 		
 				else
 					
-					if (unlocalizedName.equals("item.Emeralddust"))
+					if (unlocalizedName.equals("item.dust_Emerald"))
 						this.itemIcon = par1IconRegister.registerIcon("Diamerald:Emeralddust");
 		
 					else
 						
-						if (unlocalizedName.equals("item.EmeralddustTiny"))
+						if (unlocalizedName.equals("item.dust_EmeraldTiny"))
 							this.itemIcon = par1IconRegister.registerIcon("Diamerald:EmeralddustTiny");
 						else
 							
@@ -49,12 +49,12 @@ public class Ddusts extends Item{
 		
 							else
 								
-								if (unlocalizedName.equals("item.blackDiameralddust"))
+								if (unlocalizedName.equals("item.dust_BlackDiamerald"))
 									this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackDiameralddust");
 		
 								else
 									
-									if (unlocalizedName.equals("item.Diamonddust"))
+									if (unlocalizedName.equals("item.dust_Diamond"))
 										this.itemIcon = par1IconRegister.registerIcon("Diamerald:Diamonddust");
 						
 	}

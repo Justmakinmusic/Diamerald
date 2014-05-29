@@ -20,12 +20,12 @@ public class Dgems extends Item {
 	{
 		String unlocalizedName = this.getUnlocalizedName();
 		
-		if (unlocalizedName.equals("item.Diameraldgem"))
+		if (unlocalizedName.equals("item.gem_Diamerald"))
 			this.itemIcon = par1IconRegister.registerIcon("Diamerald:Diameraldgem");
 		
 		else
 			
-			if (unlocalizedName.equals("item.blackDiameraldgem"))
+			if (unlocalizedName.equals("item.gem_BlackDiamerald"))
 				this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackDiameraldgem");
 		
 			/*else

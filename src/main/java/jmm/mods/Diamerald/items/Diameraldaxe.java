@@ -20,7 +20,7 @@ public class Diameraldaxe extends ItemAxe {
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
 			ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == Diamerald.Diameraldgem;
+		return par2ItemStack.getItem() == Diamerald.gem_Diamerald;
 
 	}
 
