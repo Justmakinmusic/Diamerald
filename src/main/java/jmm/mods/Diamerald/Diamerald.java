@@ -351,8 +351,8 @@ public class Diamerald {
 		GameRegistry.addRecipe(new ItemStack(Diameraldbow, 1), new Object[] {
 				" DW", "B W", " DW", 'D', Diamerald.Diameraldgem, 'W',
 				Items.string, 'B', Items.blaze_rod });
-		GameRegistry.addRecipe(new ItemStack(GSTorch, 16), new Object[] { " G",
-				" G", 'G', Blocks.glowstone });
+		GameRegistry.addRecipe(new ItemStack(GSTorch, 4), new Object[] { " G",
+				" S", 'G', Items.glowstone_dust, 'S', Items.stick });
 		//GameRegistry.addShapelessRecipe(new ItemStack(Roughgem, 1),
 		//		new Object[] { Items.diamond, Items.emerald });
 		//GameRegistry.addRecipe(new ItemStack(blackRoughgem, 1), new Object[] {
