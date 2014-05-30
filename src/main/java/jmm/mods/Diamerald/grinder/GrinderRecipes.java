@@ -39,11 +39,13 @@ public class GrinderRecipes
     private GrinderRecipes()
     {
     	
-    	 this.addGrinderRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.dust_Diamerald));
-         this.addGrinderRecipe(Blocks.iron_ore, new ItemStack(Diamerald.dust_Iron));
-         this.addGrinderRecipe(Blocks.gold_ore, new ItemStack(Diamerald.dust_Gold));
-         this.addGrinderRecipe(Blocks.emerald_ore, new ItemStack(Diamerald.dust_Emerald));
-         this.addGrinderRecipe(Blocks.diamond_ore, new ItemStack(Diamerald.dust_Diamond));
+    	 this.addGrinderRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.dust_Diamerald, 2));
+         this.addGrinderRecipe(Blocks.iron_ore, new ItemStack(Diamerald.dust_Iron, 2));
+         this.addGrinderRecipe(Blocks.gold_ore, new ItemStack(Diamerald.dust_Gold, 2));
+         this.addGrinderRecipe(Blocks.emerald_ore, new ItemStack(Diamerald.dust_Emerald, 2));
+         this.addGrinderRecipe(Blocks.diamond_ore, new ItemStack(Diamerald.dust_Diamond, 2));
+         this.addGrinderRecipe(Items.diamond, new ItemStack(Diamerald.dust_Diamond));
+         this.addGrinderRecipe(Items.emerald, new ItemStack(Diamerald.dust_Emerald));
          //this.addGrinderRecipe(Diamerald.oreDiamerald, new ItemStack(Diamerald.Diameralddust), new ItemStack(Diamerald.EmeralddustTiny));
     }
     

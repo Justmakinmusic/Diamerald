@@ -318,25 +318,6 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 	}
 
-	public boolean isOre(ItemStack itemstack) {
-		String[] oreNames = OreDictionary.getOreNames();
-
-		for (int i = 0; i < oreNames.length; ++i) {
-			if (oreNames[i].contains("ore")) {
-				if (OreDictionary.getOres(oreNames[i]) != null) {
-					for (int j = 0; j < OreDictionary.getOres(oreNames[i])
-							.size(); ++j) {
-						if (OreDictionary.getOres(oreNames[i]).get(j).getItem() == itemstack
-								.getItem()) {
-							return true;
-						}
-					}
-				}
-			}
-		}
-		return false;
-	}
-
 	private boolean canSmelt() {
 		if (this.grinderItemStacks[0] == null) {
 			return false;
@@ -348,10 +329,6 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 				return false;
 
-			if (!isOre(this.grinderItemStacks[0]))
-
-				return false;
-
 			if (this.grinderItemStacks[2] == null)
 
 				return true;
@@ -360,9 +337,8 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 				return false;
 
-			int result = grinderItemStacks[2].stackSize + itemstack.stackSize
-					* 2;
-
+			int result = grinderItemStacks[2].stackSize + itemstack.stackSize;
+				
 			return result <= getInventoryStackLimit()
 					&& result <= this.grinderItemStacks[2].getMaxStackSize();
 		}
@@ -375,10 +351,10 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 			if (this.grinderItemStacks[2] == null) {
 				this.grinderItemStacks[2] = itemstack.copy();
-				this.grinderItemStacks[2].stackSize *= 2;
+				
 			} else if (this.grinderItemStacks[2].getItem() == itemstack
 					.getItem()) {
-				this.grinderItemStacks[2].stackSize += itemstack.stackSize * 2;
+				this.grinderItemStacks[2].stackSize += itemstack.stackSize;
 			}
 
 			--this.grinderItemStacks[0].stackSize;
