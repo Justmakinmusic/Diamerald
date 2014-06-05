@@ -407,8 +407,8 @@ public class Diamerald {
 				'X', Blocks.stone, 'R', Items.redstone, 'F', Items.flint, 'P',
 				Blocks.piston });
 		GameRegistry.addRecipe(new ItemStack(Dfurnace, 1), new Object[] { "IGI",
-			"RFR", "XXX", 'I', Items.iron_ingot, 'G', Items.gold_ingot,
-			'X', Blocks.stone, 'R', Items.redstone, 'F',
+			"DFD", "XFX", 'I', Items.iron_ingot, 'G', Items.gold_ingot,
+			'X', Blocks.stone, 'D', Diamerald.dust_Diamerald, 'F',
 			Blocks.furnace });
 
 		// IC2 Integration//
