@@ -1,4 +1,4 @@
-package jmm.mods.Diamerald.grinder;
+package jmm.mods.Diamerald.machines;
 
 import jmm.mods.Diamerald.tileentity.TileEntityGrinder;
 import net.minecraft.entity.player.EntityPlayer;

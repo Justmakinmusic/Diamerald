@@ -1,7 +1,6 @@
-package jmm.mods.Diamerald.grinder;
+package jmm.mods.Diamerald.machines;
 
-import jmm.mods.Diamerald.Diamerald;
-import jmm.mods.Diamerald.packethandler.PacketGrinder;
+import jmm.mods.Diamerald.tileentity.TileEntityDfurnace;
 import jmm.mods.Diamerald.tileentity.TileEntityGrinder;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -10,17 +9,16 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-
-public class GUIGrinder extends GuiContainer
+public class GUIDfurnace extends GuiContainer
 {
-	private static final ResourceLocation grinderGuiTextures = new ResourceLocation("diamerald", "textures/gui/grindergui.png");
-    public TileEntityGrinder tileGrinder;
+	private static final ResourceLocation dfurnaceGuiTextures = new ResourceLocation("diamerald", "textures/gui/dfurnacegui.png");
+    public TileEntityDfurnace tileDfurnace;
     
 
-    public GUIGrinder(InventoryPlayer par1InventoryPlayer, TileEntityGrinder par2TileEntityGrinder)
+    public GUIDfurnace(InventoryPlayer par1InventoryPlayer, TileEntityDfurnace par2TileEntityDfurnace)
     {
-        super(new ContainerGrinder(par1InventoryPlayer, par2TileEntityGrinder));
-        this.tileGrinder = par2TileEntityGrinder;
+        super(new ContainerDfurnace(par1InventoryPlayer, par2TileEntityDfurnace));
+        this.tileDfurnace = par2TileEntityDfurnace;
     }
     
     /**
@@ -28,8 +26,8 @@ public class GUIGrinder extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
-        String s = this.tileGrinder.hasCustomInventoryName() ? this.tileGrinder.getInventoryName() : I18n.format(this.tileGrinder.getInventoryName(), new Object[0]);
-        this.fontRendererObj.drawString(I18n.format("Grinder", new Object[0]), this.xSize / 2 - this.fontRendererObj.getStringWidth("Grinder") / 2, 6, 4210752);
+        String s = this.tileDfurnace.hasCustomInventoryName() ? this.tileDfurnace.getInventoryName() : I18n.format(this.tileDfurnace.getInventoryName(), new Object[0]);
+        this.fontRendererObj.drawString(I18n.format("Diamerald Furnace", new Object[0]), this.xSize / 2 - this.fontRendererObj.getStringWidth("Diamerald Furnace") / 2, 6, 4210752);
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 15, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
@@ -37,26 +35,26 @@ public class GUIGrinder extends GuiContainer
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(grinderGuiTextures);
+        this.mc.getTextureManager().bindTexture(dfurnaceGuiTextures);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
         int i1;
         
-        if (this.tileGrinder.isGrinding())
+        if (this.tileDfurnace.isCooking())
         {
-            i1 = this.tileGrinder.getItemTimeScaled(12);
+            i1 = this.tileDfurnace.getItemTimeScaled(12);
             this.drawTexturedModalRect(k + 62, l + 52 + 12 - i1, 176, 11 - i1, 16, i1 + 2);
         }
       
-        if (this.tileGrinder.isBurning())
+        if (this.tileDfurnace.isBurning())
         {
-        	 i1 = this.tileGrinder.getBurnTimeRemainingScaled(45);
+        	 i1 = this.tileDfurnace.getBurnTimeRemainingScaled(45);
              this.drawTexturedModalRect(k + 10, l + 36 + 13 - i1, 176, 93 - i1, 12, i1 + 2); // i1 + 2);
              //Diamerald.packetPipeline.sendToAll(new PacketGrinder(tileGrinder.grinderBurnTime, tileGrinder.xCoord, tileGrinder.yCoord, tileGrinder.zCoord));
         }
 
-        i1 = this.tileGrinder.getCookProgressScaled(24);
+        i1 = this.tileDfurnace.getCookProgressScaled(24);
         this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
         
         //Diamerald.packetPipeline.sendToServer(new PacketGrinder(tileGrinder.grinderBurnTime, tileGrinder.xCoord, tileGrinder.yCoord, tileGrinder.zCoord));

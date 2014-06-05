@@ -1,4 +1,4 @@
-package jmm.mods.Diamerald.grinder;
+package jmm.mods.Diamerald.machines;
 
 import java.util.Arrays;
 import java.util.HashMap;

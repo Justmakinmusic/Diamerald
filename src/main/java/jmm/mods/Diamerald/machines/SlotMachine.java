@@ -1,4 +1,4 @@
-package jmm.mods.Diamerald.grinder;
+package jmm.mods.Diamerald.machines;
 
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-public class SlotGrinder extends Slot
+public class SlotMachine extends Slot
 {
 	 /**
      * The player that is using the GUI where this slot resides.
@@ -17,14 +17,12 @@ public class SlotGrinder extends Slot
     private int field_75228_b;
     
 
-    public SlotGrinder(EntityPlayer par1EntityPlayer, IInventory par2IInventory, int par3, int par4, int par5)
+    public SlotMachine(EntityPlayer par1EntityPlayer, IInventory par2IInventory, int par3, int par4, int par5)
     {
         super(par2IInventory, par3, par4, par5);
         this.thePlayer = par1EntityPlayer;
     }
     
-   
-
     /**
      * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
      */
