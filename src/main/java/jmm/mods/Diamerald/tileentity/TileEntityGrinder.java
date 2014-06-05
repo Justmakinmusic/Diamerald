@@ -1,7 +1,8 @@
 package jmm.mods.Diamerald.tileentity;
 
+import jmm.mods.Diamerald.Diamerald;
 import jmm.mods.Diamerald.blocks.Grinder;
-import jmm.mods.Diamerald.grinder.GrinderRecipes;
+import jmm.mods.Diamerald.machines.GrinderRecipes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
@@ -13,15 +14,14 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityGrinder extends TileEntity implements ISidedInventory {
-	private static final int[] slotsTop = new int[] { 0 };
-	private static final int[] slotsBottom = new int[] { 2, 1 };
-	private static final int[] slotsSides = new int[] { 1, 2 };
+	private static final int[] slotsTop = new int[] { 0, 1, 2 };
+	private static final int[] slotsBottom = new int[] { 0, 1, 2 };
+	private static final int[] slotsSides = new int[] { 0, 1, 2 };
 	private ItemStack[] grinderItemStacks = new ItemStack[4];
 	private static final int GRINDER_MAX_FUEL = 30000;
 	public int grinderBurnTime;
@@ -162,7 +162,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		}
 	}
 
-	@Override
+	/*@Override
 	public Packet getDescriptionPacket() {
 
 		NBTTagCompound tag = new NBTTagCompound();
@@ -177,7 +177,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		updateEntity();
 		worldObj.getTileEntity(xCoord, yCoord, zCoord);
 
-	}
+	}*/
 
 	/*
 	 * @Override public void onDataPacket(NetworkManager net,
@@ -434,6 +434,10 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			return 0;
 		} else {
 			Item item = par1ItemStack.getItem();
+			if (item == Diamerald.gem_Diamerald)
+				return 20000;
+			if (item == Diamerald.gem_BlackDiamerald)
+				return 30000;
 			if (item == Items.lava_bucket)
 				return 10000;
 			if (item == Items.blaze_rod)

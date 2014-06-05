@@ -403,7 +403,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 			if (item == Items.lava_bucket)
 				return 10000;
 			if (item == Items.blaze_rod)
-				return 5000;
+				return 2000;
 			return GameRegistry.getFuelValue(par1ItemStack);
 		}
 
