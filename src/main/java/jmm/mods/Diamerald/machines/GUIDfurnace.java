@@ -27,7 +27,7 @@ public class GUIDfurnace extends GuiContainer
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
         String s = this.tileDfurnace.hasCustomInventoryName() ? this.tileDfurnace.getInventoryName() : I18n.format(this.tileDfurnace.getInventoryName(), new Object[0]);
-        this.fontRendererObj.drawString(I18n.format("Diamerald Furnace", new Object[0]), this.xSize / 2 - this.fontRendererObj.getStringWidth("Diamerald Furnace") / 2, 6, 4210752);
+        this.fontRendererObj.drawString(I18n.format("Diamerald Furnace", new Object[0]), this.xSize / 2 - this.fontRendererObj.getStringWidth("Diamerald Furnace") / 2, 4, 4210752);
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 15, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
