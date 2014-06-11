@@ -105,8 +105,6 @@ public class Diamerald {
 	public static Item Diameraldlegs;
 	public static Item Diameraldboots;
 	public static ItemBow Diameraldbow;
-	// public static Item Roughgem;
-	// public static Item blackRoughgem;
 	public static Item gem_BlackDiamerald;
 	public static Item blackDiameraldsword;
 	public static Item blackDiameraldpickaxe;
@@ -158,11 +156,6 @@ public class Diamerald {
 				.registerItem(new Dgems(), "gem_Diamerald", "Diamerald")
 				.setUnlocalizedName("gem_Diamerald")
 				.setCreativeTab(tabDiamerald);
-		/*
-		 * Roughgem = GameRegistry .registerItem(new Dgems(), "Roughgem",
-		 * "Diamerald")
-		 * .setUnlocalizedName("Roughgem").setCreativeTab(tabDiamerald);
-		 */
 		Diameraldsword = GameRegistry
 				.registerItem(new Diameraldsword(DIAMERALD), "Diameraldsword",
 						"Diamerald").setUnlocalizedName("Diameraldsword")
@@ -213,11 +206,6 @@ public class Diamerald {
 				.registerItem(new Dgems(), "gem_BlackDiamerald", "Diamerald")
 				.setUnlocalizedName("gem_BlackDiamerald")
 				.setCreativeTab(tabDiamerald);
-		/*
-		 * blackRoughgem = GameRegistry .registerItem(new Dgems(),
-		 * "blackRoughgem", "Diamerald") .setUnlocalizedName("blackRoughgem")
-		 * .setCreativeTab(tabDiamerald);
-		 */
 		blackDiameraldsword = GameRegistry
 				.registerItem(new blackDiameraldsword(BLACKDIAMERALD),
 						"blackDiameraldsword", "Diamerald")
@@ -325,14 +313,8 @@ public class Diamerald {
 
 		// Recipes//
 
-		/*
-		 * GameRegistry.addSmelting(Diamerald.Roughgem, new ItemStack(
-		 * Diamerald.Diameraldgem, 1), 500.0f);
-		 * GameRegistry.addSmelting(Diamerald.blackRoughgem, new ItemStack(
-		 * Diamerald.blackDiameraldgem, 1), 500.0f);
-		 */
 		GameRegistry.addSmelting(Diamerald.oreDiamerald, new ItemStack(
-				Diamerald.gem_Diamerald, 1), 500.0f);
+				Diamerald.gem_Diamerald, 1), .7f);
 		GameRegistry.addRecipe(new ItemStack(Diameraldsword, 1), new Object[] {
 				" D ", " D ", " S ", 'D', Diamerald.gem_Diamerald, 'S',
 				Items.stick });
@@ -376,25 +358,20 @@ public class Diamerald {
 				Items.string, 'B', Items.blaze_rod });
 		GameRegistry.addRecipe(new ItemStack(GSTorch, 4), new Object[] { " G",
 				" S", 'G', Items.glowstone_dust, 'S', Items.stick });
-		// GameRegistry.addShapelessRecipe(new ItemStack(Roughgem, 1),
-		// new Object[] { Items.diamond, Items.emerald });
-		// GameRegistry.addRecipe(new ItemStack(blackRoughgem, 1), new Object[]
-		// {
-		// " I ", "IRI", " I ", 'R', Diamerald.Roughgem, 'I', Items.dye });
 		GameRegistry.addRecipe(new ItemStack(BlockDirtchest, 1), new Object[] {
 				"AAA", "ACA", "AAA", 'A', Blocks.dirt, 'C', Blocks.chest });
 		GameRegistry.addSmelting(Diamerald.dust_Gold, new ItemStack(
-				Items.gold_ingot, 1), 0.7f);
+				Items.gold_ingot, 1), 0.5f);
 		GameRegistry.addSmelting(Diamerald.dust_Iron, new ItemStack(
-				Items.iron_ingot, 1), 0.7f);
+				Items.iron_ingot, 1), 0.5f);
 		GameRegistry.addSmelting(Diamerald.dust_Diamerald, new ItemStack(
 				Diamerald.gem_Diamerald, 1), 1.0f);
 		GameRegistry.addSmelting(Diamerald.dust_BlackDiamerald, new ItemStack(
 				Diamerald.gem_BlackDiamerald, 1), 1.0f);
 		GameRegistry.addSmelting(Diamerald.dust_Emerald, new ItemStack(
-				Items.emerald, 1), 0.8f);
+				Items.emerald, 1), 0.5f);
 		GameRegistry.addSmelting(Diamerald.dust_Diamond, new ItemStack(
-				Items.diamond, 1), 1.0f);
+				Items.diamond, 1), .05f);
 		GameRegistry.addShapelessRecipe(new ItemStack(dust_BlackDiamerald, 2),
 				new Object[] { Diamerald.dust_Diamerald, Items.blaze_powder,
 						Items.dye });

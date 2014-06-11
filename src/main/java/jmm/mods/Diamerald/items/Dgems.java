@@ -27,17 +27,6 @@ public class Dgems extends Item {
 			
 			if (unlocalizedName.equals("item.gem_BlackDiamerald"))
 				this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackDiameraldgem");
-		
-			/*else
-				
-				if (unlocalizedName.equals("item.Roughgem"))
-					this.itemIcon = par1IconRegister.registerIcon("Diamerald:Roughgem");
-		
-				else
-					
-					if (unlocalizedName.equals("item.blackRoughgem"))
-						this.itemIcon = par1IconRegister.registerIcon("Diamerald:blackRoughgem");
-		*/
 	}
 
 
