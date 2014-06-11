@@ -26,6 +26,8 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 	public int dfurnaceBurnTime;
 	public int dfurnaceCookTime;
 	public int itemCookTime;
+	public int dfurnaceCookTime2;
+	public int itemCookTime2;
 	private String name;
 	// private static SoundHandler sndHandler = FMLClientHandler.instance()
 	// .getClient().getSoundHandler();
@@ -93,7 +95,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 	public String getInventoryName() {
 
 		return String.valueOf(this.dfurnaceBurnTime);
-		// return this.hasCustomInventoryName() ? this.name : "Grinder";
+		//return this.hasCustomInventoryName() ? this.name : "";
 	}
 
 	public boolean hasCustomInventoryName() {
@@ -121,6 +123,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 
 		this.dfurnaceBurnTime = tileEntityTag.getInteger("BurnTime");
 		this.dfurnaceCookTime = tileEntityTag.getInteger("CookTime");
+		this.dfurnaceCookTime2 = tileEntityTag.getInteger("CookTime2");
 
 		if (tileEntityTag.hasKey("CustomName", 8)) {
 			this.name = tileEntityTag.getString("CustomName");
@@ -131,6 +134,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		super.writeToNBT(tileEntityTag);
 		tileEntityTag.setInteger("BurnTime", (int) this.dfurnaceBurnTime);
 		tileEntityTag.setInteger("CookTime", (int) this.dfurnaceCookTime);
+		tileEntityTag.setInteger("CookTime2", (int) this.dfurnaceCookTime2);
 		NBTTagList nbttaglist = new NBTTagList();
 
 		for (int i = 0; i < this.dfurnaceItemStacks.length; ++i) {
@@ -154,9 +158,20 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public int getCookProgressScaled(int par1) {
-		return this.dfurnaceCookTime * par1 / 100;
+	public int getCookProgressScaled(int par1, int par2) {
+		if (par2 == 0) {
+			return this.dfurnaceCookTime * par1 / 100;
+		} else {
+			return this.dfurnaceCookTime2 * par1 / 100;
+		}
 	}
+
+	// return this.dfurnaceCookTime * par1 / 100;
+
+	/*
+	 * @SideOnly(Side.CLIENT) public int getCookProgressScaled2(int par1, int
+	 * par2) { return this.dfurnaceCookTime2 * par2 / 100; }
+	 */
 
 	@SideOnly(Side.CLIENT)
 	public int getBurnTimeRemainingScaled(int par1) {
@@ -169,6 +184,11 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		return this.itemCookTime;
 	}
 
+	@SideOnly(Side.CLIENT)
+	public int getItemTimeScaled2(int par1) {
+		return this.itemCookTime2;
+	}
+
 	public boolean isBurning() {
 		return this.dfurnaceBurnTime > 0;
 	}
@@ -176,14 +196,19 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 	public boolean isCooking() {
 		return this.dfurnaceCookTime > 0;
 	}
+	
+	public boolean isCooking2() {
+		return this.dfurnaceCookTime2 > 0;
+	}
 
 	public void updateEntity() {
 		boolean flag = this.dfurnaceBurnTime > 0;
 		boolean flag1 = false;
 		boolean soundWasOn = soundIsOn;
 
-		if (this.dfurnaceItemStacks[0] != null || this.dfurnaceItemStacks[3] != null && this.isBurning()
-				&& this.isCooking()) {
+		if (this.dfurnaceItemStacks[0] != null && this.isBurning()
+				&& this.isCooking() && this.canSmelt() || this.dfurnaceItemStacks[3] != null
+				&& this.isBurning() && this.isCooking2() && this.canSmelt2()) {
 			soundIsOn = true;
 			this.worldObj.playSoundEffect((double) this.xCoord + 0.5D,
 					(double) this.yCoord + 0.5D, (double) this.zCoord + 0.5D,
@@ -220,19 +245,30 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 				}
 			}
 
-			if (this.isBurning() && this.canSmelt() || this.canSmelt2()) {
+			if (this.isBurning() && this.canSmelt()) {
 				++this.dfurnaceCookTime;
 
 				if (this.dfurnaceCookTime == 100) {
 					this.dfurnaceCookTime = 0;
 					this.smeltItem();
-					this.smeltItem2();
 					flag1 = true;
 				}
 			} else {
 				this.dfurnaceCookTime = 0;
 			}
 
+			if (this.isBurning() && this.canSmelt2()) {
+				++this.dfurnaceCookTime2;
+
+				if (this.dfurnaceCookTime2 == 100) {
+					this.dfurnaceCookTime2 = 0;
+					this.smeltItem2();
+					flag1 = true;
+				}
+			} else {
+				this.dfurnaceCookTime2 = 0;
+			}
+			
 			if (soundWasOn != soundIsOn) {
 				flag1 = true;
 				Dfurnace.updateDfurnaceBlockState(soundIsOn, this.worldObj,
@@ -246,53 +282,45 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 
 	}
 
-	/*private boolean canSmelt() {
-		if (this.dfurnaceItemStacks[0] == null) {
-			return false;
-		} else {
-			ItemStack itemstack = DfurnaceRecipes.smelting().getSmeltingResult(
-					this.dfurnaceItemStacks[0]);
+	/*
+	 * private boolean canSmelt() { if (this.dfurnaceItemStacks[0] == null) {
+	 * return false; } else { ItemStack itemstack =
+	 * DfurnaceRecipes.smelting().getSmeltingResult(
+	 * this.dfurnaceItemStacks[0]);
+	 * 
+	 * if (itemstack == null)
+	 * 
+	 * return false;
+	 * 
+	 * if (this.dfurnaceItemStacks[2] == null)
+	 * 
+	 * return true;
+	 * 
+	 * if (!this.dfurnaceItemStacks[2].isItemEqual(itemstack))
+	 * 
+	 * return false;
+	 * 
+	 * int result = dfurnaceItemStacks[2].stackSize + itemstack.stackSize;
+	 * 
+	 * return result <= getInventoryStackLimit() && result <=
+	 * this.dfurnaceItemStacks[2].getMaxStackSize(); } }
+	 * 
+	 * public void smeltItem() { if (this.canSmelt()) { ItemStack itemstack =
+	 * DfurnaceRecipes.smelting().getSmeltingResult(
+	 * this.dfurnaceItemStacks[0]);
+	 * 
+	 * if (this.dfurnaceItemStacks[2] == null) { this.dfurnaceItemStacks[2] =
+	 * itemstack.copy();
+	 * 
+	 * } else if (this.dfurnaceItemStacks[2].getItem() == itemstack .getItem())
+	 * { this.dfurnaceItemStacks[2].stackSize += itemstack.stackSize; }
+	 * 
+	 * --this.dfurnaceItemStacks[0].stackSize;
+	 * 
+	 * if (this.dfurnaceItemStacks[0].stackSize <= 0) {
+	 * this.dfurnaceItemStacks[0] = null; } } }
+	 */
 
-			if (itemstack == null)
-
-				return false;
-
-			if (this.dfurnaceItemStacks[2] == null)
-
-				return true;
-
-			if (!this.dfurnaceItemStacks[2].isItemEqual(itemstack))
-
-				return false;
-
-			int result = dfurnaceItemStacks[2].stackSize + itemstack.stackSize;
-
-			return result <= getInventoryStackLimit()
-					&& result <= this.dfurnaceItemStacks[2].getMaxStackSize();
-		}
-	}
-
-	public void smeltItem() {
-		if (this.canSmelt()) {
-			ItemStack itemstack = DfurnaceRecipes.smelting().getSmeltingResult(
-					this.dfurnaceItemStacks[0]);
-
-			if (this.dfurnaceItemStacks[2] == null) {
-				this.dfurnaceItemStacks[2] = itemstack.copy();
-
-			} else if (this.dfurnaceItemStacks[2].getItem() == itemstack
-					.getItem()) {
-				this.dfurnaceItemStacks[2].stackSize += itemstack.stackSize;
-			}
-
-			--this.dfurnaceItemStacks[0].stackSize;
-
-			if (this.dfurnaceItemStacks[0].stackSize <= 0) {
-				this.dfurnaceItemStacks[0] = null;
-			}
-		}
-	}*/
-	
 	private boolean canSmelt() {
 		if (this.dfurnaceItemStacks[0] == null) {
 			return false;
@@ -318,13 +346,13 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 					&& result <= this.dfurnaceItemStacks[2].getMaxStackSize();
 		}
 	}
-	
+
 	private boolean canSmelt2() {
 		if (this.dfurnaceItemStacks[3] == null) {
 			return false;
 		} else {
-			ItemStack itemstack = DfurnaceRecipes.smelting().getSmeltingResult2(
-					this.dfurnaceItemStacks[3]);
+			ItemStack itemstack = DfurnaceRecipes.smelting()
+					.getSmeltingResult2(this.dfurnaceItemStacks[3]);
 
 			if (itemstack == null)
 
@@ -365,11 +393,11 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 			}
 		}
 	}
-	
+
 	public void smeltItem2() {
 		if (this.canSmelt2()) {
-			ItemStack itemstack = DfurnaceRecipes.smelting().getSmeltingResult2(
-					this.dfurnaceItemStacks[3]);
+			ItemStack itemstack = DfurnaceRecipes.smelting()
+					.getSmeltingResult2(this.dfurnaceItemStacks[3]);
 
 			if (this.dfurnaceItemStacks[4] == null) {
 				this.dfurnaceItemStacks[4] = itemstack.copy();

@@ -15,12 +15,14 @@ public class ContainerDfurnace extends Container {
 
 	private TileEntityDfurnace tileDfurnace;
     private int lastCookTime;
+    private int lastCookTime2;
     private int lastBurnTime;
     private int lastItemBurnTime;
     private int lastItemCookTime;
+    private int lastItemCookTime2;
    
        
-
+    
     public ContainerDfurnace(InventoryPlayer par1InventoryPlayer, TileEntityDfurnace par2TileEntityDfurnace)
     {
         this.tileDfurnace = par2TileEntityDfurnace;
@@ -31,7 +33,7 @@ public class ContainerDfurnace extends Container {
         this.addSlotToContainer(new SlotMachine(par1InventoryPlayer.player, par2TileEntityDfurnace, 4, 147, 35));
         //this.addSlotToContainer(new SlotMachine(par1InventoryPlayer.player, par2TileEntityGrinder, 3, 143, 35));
         int i;
-
+        
         for (i = 0; i < 3; ++i)
         {
             for (int j = 0; j < 9; ++j)
@@ -46,13 +48,15 @@ public class ContainerDfurnace extends Container {
         }
     }
 
-    /*public void addCraftingToCrafters(ICrafting par1ICrafting)
+    public void addCraftingToCrafters(ICrafting par1ICrafting)
     {
         super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.grinderCookTime);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
-    }*/
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.dfurnaceCookTime);
+        par1ICrafting.sendProgressBarUpdate(this, 1, this.tileDfurnace.dfurnaceBurnTime);
+        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.itemCookTime);
+        par1ICrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.dfurnaceCookTime2);
+        par1ICrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.itemCookTime2);
+    }
 
     public void detectAndSendChanges()
     {
@@ -65,6 +69,11 @@ public class ContainerDfurnace extends Container {
             if (this.lastCookTime != this.tileDfurnace.dfurnaceCookTime)
             {
                 icrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.dfurnaceCookTime);
+            }
+            
+            if (this.lastCookTime2 != this.tileDfurnace.dfurnaceCookTime2)
+            {
+                icrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.dfurnaceCookTime2);
             }
             
             if (this.lastBurnTime != this.tileDfurnace.dfurnaceBurnTime)
@@ -86,12 +95,19 @@ public class ContainerDfurnace extends Container {
             {
             	icrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.itemCookTime);
             }
+            
+            if (this.lastItemCookTime2 != this.tileDfurnace.itemCookTime2)
+            {
+            	icrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.itemCookTime2);
+            }
            
         }
 
         this.lastCookTime = this.tileDfurnace.dfurnaceCookTime;
         this.lastBurnTime = this.tileDfurnace.dfurnaceBurnTime;
         this.lastItemCookTime = this.tileDfurnace.itemCookTime;
+        this.lastCookTime2 = this.tileDfurnace.dfurnaceCookTime2;
+        this.lastItemCookTime2 = this.tileDfurnace.itemCookTime2;
     }
 
 	@SideOnly(Side.CLIENT)
@@ -106,15 +122,23 @@ public class ContainerDfurnace extends Container {
         {
             this.tileDfurnace.dfurnaceBurnTime = value;
         }
-
-       /* if (slot == 2)
+        if (slot == 3)
         {
-            this.tileGrinder.currentItemBurnTime = value;
+        	this.tileDfurnace.dfurnaceCookTime2 = value;
+        }
+
+        /*if (slot == 2)
+        {
+            this.tileDfurnace.currentItemBurnTime = value;
         }*/
         
         if (slot == 0)
         {
         	this.tileDfurnace.itemCookTime = value;
+        }
+        if (slot == 3)
+        {
+        	this.tileDfurnace.itemCookTime2 = value;
         }
         
     }
@@ -134,7 +158,7 @@ public class ContainerDfurnace extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (par2 == 2 || par2 == 4)
+            if (par2 == 2)
             {
                 if (!this.mergeItemStack(itemstack1, 3, 39, true))
                 {
@@ -143,7 +167,16 @@ public class ContainerDfurnace extends Container {
 
                 slot.onSlotChange(itemstack1, itemstack);
             }
-            else if (par2 != 1 && par2 != 0 || par2 != 3)
+            if (par2 == 4)
+            {
+                if (!this.mergeItemStack(itemstack1, 3, 39, true))
+                {
+                    return null;
+                }
+
+                slot.onSlotChange(itemstack1, itemstack);
+            }
+            else if (par2 != 1 && par2 != 0)
             {
                 if (DfurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
                 {
@@ -152,6 +185,15 @@ public class ContainerDfurnace extends Container {
                         return null;
                     }
                 }
+                else if (par2 != 1 && par2 != 3)
+                {
+                    if (DfurnaceRecipes.smelting().getSmeltingResult2(itemstack1) != null)
+                    {
+                        if (!this.mergeItemStack(itemstack1, 3, 1, false))
+                        {
+                            return null;
+                        }
+                    }
                 else if (TileEntityDfurnace.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
@@ -170,6 +212,7 @@ public class ContainerDfurnace extends Container {
                 {
                     return null;
                 }
+            }
             }
             else if (!this.mergeItemStack(itemstack1, 3, 39, false))
             {
@@ -192,8 +235,8 @@ public class ContainerDfurnace extends Container {
 
             slot.onPickupFromSlot(par1EntityPlayer, itemstack1);
         }
-
+        
         return itemstack;
     }
-
+   
 }
