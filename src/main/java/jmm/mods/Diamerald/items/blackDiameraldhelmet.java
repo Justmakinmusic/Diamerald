@@ -1,0 +1,49 @@
+package jmm.mods.Diamerald.items;
+
+import jmm.mods.Diamerald.Diamerald;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+public class blackDiameraldhelmet extends ItemArmor {
+
+	public blackDiameraldhelmet(ArmorMaterial par2ArmorMaterial, int par3,
+			int par4) {
+		super(par2ArmorMaterial, par3, par4);
+		
+	}
+
+	/*@SideOnly(Side.CLIENT)
+	public void registerIcons(IIconRegister par1IconRegister) {
+		this.itemIcon = par1IconRegister
+				.registerIcon("Diamerald:blackDiameraldhelmet");
+
+	}*/
+
+	public void onCreated(ItemStack par1ItemStack, World par2World,
+			EntityPlayer par3EntityPlayer) {
+		par1ItemStack.addEnchantment(Enchantment.aquaAffinity, 1);
+		par1ItemStack.addEnchantment(Enchantment.field_180317_h, 3);
+
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack,
+			ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == Diamerald.gemBlackDiamerald;
+	}
+
+	public String getArmorTexture(ItemStack par1, Entity entity, int slot,
+			String type) {
+		return  "diamerald:textures/models/armor/blackdiamerald_layer_1.png";
+	}
+
+}

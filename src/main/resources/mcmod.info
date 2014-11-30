@@ -1,0 +1,17 @@
+[
+{
+  "modid": "Diamerald",
+  "name": "Diamerald",
+  "description": "A new ore, armor, sword, and set of tools and a new chest",
+  "version": "1.8_0",
+  "mcversion": "",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Justmakinmusic"],
+  "credits": "MJHotdog",
+  "logoFile": "",
+  "screenshots": [],
+  "parent":"",
+  "dependencies": []
+}
+]

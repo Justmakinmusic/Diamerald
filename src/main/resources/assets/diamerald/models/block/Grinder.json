@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "diamerald:blocks/grinder_top",
+        "front": "diamerald:blocks/grinder_front_off",
+        "side": "diamerald:blocks/grinder_side"
+    }
+}
