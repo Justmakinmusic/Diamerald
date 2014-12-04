@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "diamerald:blocks/Dfurnace_top",
+        "front": "diamerald:blocks/Dfurnace_front_off",
+        "side": "diamerald:blocks/Dfurnace_side"
+    }
+}

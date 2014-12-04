@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "diamerald:Grinder_on" },
+        "facing=south": { "model": "diamerald:Grinder_on", "y": 180 },
+        "facing=west":  { "model": "diamerald:Grinder_on", "y": 270 },
+        "facing=east":  { "model": "diamerald:Grinder_on", "y": 90 }
+    }
+}

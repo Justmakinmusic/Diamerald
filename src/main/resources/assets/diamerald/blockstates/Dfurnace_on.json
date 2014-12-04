@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "diamerald:Dfurnace_on" },
+        "facing=south": { "model": "diamerald:Dfurnace_on", "y": 180 },
+        "facing=west":  { "model": "diamerald:Dfurnace_on", "y": 270 },
+        "facing=east":  { "model": "diamerald:Dfurnace_on", "y": 90 }
+    }
+}
