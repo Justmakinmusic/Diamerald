@@ -140,21 +140,20 @@ public class Diamerald {
 		oreDiamerald = GameRegistry
 				.registerBlock(new oreDiamerald(), "oreDiamerald")
 				.setUnlocalizedName("oreDiamerald")
-				//.setBlockTextureName("oreDiamerald")
 				.setCreativeTab(tabDiamerald);
 		GSTorch = GameRegistry
 				.registerBlock(new GSTorch(Material.glass), "GSTorch")
-				.setUnlocalizedName("GSTorch")/*.setBlockTextureName("GStorch")*/
+				.setUnlocalizedName("GSTorch")
 				.setCreativeTab(tabDiamerald);
 		BlockDirtchest = GameRegistry
 				.registerBlock(new BlockDirtchest(0),
 						"BlockDirtchest").setUnlocalizedName("BlockDirtchest")
-				/*.setBlockTextureName("dirt")*/.setCreativeTab(tabDiamerald);
+				.setCreativeTab(tabDiamerald);
 		Grinder = GameRegistry.registerBlock(new Grinder(false), "Grinder")
-				.setUnlocalizedName("Grinder").setCreativeTab(tabDiamerald);
+				.setHardness(3.5f).setResistance(5.0f).setUnlocalizedName("Grinder").setCreativeTab(tabDiamerald);
 		Grinder_on = GameRegistry
 				.registerBlock(new Grinder(true), "Grinder_on")
-				.setUnlocalizedName("Grinder").setLightLevel(0.5f);
+				.setHardness(3.5f).setResistance(5.0f).setUnlocalizedName("Grinder").setLightLevel(0.5f);
 		Dfurnace = GameRegistry.registerBlock(new Dfurnace(false), "Dfurnace")
 				.setUnlocalizedName("Dfurnace").setCreativeTab(tabDiamerald);
 		Dfurnace_on = GameRegistry
@@ -219,11 +218,11 @@ public class Diamerald {
 						"blackDiameraldsword", "Diamerald")
 				.setUnlocalizedName("blackDiameraldsword")
 				.setCreativeTab(tabDiamerald);
-		/*blackDiameraldpickaxe = GameRegistry
+		blackDiameraldpickaxe = GameRegistry
 				.registerItem(new blackDiameraldpickaxe(BLACKDIAMERALD),
 						"blackDiameraldpickaxe", "Diamerald")
 				.setUnlocalizedName("blackDiameraldpickaxe")
-				.setCreativeTab(tabDiamerald);*/
+				.setCreativeTab(tabDiamerald);
 		blackDiameraldhelmet = GameRegistry
 				.registerItem(new blackDiameraldhelmet(ArmorMaterial.DIAMOND, 3, 0),
 						"blackDiameraldhelmet", "Diamerald")
@@ -280,7 +279,7 @@ public class Diamerald {
 		GameRegistry.registerTileEntity(TileEntityGrinder.class,
 				"TileEntityGrinder");
 		GameRegistry.registerTileEntity(TileEntityDfurnace.class,
-				"TileEntityDfrunace");
+				"TileEntityDfurnace");
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
 	}
@@ -401,6 +400,7 @@ public class Diamerald {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(GSTorch), 0, new ModelResourceLocation("diamerald:GSTorch", "inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BlockDirtchest), 0, new ModelResourceLocation("diamerald:BlockDirtchest", "inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(Grinder), 0, new ModelResourceLocation("diamerald:Grinder", "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(Dfurnace), 0, new ModelResourceLocation("diamerald:Dfurnace", "inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(gemDiamerald, 0, new ModelResourceLocation("diamerald:gemDiamerald", "inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(gemBlackDiamerald, 0, new ModelResourceLocation("diamerald:gemBlackDiamerald", "inventory"));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldsword, 0, new ModelResourceLocation("diamerald:Diameraldsword", "inventory"));

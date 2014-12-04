@@ -8,8 +8,11 @@ import com.google.common.base.Predicate;
 import jmm.mods.Diamerald.Diamerald;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlowstone;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -18,15 +21,18 @@ import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GSTorch extends BlockGlowstone {
 	
 	public static final PropertyDirection FACING_PROP = PropertyDirection.create("facing", new Predicate()
     {
-        private static final String __OBFID = "CL_00002054";
         public boolean func_176601_a(EnumFacing p_176601_1_)
         {
             return p_176601_1_ != EnumFacing.DOWN;
@@ -36,7 +42,6 @@ public class GSTorch extends BlockGlowstone {
             return this.func_176601_a((EnumFacing)p_apply_1_);
         }
     });
-    private static final String __OBFID = "CL_00000325";
 
 	public GSTorch(Material i) {
 		super(i);
@@ -371,6 +376,133 @@ public class GSTorch extends BlockGlowstone {
         }
 
         return super.collisionRayTrace(worldIn, pos, start, end);
+    }
+    
+    public IBlockState getStateFromMeta(int meta)
+    {
+        IBlockState iblockstate = this.getDefaultState();
+
+        switch (meta)
+        {
+            case 1:
+                iblockstate = iblockstate.withProperty(FACING_PROP, EnumFacing.EAST);
+                break;
+            case 2:
+                iblockstate = iblockstate.withProperty(FACING_PROP, EnumFacing.WEST);
+                break;
+            case 3:
+                iblockstate = iblockstate.withProperty(FACING_PROP, EnumFacing.SOUTH);
+                break;
+            case 4:
+                iblockstate = iblockstate.withProperty(FACING_PROP, EnumFacing.NORTH);
+                break;
+            case 5:
+            default:
+                iblockstate = iblockstate.withProperty(FACING_PROP, EnumFacing.UP);
+        }
+
+        return iblockstate;
+    }
+
+    public int getMetaFromState(IBlockState state)
+    {
+        byte b0 = 0;
+        int i;
+
+        switch (GSTorch.SwitchEnumFacing.field_176609_a[((EnumFacing)state.getValue(FACING_PROP)).ordinal()])
+        {
+            case 1:
+                i = b0 | 1;
+                break;
+            case 2:
+                i = b0 | 2;
+                break;
+            case 3:
+                i = b0 | 3;
+                break;
+            case 4:
+                i = b0 | 4;
+                break;
+            case 5:
+            case 6:
+            default:
+                i = b0 | 5;
+        }
+
+        return i;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public EnumWorldBlockLayer getBlockLayer()
+    {
+        return EnumWorldBlockLayer.CUTOUT;
+    }
+
+    protected BlockState createBlockState()
+    {
+        return new BlockState(this, new IProperty[] {FACING_PROP});
+    }
+    
+    static final class SwitchEnumFacing
+    {
+        static final int[] field_176609_a = new int[EnumFacing.values().length];
+
+        static
+        {
+            try
+            {
+                field_176609_a[EnumFacing.EAST.ordinal()] = 1;
+            }
+            catch (NoSuchFieldError var6)
+            {
+                ;
+            }
+
+            try
+            {
+                field_176609_a[EnumFacing.WEST.ordinal()] = 2;
+            }
+            catch (NoSuchFieldError var5)
+            {
+                ;
+            }
+
+            try
+            {
+                field_176609_a[EnumFacing.SOUTH.ordinal()] = 3;
+            }
+            catch (NoSuchFieldError var4)
+            {
+                ;
+            }
+
+            try
+            {
+                field_176609_a[EnumFacing.NORTH.ordinal()] = 4;
+            }
+            catch (NoSuchFieldError var3)
+            {
+                ;
+            }
+
+            try
+            {
+                field_176609_a[EnumFacing.DOWN.ordinal()] = 5;
+            }
+            catch (NoSuchFieldError var2)
+            {
+                ;
+            }
+
+            try
+            {
+                field_176609_a[EnumFacing.UP.ordinal()] = 6;
+            }
+            catch (NoSuchFieldError var1)
+            {
+                ;
+            }
+        }
     }
 
 	/*@SideOnly(Side.CLIENT)

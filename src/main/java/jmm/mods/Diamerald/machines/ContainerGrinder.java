@@ -26,7 +26,7 @@ public class ContainerGrinder extends Container
         this.addSlotToContainer(new Slot(par2TileEntityGrinder, 0, 56, 34));
         this.addSlotToContainer(new Slot(par2TileEntityGrinder, 1, 8, 52));
         this.addSlotToContainer(new SlotMachine(par1InventoryPlayer.player, par2TileEntityGrinder, 2, 116, 35));
-        //this.addSlotToContainer(new SlotMachine(par1InventoryPlayer.player, par2TileEntityGrinder, 3, 143, 35));
+        
         int i;
 
         for (i = 0; i < 3; ++i)
@@ -42,14 +42,12 @@ public class ContainerGrinder extends Container
             this.addSlotToContainer(new Slot(par1InventoryPlayer, i, 8 + i * 18, 142));
         }
     }
-
-    /*public void addCraftingToCrafters(ICrafting par1ICrafting)
+    
+    public void onCraftGuiOpened(ICrafting icrafting)
     {
-        super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.grinderCookTime);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
-    }*/
+        super.onCraftGuiOpened(icrafting);
+        icrafting.func_175173_a(this, this.tileGrinder);
+    }
 
     public void detectAndSendChanges()
     {
@@ -59,60 +57,32 @@ public class ContainerGrinder extends Container
         {
             ICrafting icrafting = (ICrafting)this.crafters.get(i);
 
-            if (this.lastCookTime != this.tileGrinder.grinderCookTime)
+            if (this.lastCookTime != this.tileGrinder.getField(0))
             {
-                icrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.grinderCookTime);
+                icrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.getField(0));
             }
             
-            if (this.lastBurnTime != this.tileGrinder.grinderBurnTime)
+            if (this.lastBurnTime != this.tileGrinder.getField(1))
             {
-                icrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
+                icrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.getField(1));
             }
 
-/*            if (this.lastBurnTime != this.tileGrinder.grinderBurnTime)
+            if (this.lastItemCookTime != this.tileGrinder.getField(2))
             {
-                icrafting.sendProgressBarUpdate(this, 1, this.tileGrinder.grinderBurnTime);
-            }
-
-            if (this.lastItemBurnTime != this.tileGrinder.currentItemBurnTime)
-            {
-                icrafting.sendProgressBarUpdate(this, 2, this.tileGrinder.currentItemBurnTime);
-            }
-*/            
-            if (this.lastItemCookTime != this.tileGrinder.itemCookTime)
-            {
-            	icrafting.sendProgressBarUpdate(this, 0, this.tileGrinder.itemCookTime);
+            	icrafting.sendProgressBarUpdate(this, 2, this.tileGrinder.getField(2));
             }
            
         }
 
-        this.lastCookTime = this.tileGrinder.grinderCookTime;
-        this.lastBurnTime = this.tileGrinder.grinderBurnTime;
-        this.lastItemCookTime = this.tileGrinder.itemCookTime;
+        this.lastCookTime = this.tileGrinder.getField(0);
+        this.lastBurnTime = this.tileGrinder.getField(1);
+        this.lastItemCookTime = this.tileGrinder.getField(2);
     }
 
 	@SideOnly(Side.CLIENT)
     public void updateProgressBar(int slot, int value)
     {
-        if (slot == 0)
-        {
-            this.tileGrinder.grinderCookTime = value;
-        }
-
-        if (slot == 1)
-        {
-            this.tileGrinder.grinderBurnTime = value;
-        }
-
-       /* if (slot == 2)
-        {
-            this.tileGrinder.currentItemBurnTime = value;
-        }*/
-        
-        if (slot == 0)
-        {
-        	this.tileGrinder.itemCookTime = value;
-        }
+        this.tileGrinder.setField(slot, value);
         
     }
 
@@ -142,7 +112,7 @@ public class ContainerGrinder extends Container
             }
             else if (par2 != 1 && par2 != 0)
             {
-                if (GrinderRecipes.smelting().getSmeltingResult(itemstack1) != null)
+                if (GrinderRecipes.instance().getSmeltingResult(itemstack1) != null)
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {

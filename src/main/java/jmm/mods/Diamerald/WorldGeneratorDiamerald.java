@@ -22,7 +22,6 @@ public class WorldGeneratorDiamerald implements IWorldGenerator {
 			generateSurface(world, random, chunkX * 16, chunkZ * 16);
 
 		}
-
 	}
 
 	private void generateSurface(World world, Random random, int BlockX,

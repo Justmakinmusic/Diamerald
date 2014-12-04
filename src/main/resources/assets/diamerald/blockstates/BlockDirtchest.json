@@ -1,5 +1,10 @@
 {
     "variants": {
-        "normal": { "model": "diamerald:BlockDirtchest" }
+        "facing=up": { "model": "diamerald:BlockDirtchest" },
+        "facing=east": { "model": "diamerald:BlockDirtchest" },
+        "facing=south": { "model": "diamerald:BlockDirtchest", "y": 90 },
+        "facing=west": { "model": "diamerald:BlockDirtchest", "y": 180 },
+        "facing=north": { "model": "diamerald:BlockDirtchest", "y": 270 }
     }
 }
+

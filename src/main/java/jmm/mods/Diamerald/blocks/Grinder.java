@@ -7,21 +7,19 @@ import jmm.mods.Diamerald.tileentity.TileEntityGrinder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -31,7 +29,6 @@ public class Grinder extends BlockContainer
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     private final boolean isBurning;
     private static boolean keepInventory;
-    //private static boolean field_149934_M;
     private static final String __OBFID = "CL_00000248";
     
     
@@ -39,8 +36,8 @@ public class Grinder extends BlockContainer
     public Grinder(boolean p_i45407_1_)
     {
         super(Material.rock);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.isBurning = p_i45407_1_;
-        setHardness(3.5f).setResistance(5.0f);
     }
 
     public Item getItemDropped(int par1, Random random, int par3)
@@ -99,7 +96,7 @@ public class Grinder extends BlockContainer
         this.bottom = par1.registerIcon("Diamerald:grinder_bottom");
     }*/
 
-    public boolean onBlockActivated(World par1World, int xCoord, int yCoord, int zCoord, EntityPlayer par5Player, int par6, float par7, float par8, float par9)
+    /*public boolean onBlockActivated(World par1World, int xCoord, int yCoord, int zCoord, EntityPlayer par5Player, int par6, float par7, float par8, float par9)
     {
     	
         if (par1World.isRemote)
@@ -114,6 +111,25 @@ public class Grinder extends BlockContainer
             {
                 par5Player.openGui(Diamerald.instance, 0, par1World, xCoord, yCoord, zCoord);
             }
+            return true;
+        }
+    }*/
+    
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
+    {
+        if (worldIn.isRemote)
+        {
+            return true;
+        }
+        else
+        {
+            TileEntity tileentity = worldIn.getTileEntity(pos);
+
+            if (tileentity instanceof TileEntityGrinder)
+            {
+                playerIn.openGui(Diamerald.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            }
+
             return true;
         }
     }
@@ -273,6 +289,39 @@ public class Grinder extends BlockContainer
     public Item getItem(World par1World, int xCoord, int yCoord, int zCoord)
     {
         return Item.getItemFromBlock(Diamerald.Grinder);
+    }
+    
+    public int getRenderType()
+    {
+        return 3;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public IBlockState getStateForEntityRender(IBlockState state)
+    {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
+    }
+
+    public IBlockState getStateFromMeta(int meta)
+    {
+        EnumFacing enumfacing = EnumFacing.getFront(meta);
+
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+        {
+            enumfacing = EnumFacing.NORTH;
+        }
+
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
+
+    public int getMetaFromState(IBlockState state)
+    {
+        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    }
+
+    protected BlockState createBlockState()
+    {
+        return new BlockState(this, new IProperty[] {FACING});
     }
 }
 

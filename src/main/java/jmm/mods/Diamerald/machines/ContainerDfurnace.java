@@ -29,7 +29,6 @@ public class ContainerDfurnace extends Container {
         this.addSlotToContainer(new SlotMachine(par1InventoryPlayer.player, par2TileEntityDfurnace, 2, 116, 35));
         this.addSlotToContainer(new Slot(par2TileEntityDfurnace, 3, 56, 13));
         this.addSlotToContainer(new SlotMachine(par1InventoryPlayer.player, par2TileEntityDfurnace, 4, 147, 35));
-        //this.addSlotToContainer(new SlotMachine(par1InventoryPlayer.player, par2TileEntityGrinder, 3, 143, 35));
         int i;
         
         for (i = 0; i < 3; ++i)
@@ -46,21 +45,11 @@ public class ContainerDfurnace extends Container {
         }
     }
     
-    public void onCraftGuiOpened(ICrafting p_75132_1_)
+    public void onCraftGuiOpened(ICrafting icrafting)
     {
-        super.onCraftGuiOpened(p_75132_1_);
-        p_75132_1_.func_175173_a(this, this.tileDfurnace);
+        super.onCraftGuiOpened(icrafting);
+        icrafting.func_175173_a(this, this.tileDfurnace);
     }
-
-    /*public void addCraftingToCrafters(ICrafting par1ICrafting)
-    {
-        super.addCraftingToCrafters(par1ICrafting);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.dfurnaceCookTime);
-        par1ICrafting.sendProgressBarUpdate(this, 1, this.tileDfurnace.dfurnaceBurnTime);
-        par1ICrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.itemCookTime);
-        par1ICrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.dfurnaceCookTime2);
-        par1ICrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.itemCookTime2);
-    }*/
 
     public void detectAndSendChanges()
     {
@@ -70,71 +59,44 @@ public class ContainerDfurnace extends Container {
         {
             ICrafting icrafting = (ICrafting)this.crafters.get(i);
 
-            if (this.lastCookTime != this.tileDfurnace.dfurnaceCookTime)
+            if (this.lastCookTime != this.tileDfurnace.getField(0))
             {
-                icrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.dfurnaceCookTime);
+                icrafting.sendProgressBarUpdate(this, 0, this.tileDfurnace.getField(0));
             }
             
-            if (this.lastCookTime2 != this.tileDfurnace.dfurnaceCookTime2)
+            if (this.lastCookTime2 != this.tileDfurnace.getField(3))
             {
-                icrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.dfurnaceCookTime2);
+                icrafting.sendProgressBarUpdate(this, 3, this.tileDfurnace.getField(3));
             }
             
-            if (this.lastBurnTime != this.tileDfurnace.dfurnaceBurnTime)
+            if (this.lastBurnTime != this.tileDfurnace.getField(1))
             {
-                icrafting.sendProgressBarUpdate(this, 1, this.tileDfurnace.dfurnaceBurnTime);
+                icrafting.sendProgressBarUpdate(this, 1, this.tileDfurnace.getField(1));
             }
             
-            if (this.lastItemCookTime != this.tileDfurnace.itemCookTime)
+            if (this.lastItemCookTime != this.tileDfurnace.getField(2))
             {
-            	icrafting.sendProgressBarUpdate(this, 2, this.tileDfurnace.itemCookTime);
+            	icrafting.sendProgressBarUpdate(this, 2, this.tileDfurnace.getField(2));
             }
             
-            if (this.lastItemCookTime2 != this.tileDfurnace.itemCookTime2)
+            if (this.lastItemCookTime2 != this.tileDfurnace.getField(4))
             {
-            	icrafting.sendProgressBarUpdate(this, 4, this.tileDfurnace.itemCookTime2);
+            	icrafting.sendProgressBarUpdate(this, 4, this.tileDfurnace.getField(4));
             }
            
         }
 
-        this.lastCookTime = this.tileDfurnace.dfurnaceCookTime;
-        this.lastBurnTime = this.tileDfurnace.dfurnaceBurnTime;
-        this.lastItemCookTime = this.tileDfurnace.itemCookTime;
-        this.lastCookTime2 = this.tileDfurnace.dfurnaceCookTime2;
-        this.lastItemCookTime2 = this.tileDfurnace.itemCookTime2;
+        this.lastCookTime = this.tileDfurnace.getField(0);
+        this.lastBurnTime = this.tileDfurnace.getField(1);
+        this.lastItemCookTime = this.tileDfurnace.getField(2);
+        this.lastCookTime2 = this.tileDfurnace.getField(3);
+        this.lastItemCookTime2 = this.tileDfurnace.getField(4);
     }
 
-	@SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public void updateProgressBar(int slot, int value)
     {
-        if (slot == 0)
-        {
-            this.tileDfurnace.dfurnaceCookTime = value;
-        }
-
-        if (slot == 1)
-        {
-            this.tileDfurnace.dfurnaceBurnTime = value;
-        }
-        if (slot == 3)
-        {
-        	this.tileDfurnace.dfurnaceCookTime2 = value;
-        }
-
-        /*if (slot == 2)
-        {
-            this.tileDfurnace.dfurnaceBurnTime = value;
-        }*/
-        
-        if (slot == 0)
-        {
-        	this.tileDfurnace.itemCookTime = value;
-        }
-        if (slot == 3)
-        {
-        	this.tileDfurnace.itemCookTime2 = value;
-        }
-        
+        this.tileDfurnace.setField(slot, value);        
     }
 
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
@@ -164,7 +126,7 @@ public class ContainerDfurnace extends Container {
            
             else if (par2 != 1 && par2 != 0)
             {
-                if (DfurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
+                if (DfurnaceRecipes.instance().getSmeltingResult(itemstack1) != null)
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {

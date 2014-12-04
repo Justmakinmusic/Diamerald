@@ -67,8 +67,8 @@ public class SlotMachine extends Slot {
 
 		if (!this.thePlayer.worldObj.isRemote) {
 			int i = this.field_75228_b;
-			float f = GrinderRecipes.smelting().getExperience(par1ItemStack);
-			float g = DfurnaceRecipes.smelting().getExperience(par1ItemStack);
+			float f = GrinderRecipes.instance().getExperience(par1ItemStack);
+			float g = DfurnaceRecipes.instance().getExperience(par1ItemStack);
 			int j;
 
 			if (f == 0.0F || g == 0.0f) {

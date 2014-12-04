@@ -1,9 +1,8 @@
 package jmm.mods.Diamerald.items;
 
+
 import jmm.mods.Diamerald.Diamerald;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,8 +10,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+
 
 public class blackDiameraldpickaxe extends ItemPickaxe {
 
@@ -72,38 +74,34 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 		return true;
 	}*/
 	
-	public boolean onBlockDestroyed(ItemStack par1ItemStack, World par2World,
-			Block par3Block, BlockPos pos, EntityLivingBase par7EntityLivingBase) {
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EnumFacing facing, EntityLivingBase playerIn) {
 		int direction = MathHelper
-				.floor_double((double) ((par7EntityLivingBase.rotationYaw * 4F) / 360F) + 0.5D) & 3;
+				.floor_double((double) ((playerIn.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 		int dir = MathHelper
-				.floor_double((double) ((par7EntityLivingBase.rotationPitch * 4F) / 360F) + 0.5D) & 3;
-		int[] offsetY = new int[] { 0, -1, 0, 1 };
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				for (int k = -1; k < 2; k++) {
-					if (offsetY[dir] == 0) {
-						Block blockToTest = par2World.getBlockState(pos.add(
-								pos.getX() + k + Direction.offsetX[direction],
-								pos.getY() + i, pos.getZ() + j
-										+ Direction.offsetZ[direction]));
+				.floor_double((double) ((playerIn.rotationPitch * 4F) / 360F) + 0.5D) & 3;
+		int[] offsetY = new int[] {0, -1, 0, 1};
+		for (int i = -1; i < 2; i++) 
+		{
+			for (int j = -1; j < 2; j++) 
+			{
+				for (int k = -1; k < 2; k++) 
+				{
+					if (offsetY[dir] == 0) 
+					{
+						Block blockToTest = worldIn.getBlockState(pos.add(k + Direction.offsetX[direction], i, j + Direction.offsetZ[direction])).getBlock();
 						if (blockToTest != null
 								&& blockToTest != Blocks.bedrock
 								&& canHarvestBlock(blockToTest))
-							par2World.destroyBlock(pos.getX() + k
-									+ Direction.offsetX[direction], pos.getY()
-									+ i, pos.getZ() + j
-									+ Direction.offsetZ[direction], true);
-					} else {
-						Block blockToTest = par2World
-								.getBlock(pos.getX() + k, pos.getY() + i
-										+ offsetY[dir], pos.getZ() + j);
+							worldIn.destroyBlock(pos.add(k + Direction.offsetX[direction], i, j + Direction.offsetZ[direction]), true);
+					} 
+					else 
+					{
+						Block blockToTest = worldIn
+								.getBlockState(pos.add(k, i	+ offsetY[dir], j)).getBlock();
 						if (blockToTest != null
 								&& blockToTest != Blocks.bedrock
 								&& canHarvestBlock(blockToTest))
-							par2World.destroyBlock(pos.add(pos.getX() + k,
-									pos.getY() + i + offsetY[dir], pos.getZ()
-											+ j), true);
+							worldIn.destroyBlock(pos.add(k,	i + offsetY[dir],j), true);
 					}
 
 				}
@@ -111,13 +109,14 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 			}
 
 		}
-		par1ItemStack.damageItem(1, par7EntityLivingBase);
+		stack.damageItem(1, playerIn);
 		return true;
 	}
 
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack,
-			ItemStack par2ItemStack) {
+			ItemStack par2ItemStack) 
+	{
 		return par2ItemStack.getItem() == Diamerald.gemBlackDiamerald;
 
 	}

@@ -1,38 +1,40 @@
 package jmm.mods.Diamerald.tileentity;
 
 import jmm.mods.Diamerald.blocks.Dfurnace;
+import jmm.mods.Diamerald.machines.ContainerDfurnace;
 import jmm.mods.Diamerald.machines.DfurnaceRecipes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
+public class TileEntityDfurnace extends TileEntityLockable implements IUpdatePlayerListBox, ISidedInventory {
 
 	private static final int[] slotsTop = new int[] { 0, 3 };
 	private static final int[] slotsBottom = new int[] { 2, 4, 1 };
 	private static final int[] slotsSides = new int[] { 0, 3, 1 };
 	private ItemStack[] dfurnaceItemStacks = new ItemStack[5];
-	private static final int Dfurnace_MAX_FUEL = 30000;
+	public static final int Dfurnace_MAX_FUEL = 30000;
 	public int dfurnaceBurnTime;
 	public int dfurnaceCookTime;
 	public int itemCookTime;
 	public int dfurnaceCookTime2;
 	public int itemCookTime2;
+	private int field_174905_l;
 	private String name;
-	// private static SoundHandler sndHandler = FMLClientHandler.instance()
-	// .getClient().getSoundHandler();
-	// private GrinderSound sound = null;
 	private boolean soundIsOn = false;
 
 	public int getSizeInventory() {
@@ -65,11 +67,6 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		}
 	}
 
-	/**
-	 * When some containers are closed they call this on each slot, then drop
-	 * whatever it returns as an EntityItem - like when you close a workbench
-	 * GUI.
-	 */
 	public ItemStack getStackInSlotOnClosing(int par1) {
 		if (this.dfurnaceItemStacks[par1] != null) {
 			ItemStack itemstack = this.dfurnaceItemStacks[par1];
@@ -79,24 +76,29 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 			return null;
 		}
 	}
+	
+	public void setInventorySlotContents(int index, ItemStack stack)
+    {
+        boolean flag = stack != null && stack.isItemEqual(this.dfurnaceItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, this.dfurnaceItemStacks[index]);
+        this.dfurnaceItemStacks[index] = stack;
 
-	/**
-	 * Sets the given item stack to the specified slot in the inventory (can be
-	 * crafting or armor sections).
-	 */
-	public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
-		this.dfurnaceItemStacks[par1] = par2ItemStack;
+        if (stack != null && stack.stackSize > this.getInventoryStackLimit())
+        {
+            stack.stackSize = this.getInventoryStackLimit();
+        }
 
-		if (par2ItemStack != null
-				&& par2ItemStack.stackSize > this.getInventoryStackLimit()) {
-			par2ItemStack.stackSize = this.getInventoryStackLimit();
-		}
-	}
+        if (index == 0 && !flag)
+        {
+            this.field_174905_l = this.func_174904_a(stack);
+            this.dfurnaceCookTime = 0;
+            this.dfurnaceCookTime2 = 0;
+            this.markDirty();
+        }
+    }
 
 	public String getName() {
 
 		return String.valueOf(this.dfurnaceBurnTime);
-		//return this.hasCustomInventoryName() ? this.name : "";
 	}
 
 	public boolean hasCustomName() {
@@ -105,6 +107,10 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 
 	public void setGuiDisplayName(String par1Str) {
 		this.name = par1Str;
+	}
+	
+	public String getGuiID() {
+		return "diamerald:Dfurnace";
 	}
 
 	public void readFromNBT(NBTTagCompound tileEntityTag) {
@@ -158,7 +164,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		return 64;
 	}
 
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public int getCookProgressScaled(int par1, int par2) {
 		if (par2 == 0) {
 			return this.dfurnaceCookTime * par1 / 100;
@@ -166,13 +172,6 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 			return this.dfurnaceCookTime2 * par1 / 100;
 		}
 	}
-
-	// return this.dfurnaceCookTime * par1 / 100;
-
-	/*
-	 * @SideOnly(Side.CLIENT) public int getCookProgressScaled2(int par1, int
-	 * par2) { return this.dfurnaceCookTime2 * par2 / 100; }
-	 */
 
 	@SideOnly(Side.CLIENT)
 	public int getBurnTimeRemainingScaled(int par1) {
@@ -188,7 +187,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 	@SideOnly(Side.CLIENT)
 	public int getItemTimeScaled2(int par1) {
 		return this.itemCookTime2;
-	}
+	}*/
 
 	public boolean isBurning() {
 		return this.dfurnaceBurnTime > 0;
@@ -249,8 +248,9 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 			if (this.isBurning() && this.canSmelt()) {
 				++this.dfurnaceCookTime;
 
-				if (this.dfurnaceCookTime == 100) {
+				if (this.dfurnaceCookTime == this.field_174905_l) {
 					this.dfurnaceCookTime = 0;
+					this.field_174905_l = this.func_174904_a(this.dfurnaceItemStacks[0]);
 					this.smeltItem();
 					flag1 = true;
 				}
@@ -282,51 +282,17 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		}
 
 	}
-
-	/*
-	 * private boolean canSmelt() { if (this.dfurnaceItemStacks[0] == null) {
-	 * return false; } else { ItemStack itemstack =
-	 * DfurnaceRecipes.smelting().getSmeltingResult(
-	 * this.dfurnaceItemStacks[0]);
-	 * 
-	 * if (itemstack == null)
-	 * 
-	 * return false;
-	 * 
-	 * if (this.dfurnaceItemStacks[2] == null)
-	 * 
-	 * return true;
-	 * 
-	 * if (!this.dfurnaceItemStacks[2].isItemEqual(itemstack))
-	 * 
-	 * return false;
-	 * 
-	 * int result = dfurnaceItemStacks[2].stackSize + itemstack.stackSize;
-	 * 
-	 * return result <= getInventoryStackLimit() && result <=
-	 * this.dfurnaceItemStacks[2].getMaxStackSize(); } }
-	 * 
-	 * public void smeltItem() { if (this.canSmelt()) { ItemStack itemstack =
-	 * DfurnaceRecipes.smelting().getSmeltingResult(
-	 * this.dfurnaceItemStacks[0]);
-	 * 
-	 * if (this.dfurnaceItemStacks[2] == null) { this.dfurnaceItemStacks[2] =
-	 * itemstack.copy();
-	 * 
-	 * } else if (this.dfurnaceItemStacks[2].getItem() == itemstack .getItem())
-	 * { this.dfurnaceItemStacks[2].stackSize += itemstack.stackSize; }
-	 * 
-	 * --this.dfurnaceItemStacks[0].stackSize;
-	 * 
-	 * if (this.dfurnaceItemStacks[0].stackSize <= 0) {
-	 * this.dfurnaceItemStacks[0] = null; } } }
-	 */
+	
+	public int func_174904_a(ItemStack p_174904_1_)
+    {
+        return 100;
+    }
 
 	private boolean canSmelt() {
 		if (this.dfurnaceItemStacks[0] == null) {
 			return false;
 		} else {
-			ItemStack itemstack = DfurnaceRecipes.smelting().getSmeltingResult(
+			ItemStack itemstack = DfurnaceRecipes.instance().getSmeltingResult(
 					this.dfurnaceItemStacks[0]);
 
 			if (itemstack == null)
@@ -352,7 +318,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		if (this.dfurnaceItemStacks[3] == null) {
 			return false;
 		} else {
-			ItemStack itemstack = DfurnaceRecipes.smelting()
+			ItemStack itemstack = DfurnaceRecipes.instance()
 					.getSmeltingResult2(this.dfurnaceItemStacks[3]);
 
 			if (itemstack == null)
@@ -376,7 +342,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 
 	public void smeltItem() {
 		if (this.canSmelt()) {
-			ItemStack itemstack = DfurnaceRecipes.smelting().getSmeltingResult(
+			ItemStack itemstack = DfurnaceRecipes.instance().getSmeltingResult(
 					this.dfurnaceItemStacks[0]);
 
 			if (this.dfurnaceItemStacks[2] == null) {
@@ -397,7 +363,7 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 
 	public void smeltItem2() {
 		if (this.canSmelt2()) {
-			ItemStack itemstack = DfurnaceRecipes.smelting()
+			ItemStack itemstack = DfurnaceRecipes.instance()
 					.getSmeltingResult2(this.dfurnaceItemStacks[3]);
 
 			if (this.dfurnaceItemStacks[4] == null) {
@@ -439,10 +405,6 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		return getItemBurnTime(par1ItemStack) > 0;
 	}
 
-	/**
-	 * Do not make give this method the name canInteractWith because it clashes
-	 * with Container
-	 */
 	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {
 		return this.worldObj.getTileEntity(this.pos) != this ? false : par1EntityPlayer.getDistanceSq(
 				(double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D,
@@ -489,13 +451,17 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
         switch (id)
         {
             case 0:
-                return this.dfurnaceBurnTime;
-            case 1:
                 return this.dfurnaceCookTime;
+            case 1:
+                return this.dfurnaceBurnTime;
             case 2:
                 return this.itemCookTime;
-            /*case 3:
-                return this.field_174905_l;*/
+            case 3:
+                return this.dfurnaceCookTime2;
+            case 4:
+            	return this.itemCookTime2;
+            case 5:
+            	return field_174905_l;
             default:
                 return 0;
         }
@@ -506,22 +472,28 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
         switch (id)
         {
             case 0:
-                this.dfurnaceBurnTime = value;
+                this.dfurnaceCookTime = value;
                 break;
             case 1:
-                this.dfurnaceCookTime = value;
+                this.dfurnaceBurnTime = value;
                 break;
             case 2:
                 this.itemCookTime = value;
                 break;
-            /*case 3:
-                this.field_174905_l = value;*/
+            case 3:
+                this.dfurnaceCookTime2 = value;
+                break;
+            case 4:
+            	this.itemCookTime2 = value;
+            	break;
+            case 5:
+            	this.field_174905_l = value;
         }
     }
 
     public int getFieldCount()
     {
-        return 4;
+        return 6;
     }
 
     public void clearInventory()
@@ -543,5 +515,11 @@ public class TileEntityDfurnace extends TileEntity implements ISidedInventory {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	 public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+   {
+       return new ContainerDfurnace(playerInventory, this);
+   }
 
 }

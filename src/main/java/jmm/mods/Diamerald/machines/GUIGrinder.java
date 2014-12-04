@@ -45,20 +45,48 @@ public class GUIGrinder extends GuiContainer
         
         if (this.tileGrinder.isGrinding())
         {
-            i1 = this.tileGrinder.getItemTimeScaled(12);
+            i1 = this.getItemTimeScaled(12);
             this.drawTexturedModalRect(k + 62, l + 52 + 12 - i1, 176, 11 - i1, 16, i1 + 2);
         }
       
         if (this.tileGrinder.isBurning())
         {
-        	 i1 = this.tileGrinder.getBurnTimeRemainingScaled(45);
-             this.drawTexturedModalRect(k + 10, l + 36 + 13 - i1, 176, 93 - i1, 12, i1 + 2); // i1 + 2);
-             //Diamerald.packetPipeline.sendToAll(new PacketGrinder(tileGrinder.grinderBurnTime, tileGrinder.xCoord, tileGrinder.yCoord, tileGrinder.zCoord));
+        	 i1 = this.getBurnTimeRemainingScaled(45);
+             this.drawTexturedModalRect(k + 10, l + 36 + 13 - i1, 176, 93 - i1, 12, i1 + 2);
         }
 
-        i1 = this.tileGrinder.getCookProgressScaled(24);
+        i1 = this.getCookProgressScaled(24);
         this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
-        
-        //Diamerald.packetPipeline.sendToServer(new PacketGrinder(tileGrinder.grinderBurnTime, tileGrinder.xCoord, tileGrinder.yCoord, tileGrinder.zCoord));
+    }
+    
+    private int getCookProgressScaled(int p_175381_1_)
+    {
+        //int j = this.tileGrinder.getField(2);
+        //int k = this.tileGrinder.getField(3);
+        return this.tileGrinder.getField(2) * p_175381_1_ / 325; //k != 0 && j != 0 ? j * p_175381_1_ / k : 0;
+    }
+
+    private int getItemTimeScaled(int p_175382_1_)
+    {
+        /*int j = this.tileGrinder.getField(1);
+
+        if (j == 0)
+        {
+            j = 325;
+        }*/
+
+        return this.tileGrinder.getField(2)/* * p_175382_1_ / j*/;
+    }
+    
+    private int getBurnTimeRemainingScaled(int p_175382_1_)
+    {
+        int j = this.tileGrinder.GRINDER_MAX_FUEL; //getField(1);
+
+        /*if (j == 0)
+        {
+            j = tileGrinder.GRINDER_MAX_FUEL;
+        }*/
+
+        return this.tileGrinder.getField(0) * p_175382_1_ / j;
     }
 }

@@ -44,24 +44,48 @@ public class GUIDfurnace extends GuiContainer
         
         if (this.tileDfurnace.isCooking() || this.tileDfurnace.isCooking2())
         {
-            i1 = this.tileDfurnace.getItemTimeScaled(12);
-            i2 = this.tileDfurnace.getItemTimeScaled2(12);
+            i1 = this.getItemTimeScaled(12);
+            i2 = this.getItemTimeScaled2(12);
             this.drawTexturedModalRect(k + 62, l + 52 + 12 - i1, 176, 11 - i1, 16, i1 + 2);
             this.drawTexturedModalRect(k + 62, l + 52 + 12 - i2, 176, 11 - i2, 16, i2 + 2);
         }
       
         if (this.tileDfurnace.isBurning())
         {
-        	 i1 = this.tileDfurnace.getBurnTimeRemainingScaled(45);
+        	 i1 = this.getBurnTimeRemainingScaled(45);
              this.drawTexturedModalRect(k + 10, l + 36 + 13 - i1, 176, 93 - i1, 12, i1 + 2); // i1 + 2);
         }
         
-        i1 = this.tileDfurnace.getCookProgressScaled(24, 0);
-        i2 = this.tileDfurnace.getCookProgressScaled(24, 3);
+        i1 = this.getCookProgressScaled(24);
+        i2 = this.getCookProgressScaled2(24);
         this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
         this.drawTexturedModalRect(k + 79, l + 12, 176, 14, i2 + 1, 16);
-        
-        //i1 = this.tileDfurnace.getCookProgressScaled2(24, 3);
-        //this.drawTexturedModalRect(k + 79, l + 34, 176, 14, i1 + 1, 16);
+    }
+    
+    private int getCookProgressScaled(int p_175381_1_)
+    {
+        return this.tileDfurnace.getField(0) * p_175381_1_ / 100;
+    }
+    
+    private int getCookProgressScaled2(int p_175381_1_)
+    {
+        return this.tileDfurnace.getField(3) * p_175381_1_ / 100;
+    }
+
+    private int getItemTimeScaled(int p_175382_1_)
+    {
+        return this.tileDfurnace.getField(0);
+    }
+    
+    private int getItemTimeScaled2(int p_175382_1_)
+    {
+        return this.tileDfurnace.getField(3);
+    }
+    
+    private int getBurnTimeRemainingScaled(int p_175382_1_)
+    {
+        int j = this.tileDfurnace.Dfurnace_MAX_FUEL; 
+
+        return this.tileDfurnace.getField(1) * p_175382_1_ / j;
     }
 }

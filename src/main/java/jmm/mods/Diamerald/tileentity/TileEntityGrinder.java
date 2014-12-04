@@ -1,35 +1,36 @@
 package jmm.mods.Diamerald.tileentity;
 
 import jmm.mods.Diamerald.blocks.Grinder;
+import jmm.mods.Diamerald.machines.ContainerGrinder;
 import jmm.mods.Diamerald.machines.GrinderRecipes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntityGrinder extends TileEntity implements ISidedInventory {
+public class TileEntityGrinder extends TileEntityLockable implements IUpdatePlayerListBox, ISidedInventory {
 	private static final int[] slotsTop = new int[] { 0, 1, 2 };
 	private static final int[] slotsBottom = new int[] { 0, 1, 2 };
 	private static final int[] slotsSides = new int[] { 0, 1, 2 };
 	private ItemStack[] grinderItemStacks = new ItemStack[3];
-	private static final int GRINDER_MAX_FUEL = 30000;
+	public static final int GRINDER_MAX_FUEL = 30000;
 	public int grinderBurnTime;
 	public int grinderCookTime;
 	public int itemCookTime;
+	private int field_174905_l;
 	private String name;
-	
-	// private static SoundHandler sndHandler = FMLClientHandler.instance()
-	// .getClient().getSoundHandler();
-	// private GrinderSound sound = null;
 	private boolean soundIsOn = false;
 
 	public int getSizeInventory() {
@@ -62,11 +63,6 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		}
 	}
 
-	/**
-	 * When some containers are closed they call this on each slot, then drop
-	 * whatever it returns as an EntityItem - like when you close a workbench
-	 * GUI.
-	 */
 	public ItemStack getStackInSlotOnClosing(int par1) {
 		if (this.grinderItemStacks[par1] != null) {
 			ItemStack itemstack = this.grinderItemStacks[par1];
@@ -76,24 +72,28 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			return null;
 		}
 	}
+	
+	public void setInventorySlotContents(int index, ItemStack stack)
+    {
+        boolean flag = stack != null && stack.isItemEqual(this.grinderItemStacks[index]) && ItemStack.areItemStackTagsEqual(stack, this.grinderItemStacks[index]);
+        this.grinderItemStacks[index] = stack;
 
-	/**
-	 * Sets the given item stack to the specified slot in the inventory (can be
-	 * crafting or armor sections).
-	 */
-	public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
-		this.grinderItemStacks[par1] = par2ItemStack;
+        if (stack != null && stack.stackSize > this.getInventoryStackLimit())
+        {
+            stack.stackSize = this.getInventoryStackLimit();
+        }
 
-		if (par2ItemStack != null
-				&& par2ItemStack.stackSize > this.getInventoryStackLimit()) {
-			par2ItemStack.stackSize = this.getInventoryStackLimit();
-		}
-	}
+        if (index == 0 && !flag)
+        {
+            this.field_174905_l = this.func_174904_a(stack);
+            this.grinderCookTime = 0;
+            this.markDirty();
+        }
+    }
 
 	public String getName() {
 
 		return String.valueOf(this.grinderBurnTime);
-		//return this.hasCustomInventoryName() ? this.name : "Grinder";
 	}
 
 	public boolean hasCustomName() {
@@ -102,6 +102,11 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 	public void setGuiDisplayName(String par1Str) {
 		this.name = par1Str;
+	}
+	
+	@Override
+	public String getGuiID() {
+		return "diamerald:Grinder";
 	}
 
 	public void readFromNBT(NBTTagCompound tileEntityTag) {
@@ -121,13 +126,6 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 		this.grinderBurnTime = tileEntityTag.getInteger("BurnTime");
 		this.grinderCookTime = tileEntityTag.getInteger("CookTime");
-
-		// Read info for GrinderSound location
-		// NBTTagCompound soundTag =
-		// tileEntityTag.getCompoundTag("GrinderSound");
-		// this.soundIsOn = tileEntityTag.getBoolean("SoundIsOn");
-		// sound = new GrinderSound(0, 0, 0);
-		// sound.readFromNBT(soundTag);
 
 		if (tileEntityTag.hasKey("CustomName", 8)) {
 			this.name = tileEntityTag.getString("CustomName");
@@ -151,40 +149,16 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 		tileEntityTag.setTag("Items", nbttaglist);
 
-		// Write info for GrinderSound location
-		// NBTTagCompound soundTag = new NBTTagCompound();
-		// sound.writeToNBT(soundTag);
-		// tileEntityTag.setTag("GrinderSound", soundTag);
-		// tileEntityTag.setBoolean("SoundIsOn", false);
-
 		if (this.hasCustomName()) {
 			tileEntityTag.setString("CustomName", this.name);
 		}
 	}
 
-	/*
-	 * @Override public Packet getDescriptionPacket() {
-	 * 
-	 * NBTTagCompound tag = new NBTTagCompound(); writeToNBT(tag); return new
-	 * S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag); }
-	 * 
-	 * @Override public void onDataPacket(NetworkManager net,
-	 * S35PacketUpdateTileEntity packet) { readFromNBT(packet.func_148857_g());
-	 * updateEntity(); worldObj.getTileEntity(xCoord, yCoord, zCoord);
-	 * 
-	 * }
-	 */
-
-	/*
-	 * @Override public void onDataPacket(NetworkManager net,
-	 * S35PacketUpdateTileEntity packet) { readFromNBT(packet.func_148857_g());
-	 * updateEntity(); worldObj.getTileEntity(xCoord, yCoord, zCoord); }
-	 */
 	public int getInventoryStackLimit() {
 		return 64;
 	}
 
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public int getCookProgressScaled(int par1) {
 		return this.grinderCookTime * par1 / 325;
 	}
@@ -193,14 +167,12 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 	public int getBurnTimeRemainingScaled(int par1) {
 
 		return this.grinderBurnTime * par1 / this.GRINDER_MAX_FUEL;
-		// return (int) (this.grinderBurnTime * (double) par1 /
-		// GRINDER_MAX_FUEL); // this.currentItemBurnTime;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public int getItemTimeScaled(int par1) {
 		return this.itemCookTime;
-	}
+	}*/
 
 	public boolean isBurning() {
 		return this.grinderBurnTime > 0;
@@ -210,35 +182,14 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		return this.grinderCookTime > 0;
 	}
 
-	// startSound being tested against worldObj.playSoundEffect//
-	/*
-	 * public void startSound() {
-	 * 
-	 * if (!this.worldObj.isRemote) {
-	 * 
-	 * if (!sndHandler.isSoundPlaying(sound)) { System.out.println("Playing: " +
-	 * sound.getPositionedSoundLocation()); sndHandler.stopSound(sound);
-	 * sndHandler.playSound(sound); soundIsOn = true; } } }
-	 * 
-	 * // stopSound being tested against worldObj.playSoundEffect//
-	 * 
-	 * public void stopSound() { if (!this.worldObj.isRemote) { if (soundIsOn) {
-	 * System.out.println("Stopping: " + sound.getPositionedSoundLocation());
-	 * sndHandler.stopSound(sound); soundIsOn = false; } } }
-	 */
 	public void update() {
 		boolean flag = this.grinderBurnTime > 0;
 		boolean flag1 = false;
 		boolean soundWasOn = soundIsOn;
-		
-		/*
-		 * if (!this.worldObj.isRemote && sound == null) {
-		 * System.out.println("TileEntityGrinder " + this.toString() + " is");
-		 * sound = new GrinderSound(this.xCoord, this.yCoord, this.zCoord); }
-		 */
+	
 		if (this.grinderItemStacks[0] != null && this.isBurning()
 				&& this.isGrinding()) {
-			// this.startSound();
+			
 			soundIsOn = true;
 			this.worldObj.playSoundEffect((double) this.pos.getX() + 0.5D,
 					(double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D,
@@ -248,7 +199,6 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 		else {
 			soundIsOn = false;
-			// this.stopSound();
 		}
 
 		if (!this.worldObj.isRemote) {
@@ -279,8 +229,9 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 			if (this.isBurning() && this.canSmelt()) {
 				++this.grinderCookTime;
 
-				if (this.grinderCookTime == 325) {
+				if (this.grinderCookTime == this.field_174905_l) {
 					this.grinderCookTime = 0;
+					this.field_174905_l = this.func_174904_a(this.grinderItemStacks[0]);
 					this.smeltItem();
 					flag1 = true;
 				}
@@ -301,37 +252,22 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 	}
 
-	/*String[] ores = OreDictionary.getOreNames();
-
-	private boolean isOre(ItemStack itemstack) {
-		for (int i = 0; i < ores.length; ++i) {
-			if (ores[i].contains("ore")) {
-				for (int j = 0; j < OreDictionary.getOres(ores[i]).size(); ++j) {
-					if (OreDictionary.getOres(ores[i]).get(j).getItem() == itemstack
-							.getItem()) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}*/
+	public int func_174904_a(ItemStack p_174904_1_)
+    {
+        return 325;
+    }
 
 	private boolean canSmelt() {
 		if (this.grinderItemStacks[0] == null) {
 			return false;
 		} else {
-			ItemStack itemstack = GrinderRecipes.smelting().getSmeltingResult(
+			ItemStack itemstack = GrinderRecipes.instance().getSmeltingResult(
 					this.grinderItemStacks[0]);
 
 			if (itemstack == null)
 
 				return false;
 			
-			//if(!isOre(grinderItemStacks[0]))
-				
-			//	return false;
-
 			if (this.grinderItemStacks[2] == null)
 
 				return true;
@@ -349,7 +285,7 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 
 	public void smeltItem() {
 		if (this.canSmelt()) {
-			ItemStack itemstack = GrinderRecipes.smelting().getSmeltingResult(
+			ItemStack itemstack = GrinderRecipes.instance().getSmeltingResult(
 					this.grinderItemStacks[0]);
 
 			if (this.grinderItemStacks[2] == null) {
@@ -388,10 +324,6 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		return getItemBurnTime(par1ItemStack) > 0;
 	}
 
-	/**
-	 * Do not make give this method the name canInteractWith because it clashes
-	 * with Container
-	 */
 	public boolean isUseableByPlayer(EntityPlayer playerIn) {
 		return this.worldObj.getTileEntity(this.pos) != this ? false : playerIn.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
 	}
@@ -411,10 +343,6 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		return par1 == 0 ? slotsBottom : (par1 == 1 ? slotsTop : slotsSides);
 	}
 
-	/**
-	 * Returns true if automation can insert the given item in the given slot
-	 * from the given side. Args: Slot, item, side
-	 */
 	 public boolean canInsertItem(int slotIn, ItemStack itemStackIn, EnumFacing direction)
 	    {
 	        return this.isItemValidForSlot(slotIn, itemStackIn);
@@ -442,11 +370,11 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
             case 0:
                 return this.grinderBurnTime;
             case 1:
-                return this.grinderCookTime;
-            case 2:
                 return this.itemCookTime;
-            /*case 3:
-                return this.field_174905_l;*/
+            case 2:
+                return this.grinderCookTime;
+            case 3:
+                return this.field_174905_l;
             default:
                 return 0;
         }
@@ -460,13 +388,13 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
                 this.grinderBurnTime = value;
                 break;
             case 1:
-                this.grinderCookTime = value;
-                break;
-            case 2:
                 this.itemCookTime = value;
                 break;
-            /*case 3:
-                this.field_174905_l = value;*/
+            case 2:
+                this.grinderCookTime = value;
+                break;
+            case 3:
+                this.field_174905_l = value;
         }
     }
 
@@ -494,5 +422,11 @@ public class TileEntityGrinder extends TileEntity implements ISidedInventory {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	 public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
+    {
+        return new ContainerGrinder(playerInventory, this);
+    }
 
 }

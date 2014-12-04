@@ -1,5 +1,9 @@
 {
     "variants": {
-        "normal": { "model": "diamerald:GStorch" }
+        "facing=up": { "model": "diamerald:normal_GSTorch" },
+        "facing=east": { "model": "diamerald:normal_GSTorch_wall" },
+        "facing=south": { "model": "diamerald:normal_GSTorch_wall", "y": 90 },
+        "facing=west": { "model": "diamerald:normal_GSTorch_wall", "y": 180 },
+        "facing=north": { "model": "diamerald:normal_GSTorch_wall", "y": 270 }
     }
 }
