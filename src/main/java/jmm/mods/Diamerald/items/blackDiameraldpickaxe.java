@@ -74,34 +74,35 @@ public class blackDiameraldpickaxe extends ItemPickaxe {
 		return true;
 	}*/
 	
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EnumFacing facing, EntityLivingBase playerIn) {
+	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+		EnumFacing facing = null;
 		int direction = MathHelper
 				.floor_double((double) ((playerIn.rotationYaw * 4F) / 360F) + 0.5D) & 3;
 		int dir = MathHelper
 				.floor_double((double) ((playerIn.rotationPitch * 4F) / 360F) + 0.5D) & 3;
-		int[] offsetY = new int[] {0, -1, 0, 1};
+		//int[] offsetY = new int[] {0, -1, 0, 1};
 		for (int i = -1; i < 2; i++) 
 		{
 			for (int j = -1; j < 2; j++) 
 			{
 				for (int k = -1; k < 2; k++) 
 				{
-					if (offsetY[dir] == 0) 
+					if (facing == EnumFacing.getHorizontal(direction)) 
 					{
-						Block blockToTest = worldIn.getBlockState(pos.add(k + Direction.offsetX[direction], i, j + Direction.offsetZ[direction])).getBlock();
+						Block blockToTest = worldIn.getBlockState(pos.add(k + direction, i, j + direction)).getBlock();
 						if (blockToTest != null
 								&& blockToTest != Blocks.bedrock
 								&& canHarvestBlock(blockToTest))
-							worldIn.destroyBlock(pos.add(k + Direction.offsetX[direction], i, j + Direction.offsetZ[direction]), true);
+							worldIn.destroyBlock(pos.add(k + direction, i, j + direction), true);
 					} 
 					else 
 					{
 						Block blockToTest = worldIn
-								.getBlockState(pos.add(k, i	+ offsetY[dir], j)).getBlock();
+								.getBlockState(pos.add(k, i	+ dir, j)).getBlock();
 						if (blockToTest != null
 								&& blockToTest != Blocks.bedrock
 								&& canHarvestBlock(blockToTest))
-							worldIn.destroyBlock(pos.add(k,	i + offsetY[dir],j), true);
+							worldIn.destroyBlock(pos.add(k,	i + dir, j), true);
 					}
 
 				}
