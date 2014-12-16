@@ -19,7 +19,7 @@ public class GrinderSound implements ISound {
 		this.zPos = zpos;
 	}
 
-	public ResourceLocation getPositionedSoundLocation() {
+	public ResourceLocation getSoundLocation() {
 		return resourceLocation;
 	}
 
