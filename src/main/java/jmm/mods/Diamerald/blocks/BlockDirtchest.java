@@ -46,7 +46,7 @@ public class BlockDirtchest extends BlockContainer
         super(Material.ground);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING_PROP, EnumFacing.NORTH));
         this.dchestType = type;
-        //this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+        this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
     }
 
     public boolean isOpaqueCube()
@@ -59,12 +59,12 @@ public class BlockDirtchest extends BlockContainer
         return false;
     }
 
-    /*public int getRenderType()
+    public int getRenderType()
     {
-        return 2;
-    }*/
+        return 3;
+    }
 
-    /*public void setBlockBoundsBasedOnState(IBlockAccess access, BlockPos pos)
+    public void setBlockBoundsBasedOnState(IBlockAccess access, BlockPos pos)
     {
         if (access.getBlockState(pos.offsetNorth()).getBlock() == this)
         {
@@ -86,7 +86,7 @@ public class BlockDirtchest extends BlockContainer
         {
             this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
         }
-    }*/
+    }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {

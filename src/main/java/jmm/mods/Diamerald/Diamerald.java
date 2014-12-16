@@ -1,11 +1,5 @@
 package jmm.mods.Diamerald;
 
-
-import java.util.ArrayList;
-
-//import ic2.api.item.IC2Items;
-//import ic2.api.recipe.RecipeInputItemStack;
-//import ic2.api.recipe.Recipes;
 import jmm.mods.Diamerald.blocks.BlockDirtchest;
 import jmm.mods.Diamerald.blocks.Dfurnace;
 import jmm.mods.Diamerald.blocks.GSTorch;
@@ -26,10 +20,7 @@ import jmm.mods.Diamerald.items.Diameraldsword;
 import jmm.mods.Diamerald.items.blackDiameraldhelmet;
 import jmm.mods.Diamerald.items.blackDiameraldpickaxe;
 import jmm.mods.Diamerald.items.blackDiameraldsword;
-import jmm.mods.Diamerald.machines.DfurnaceRecipes;
-import jmm.mods.Diamerald.machines.GrinderRecipes;
 import jmm.mods.Diamerald.machines.GuiHandler;
-import jmm.mods.Diamerald.packethandler.PacketPipeline;
 import jmm.mods.Diamerald.proxy.DiameraldProxy;
 import jmm.mods.Diamerald.tileentity.TileEntityChestDC;
 import jmm.mods.Diamerald.tileentity.TileEntityDfurnace;
@@ -43,6 +34,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
@@ -50,7 +42,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -62,10 +53,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.oredict.OreDictionary;
+//import ic2.api.item.IC2Items;
+//import ic2.api.recipe.RecipeInputItemStack;
+//import ic2.api.recipe.Recipes;
 
 @Mod(modid = "Diamerald", name = "Diamerald", version = "1.8_0")
-
 public class Diamerald {
 
 	@Instance("Diamerald")
@@ -80,10 +73,11 @@ public class Diamerald {
 
 	// Enum ArmorMaterial//
 
-	/*public static ArmorMaterial diamerald = EnumHelper.addArmorMaterial(
-			"diamerald", 33, new int[] { 4, 9, 7, 4 }, 10);
+	public static ArmorMaterial diamerald = EnumHelper.addArmorMaterial(
+			"diamerald", "diamerald", 33, new int[] { 4, 9, 7, 4 }, 10);
 	public static ArmorMaterial blackdiamerald = EnumHelper.addArmorMaterial(
-			"blackdiamerald", 33, new int[] { 5, 10, 8, 5 }, 10);*/
+			"blackdiamerald", "blackdiamerald", 33, new int[] { 5, 10, 8, 5 },
+			10);
 
 	// Creative Tab//
 
@@ -108,15 +102,15 @@ public class Diamerald {
 	public static Item Diameraldaxe;
 	public static Item Diameraldshovel;
 	public static Item Diameraldhoe;
-	public static Item Diameraldhelmet;
-	public static Item Diameraldplate;
-	public static Item Diameraldlegs;
-	public static Item Diameraldboots;
+	public static ItemArmor Diameraldhelmet;
+	public static ItemArmor Diameraldplate;
+	public static ItemArmor Diameraldlegs;
+	public static ItemArmor Diameraldboots;
 	public static ItemBow Diameraldbow;
 	public static Item gemBlackDiamerald;
 	public static Item blackDiameraldsword;
 	public static Item blackDiameraldpickaxe;
-	public static Item blackDiameraldhelmet;
+	public static ItemArmor blackDiameraldhelmet;
 	public static Item dustDiamerald;
 	public static Item dustBlackDiamerald;
 	public static Item dustEmeraldTiny;
@@ -130,7 +124,6 @@ public class Diamerald {
 
 	@SidedProxy(clientSide = "jmm.mods.Diamerald.proxy.DiameraldClient", serverSide = "jmm.mods.Diamerald.proxy.DiameraldProxy")
 	public static DiameraldProxy proxy;
-	//public static final PacketPipeline packetPipeline = new PacketPipeline();
 
 	@EventHandler
 	public void PreLoad(FMLPreInitializationEvent event) {
@@ -142,18 +135,21 @@ public class Diamerald {
 				.setUnlocalizedName("oreDiamerald")
 				.setCreativeTab(tabDiamerald);
 		GSTorch = GameRegistry
-				.registerBlock(new GSTorch(Material.glass), "GSTorch")
-				.setUnlocalizedName("GSTorch")
-				.setCreativeTab(tabDiamerald);
+				.registerBlock(new GSTorch(Material.circuits), "GSTorch")
+				.setUnlocalizedName("GSTorch").setCreativeTab(tabDiamerald);
 		BlockDirtchest = GameRegistry
-				.registerBlock(new BlockDirtchest(0),
-						"BlockDirtchest").setUnlocalizedName("BlockDirtchest")
+				.registerBlock(new BlockDirtchest(0), "BlockDirtchest")
+				.setUnlocalizedName("BlockDirtchest")
+				.setHardness(2.5f)
+				.setResistance(5.0f)
 				.setCreativeTab(tabDiamerald);
 		Grinder = GameRegistry.registerBlock(new Grinder(false), "Grinder")
-				.setHardness(3.5f).setResistance(5.0f).setUnlocalizedName("Grinder").setCreativeTab(tabDiamerald);
+				.setHardness(3.5f).setResistance(5.0f)
+				.setUnlocalizedName("Grinder").setCreativeTab(tabDiamerald);
 		Grinder_on = GameRegistry
 				.registerBlock(new Grinder(true), "Grinder_on")
-				.setHardness(3.5f).setResistance(5.0f).setUnlocalizedName("Grinder").setLightLevel(0.5f);
+				.setHardness(3.5f).setResistance(5.0f)
+				.setUnlocalizedName("Grinder").setLightLevel(0.5f);
 		Dfurnace = GameRegistry.registerBlock(new Dfurnace(false), "Dfurnace")
 				.setUnlocalizedName("Dfurnace").setCreativeTab(tabDiamerald);
 		Dfurnace_on = GameRegistry
@@ -189,23 +185,23 @@ public class Diamerald {
 				.registerItem(new Diameraldbow(DIAMERALD), "Diameraldbow",
 						"Diamerald").setUnlocalizedName("Dbow")
 				.setCreativeTab(tabDiamerald);
-		Diameraldhelmet = GameRegistry
-				.registerItem(new Diameraldhelmet(ArmorMaterial.DIAMOND, 3, 0),
+		Diameraldhelmet = (ItemArmor) GameRegistry
+				.registerItem(new Diameraldhelmet(diamerald, 3, 0),
 						"Diameraldhelmet", "Diamerald")
 				.setUnlocalizedName("Diameraldhelmet")
 				.setCreativeTab(tabDiamerald);
-		Diameraldplate = GameRegistry
-				.registerItem(new Diameraldplate(ArmorMaterial.DIAMOND, 3, 1),
+		Diameraldplate = (ItemArmor) GameRegistry
+				.registerItem(new Diameraldplate(diamerald, 3, 1),
 						"Diameraldplate", "Diamerald")
 				.setUnlocalizedName("Diameraldplate")
 				.setCreativeTab(tabDiamerald);
-		Diameraldlegs = GameRegistry
-				.registerItem(new Diameraldlegs(ArmorMaterial.DIAMOND, 3, 2),
+		Diameraldlegs = (ItemArmor) GameRegistry
+				.registerItem(new Diameraldlegs(diamerald, 3, 2),
 						"Diameraldlegs", "Diamerald")
 				.setUnlocalizedName("Diameraldlegs")
 				.setCreativeTab(tabDiamerald);
-		Diameraldboots = GameRegistry
-				.registerItem(new Diameraldboots(ArmorMaterial.DIAMOND, 3, 3),
+		Diameraldboots = (ItemArmor) GameRegistry
+				.registerItem(new Diameraldboots(diamerald, 3, 3),
 						"Diameraldboots", "Diamerald")
 				.setUnlocalizedName("Diameraldboots")
 				.setCreativeTab(tabDiamerald);
@@ -223,8 +219,8 @@ public class Diamerald {
 						"blackDiameraldpickaxe", "Diamerald")
 				.setUnlocalizedName("blackDiameraldpickaxe")
 				.setCreativeTab(tabDiamerald);
-		blackDiameraldhelmet = GameRegistry
-				.registerItem(new blackDiameraldhelmet(ArmorMaterial.DIAMOND, 3, 0),
+		blackDiameraldhelmet = (ItemArmor) GameRegistry
+				.registerItem(new blackDiameraldhelmet(blackdiamerald, 3, 0),
 						"blackDiameraldhelmet", "Diamerald")
 				.setUnlocalizedName("blackDiameraldhelmet")
 				.setCreativeTab(tabDiamerald);
@@ -243,12 +239,10 @@ public class Diamerald {
 		 */
 		dustEmerald = GameRegistry
 				.registerItem(new Ddusts(), "dustEmerald", "Diamerald")
-				.setUnlocalizedName("dustEmerald")
-				.setCreativeTab(tabDiamerald);
+				.setUnlocalizedName("dustEmerald").setCreativeTab(tabDiamerald);
 		dustDiamond = GameRegistry
 				.registerItem(new Ddusts(), "dustDiamond", "Diamerald")
-				.setUnlocalizedName("dustDiamond")
-				.setCreativeTab(tabDiamerald);
+				.setUnlocalizedName("dustDiamond").setCreativeTab(tabDiamerald);
 		/*
 		 * berylSlag = GameRegistry .registerItem(new Ddusts(), "berylSlag",
 		 * "Diamerald")
@@ -262,7 +256,7 @@ public class Diamerald {
 				.setUnlocalizedName("dustIron").setCreativeTab(tabDiamerald);
 
 		// Registering WorldGenerator, Ore, TileEntity, Gui //
-		
+
 		OreDictionary.registerOre("oreDiamerald", oreDiamerald);
 		OreDictionary.registerOre("gemDiamerald", gemDiamerald);
 		OreDictionary.registerOre("dustDiamerald", dustDiamerald);
@@ -272,7 +266,7 @@ public class Diamerald {
 		OreDictionary.registerOre("dustDiamond", dustDiamond);
 		OreDictionary.registerOre("dustGold", dustGold);
 		OreDictionary.registerOre("dustIron", dustIron);
-		
+
 		GameRegistry.registerWorldGenerator(new WorldGeneratorDiamerald(), 1);
 		GameRegistry.registerTileEntity(TileEntityChestDC.class,
 				"TileEntityChestDC");
@@ -290,7 +284,6 @@ public class Diamerald {
 	public void load(FMLInitializationEvent event) {
 
 		proxy.registerRenderInformation();
-		//packetPipeline.initalise();
 
 		// Loot generation//
 
@@ -383,88 +376,302 @@ public class Diamerald {
 		GameRegistry.addShapelessRecipe(new ItemStack(dustBlackDiamerald, 2),
 				new Object[] { Diamerald.dustDiamerald, Items.blaze_powder,
 						Items.dye });
-		GameRegistry
-				.addShapelessRecipe(new ItemStack(dustDiamerald, 2),
-						new Object[] { Diamerald.dustDiamond,
-								Diamerald.dustEmerald });
+		GameRegistry.addShapelessRecipe(new ItemStack(dustDiamerald, 2),
+				new Object[] { Diamerald.dustDiamond, Diamerald.dustEmerald });
 		GameRegistry.addRecipe(new ItemStack(Grinder, 1), new Object[] { "IGI",
 				"RFR", "XPX", 'I', Items.iron_ingot, 'G', Items.gold_ingot,
 				'X', Blocks.stone, 'R', Items.redstone, 'F', Items.flint, 'P',
 				Blocks.piston });
-		GameRegistry.addRecipe(new ItemStack(Dfurnace, 1), new Object[] { "IGI",
-			"DFD", "XFX", 'I', Items.iron_ingot, 'G', Items.gold_ingot,
-			'X', Blocks.stone, 'D', Diamerald.dustDiamerald, 'F',
-			Blocks.furnace });
-		
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(oreDiamerald), 0, new ModelResourceLocation("diamerald:oreDiamerald", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(GSTorch), 0, new ModelResourceLocation("diamerald:GSTorch", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(BlockDirtchest), 0, new ModelResourceLocation("diamerald:BlockDirtchest", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(Grinder), 0, new ModelResourceLocation("diamerald:Grinder", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(Dfurnace), 0, new ModelResourceLocation("diamerald:Dfurnace", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(gemDiamerald, 0, new ModelResourceLocation("diamerald:gemDiamerald", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(gemBlackDiamerald, 0, new ModelResourceLocation("diamerald:gemBlackDiamerald", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldsword, 0, new ModelResourceLocation("diamerald:Diameraldsword", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldpickaxe, 0, new ModelResourceLocation("diamerald:Diameraldpickaxe", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldaxe, 0, new ModelResourceLocation("diamerald:Diameraldaxe", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldshovel, 0, new ModelResourceLocation("diamerald:Diameraldshovel", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldhoe, 0, new ModelResourceLocation("diamerald:Diameraldhoe", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldhelmet, 0, new ModelResourceLocation("diamerald:Diameraldhelmet", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldplate, 0, new ModelResourceLocation("diamerald:Diameraldplate", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldlegs, 0, new ModelResourceLocation("diamerald:Diameraldlegs", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldboots, 0, new ModelResourceLocation("diamerald:Diameraldboots", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Diameraldbow, 0, new ModelResourceLocation("diamerald:Diameraldbow", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(blackDiameraldsword, 0, new ModelResourceLocation("diamerald:blackDiameraldsword", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(blackDiameraldpickaxe, 0, new ModelResourceLocation("diamerald:blackDiameraldpickaxe", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(blackDiameraldhelmet, 0, new ModelResourceLocation("diamerald:blackDiameraldhelmet", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(dustDiamerald, 0, new ModelResourceLocation("diamerald:dustDiamerald", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(dustGold, 0, new ModelResourceLocation("diamerald:dustGold", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(dustIron, 0, new ModelResourceLocation("diamerald:dustIron", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(dustEmerald, 0, new ModelResourceLocation("diamerald:dustEmerald", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(dustEmeraldTiny, 0, new ModelResourceLocation("diamerald:dustEmeraldTiny", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(berylSlag, 0, new ModelResourceLocation("diamerald:berylSlag", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(dustBlackDiamerald, 0, new ModelResourceLocation("diamerald:dustBlackDiamerald", "inventory"));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(dustDiamond, 0, new ModelResourceLocation("diamerald:dustDiamond", "inventory"));
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		GameRegistry.addRecipe(new ItemStack(Dfurnace, 1), new Object[] {
+				"IGI", "DFD", "XFX", 'I', Items.iron_ingot, 'G',
+				Items.gold_ingot, 'X', Blocks.stone, 'D',
+				Diamerald.dustDiamerald, 'F', Blocks.furnace });
+
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Item.getItemFromBlock(oreDiamerald),
+						0,
+						new ModelResourceLocation("diamerald:oreDiamerald",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Item.getItemFromBlock(GSTorch),
+						0,
+						new ModelResourceLocation("diamerald:GSTorch",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Item.getItemFromBlock(BlockDirtchest),
+						0,
+						new ModelResourceLocation("diamerald:BlockDirtchest",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Item.getItemFromBlock(Grinder),
+						0,
+						new ModelResourceLocation("diamerald:Grinder",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Item.getItemFromBlock(Dfurnace),
+						0,
+						new ModelResourceLocation("diamerald:Dfurnace",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						gemDiamerald,
+						0,
+						new ModelResourceLocation("diamerald:gemDiamerald",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						gemBlackDiamerald,
+						0,
+						new ModelResourceLocation(
+								"diamerald:gemBlackDiamerald", "inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldsword,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldsword",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldpickaxe,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldpickaxe",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldaxe,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldaxe",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldshovel,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldshovel",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldhoe,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldhoe",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldhelmet,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldhelmet",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldplate,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldplate",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldlegs,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldlegs",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldboots,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldboots",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						Diameraldbow,
+						0,
+						new ModelResourceLocation("diamerald:Diameraldbow",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						blackDiameraldsword,
+						0,
+						new ModelResourceLocation(
+								"diamerald:blackDiameraldsword", "inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						blackDiameraldpickaxe,
+						0,
+						new ModelResourceLocation(
+								"diamerald:blackDiameraldpickaxe", "inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						blackDiameraldhelmet,
+						0,
+						new ModelResourceLocation(
+								"diamerald:blackDiameraldhelmet", "inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						dustDiamerald,
+						0,
+						new ModelResourceLocation("diamerald:dustDiamerald",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						dustGold,
+						0,
+						new ModelResourceLocation("diamerald:dustGold",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						dustIron,
+						0,
+						new ModelResourceLocation("diamerald:dustIron",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						dustEmerald,
+						0,
+						new ModelResourceLocation("diamerald:dustEmerald",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						dustEmeraldTiny,
+						0,
+						new ModelResourceLocation("diamerald:dustEmeraldTiny",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						berylSlag,
+						0,
+						new ModelResourceLocation("diamerald:berylSlag",
+								"inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						dustBlackDiamerald,
+						0,
+						new ModelResourceLocation(
+								"diamerald:dustBlackDiamerald", "inventory"));
+		Minecraft
+				.getMinecraft()
+				.getRenderItem()
+				.getItemModelMesher()
+				.register(
+						dustDiamond,
+						0,
+						new ModelResourceLocation("diamerald:dustDiamond",
+								"inventory"));
 
 		// IC2 Integration//
-		
-		/*if (Loader.isModLoaded("IC2")) {
-			
-			GrinderRecipes.smelting().addGrinderRecipe(
-					IC2Items.getItem("tinOre"), IC2Items.getItem("tinDust"));
-			GrinderRecipes.smelting().addGrinderRecipe(
-					IC2Items.getItem("leadOre"), IC2Items.getItem("leadDust"));
-			GrinderRecipes.smelting().addGrinderRecipe(
-					IC2Items.getItem("copperOre"),
-					IC2Items.getItem("copperDust"));
-			DfurnaceRecipes.smelting().addDfurnaceRecipe(IC2Items.getItem("tinDust"), IC2Items.getItem("tinIngot"), 0.5f);
-			DfurnaceRecipes.smelting().addDfurnaceRecipe(IC2Items.getItem("leadDust"), IC2Items.getItem("leadIngot"), 0.5f);
-			DfurnaceRecipes.smelting().addDfurnaceRecipe(IC2Items.getItem("copperDust"), IC2Items.getItem("copperIngot"), 0.5f);
-			Recipes.macerator
-					.addRecipe(new RecipeInputItemStack(new ItemStack(
-							oreDiamerald, 1)), null, (new ItemStack(
-							dustDiamerald, 2)));
-			Recipes.compressor.addRecipe(new RecipeInputItemStack(
-					new ItemStack(dustDiamerald, 1)), null, (new ItemStack(
-					gemDiamerald, 1)));
-			Recipes.compressor.addRecipe(new RecipeInputItemStack(
-					new ItemStack(dustBlackDiamerald, 1)), null,
-					(new ItemStack(gemBlackDiamerald)));
-			Recipes.compressor.addRecipe(new RecipeInputItemStack(
-					new ItemStack(Items.skull, 1, 1)), null, (new ItemStack(
-					gemBlackDiamerald, 1)));
-		}*/
+
+		/*
+		 * if (Loader.isModLoaded("IC2")) {
+		 * 
+		 * GrinderRecipes.smelting().addGrinderRecipe(
+		 * IC2Items.getItem("tinOre"), IC2Items.getItem("tinDust"));
+		 * GrinderRecipes.smelting().addGrinderRecipe(
+		 * IC2Items.getItem("leadOre"), IC2Items.getItem("leadDust"));
+		 * GrinderRecipes.smelting().addGrinderRecipe(
+		 * IC2Items.getItem("copperOre"), IC2Items.getItem("copperDust"));
+		 * DfurnaceRecipes
+		 * .smelting().addDfurnaceRecipe(IC2Items.getItem("tinDust"),
+		 * IC2Items.getItem("tinIngot"), 0.5f);
+		 * DfurnaceRecipes.smelting().addDfurnaceRecipe
+		 * (IC2Items.getItem("leadDust"), IC2Items.getItem("leadIngot"), 0.5f);
+		 * DfurnaceRecipes
+		 * .smelting().addDfurnaceRecipe(IC2Items.getItem("copperDust"),
+		 * IC2Items.getItem("copperIngot"), 0.5f); Recipes.macerator
+		 * .addRecipe(new RecipeInputItemStack(new ItemStack( oreDiamerald, 1)),
+		 * null, (new ItemStack( dustDiamerald, 2)));
+		 * Recipes.compressor.addRecipe(new RecipeInputItemStack( new
+		 * ItemStack(dustDiamerald, 1)), null, (new ItemStack( gemDiamerald,
+		 * 1))); Recipes.compressor.addRecipe(new RecipeInputItemStack( new
+		 * ItemStack(dustBlackDiamerald, 1)), null, (new
+		 * ItemStack(gemBlackDiamerald))); Recipes.compressor.addRecipe(new
+		 * RecipeInputItemStack( new ItemStack(Items.skull, 1, 1)), null, (new
+		 * ItemStack( gemBlackDiamerald, 1))); }
+		 */
 
 		// ThermalExpansion Integration//
-		
+
 		if (Loader.isModLoaded("ThermalExpansion")) {
 
 			dustEmeraldTiny = GameRegistry
@@ -481,9 +688,8 @@ public class Diamerald {
 					.setUnlocalizedName("berylSlag")
 					.setCreativeTab(tabDiamerald);
 			GameRegistry.registerItem(berylSlag, "berylSlag");
-			GameRegistry
-					.addRecipe(new ItemStack(dustEmerald, 1), new Object[] {
-							"EE", "EE", 'E', Diamerald.dustEmeraldTiny });
+			GameRegistry.addRecipe(new ItemStack(dustEmerald, 1), new Object[] {
+					"EE", "EE", 'E', Diamerald.dustEmeraldTiny });
 
 			{
 				NBTTagCompound toSend = new NBTTagCompound();
@@ -565,8 +771,6 @@ public class Diamerald {
 
 	@EventHandler
 	public void PostInit(FMLPostInitializationEvent evt) {
-
-		//packetPipeline.postInitialise();
 
 	}
 

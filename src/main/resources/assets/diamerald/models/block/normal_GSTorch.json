@@ -1,6 +1,0 @@
-{
-    "parent": "diamerald:block/GSTorch",
-    "textures": {
-        "torch": "diamerald:blocks/GSTorch"
-    }
-}

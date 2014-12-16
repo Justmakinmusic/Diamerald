@@ -1,9 +1,9 @@
 {
     "variants": {
-        "facing=up": { "model": "diamerald:normal_GSTorch" },
-        "facing=east": { "model": "diamerald:normal_GSTorch_wall" },
-        "facing=south": { "model": "diamerald:normal_GSTorch_wall", "y": 90 },
-        "facing=west": { "model": "diamerald:normal_GSTorch_wall", "y": 180 },
-        "facing=north": { "model": "diamerald:normal_GSTorch_wall", "y": 270 }
+        "facing=up": { "model": "diamerald:GSTorch" },
+        "facing=east": { "model": "diamerald:GSTorch_wall" },
+        "facing=south": { "model": "diamerald:GSTorch_wall", "y": 90 },
+        "facing=west": { "model": "diamerald:GSTorch_wall", "y": 180 },
+        "facing=north": { "model": "diamerald:GSTorch_wall", "y": 270 }
     }
 }
